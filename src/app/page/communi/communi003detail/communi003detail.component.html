@@ -1,0 +1,225 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-md-6 text-left">
+      <button-back routerLink="/communi/communi003"></button-back>
+    </div>
+    <div class="col-md-6 text-right">
+      <button-save (click)="onValidateBeforeSave()" *ngIf='flag != "R"'></button-save>
+    </div>
+  </div>
+  <hr>
+  <div [formGroup]="formGroup">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" readonly formControlName="customerCode">
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2" (click)="onOpenModalCustomer()"
+              *ngIf='!flagRead'><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ" readonly
+          formControlName="customerName">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch" maxlength="90"
+          readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา" list="contractNo"
+          [readonly]="flagRead" (change)="getRentalAreaList($event.target.value)" formControlName="contractNo">
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2 text-right ">
+        <p>พื้นที่เช่า (rental object) : </p>
+      </div>
+      <div class="col-md-4">
+        <input class="form-control form-control-sm" formControlName="rentalAreaName" type="text" list="rentalAreaName"
+          placeholder="พื้นที่เช่า (rental object)" (change)="roChange($event.target.value)" [readOnly]='flagRead'>
+        <datalist id="rentalAreaName">
+          <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ขอใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event,'startDate')" #calendarStart *ngIf='!flagRead'>
+        </input-calendar>
+        <input type="text" class="form-control form-control-sm" formControlName="startDate" *ngIf='flagRead' readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดขอใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="endDate" *ngIf='flagRead' readonly>
+        <input-calendar (changeDate)="dateChange($event,'endDate')" #calendarEnd *ngIf='!flagRead'></input-calendar>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทการบริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <!-- <input type="text" class="form-control form-control-sm" formControlName="serviceType" *ngIf="flagRead" readonly> -->
+        <!-- *ngIf="!flagRead" -->
+        <select class="form-control form-control-sm" formControlName="serviceType"
+          (change)="onSelectServiceType($event)">
+          <option value="" selected disabled>กรุณาเลือกประเภทการบริการ</option>
+          <option [value]="item.serviceType" *ngFor="let item of serviceTypeList">{{item.serviceType}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>จำนวนเงิน <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" numberOnly class="form-control form-control-sm" placeholder="จำนวนเงิน"
+          formControlName="chargeRates" (change)="onChargeRatesChange()" [readOnly]='flagRead'>
+      </div>
+      <div class="col-2 text-right ">
+        <p>จำนวนเงินรวมภาษี : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" readonly formControlName="totalAmount">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วิธีชำระเงิน <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <!-- <input type="text" class="form-control form-control-sm" formControlName="paymentType" *ngIf="flagRead" readonly> -->
+        <!-- *ngIf="!flagRead" -->
+        <select class="form-control form-control-sm" formControlName="paymentType">
+          <option value="" selected disabled>กรุณาเลือกวิธีการชำระเงิน</option>
+          <option *ngFor="let item of paymentTypeList" [value]="item.descEn1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+    <ng-container *ngIf="formGroup.value.paymentType === paymentTypeConst[1]">
+      <div class="mt-3 mb-3 " style="border: 3px solid #dee2e6;">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ชื่อธนาคาร <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="bankName"
+              placeholder="กรุณากรอกชื่อธนาคาร" [readOnly]='flagRead'>
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>สาขา <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกชื่อสาขา"
+              formControlName="bankBranch" [readOnly]='flagRead'>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>คำอธิบาย <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกคำอธิบาย"
+              formControlName="bankExplanation" [readOnly]='flagRead'>
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>Bank guarantee<span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="50"
+              placeholder="กรุณากรอก Bank guarantee" formControlName="bankGuaranteeNo" [readOnly]='flagRead'>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>วันหมดอายุ <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input-calendar (changeDate)="setDate($event, 'bankExpNo')" *ngIf='!flagRead'></input-calendar>
+            <input type="text" class="form-control form-control-sm" formControlName="bankExpNo" *ngIf='flagRead'
+              readonly>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ : </p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark" [readOnly]='flagRead'></textarea>
+      </div>
+    </div>
+  </div>
+</app-card>
+<!-- select customer -->
+<modal-custom #selectCusModal header="เลือกผู้ประกอบการ">
+  <div body>
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ , ชื่อผู้ประกอบการ , รหัสสาขา , ทีอยู่" formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCustomer()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">ทีอยู่</th>
+          <th class="text-center">การจัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</modal-custom>
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="callSave()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

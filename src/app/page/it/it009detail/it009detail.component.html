@@ -1,0 +1,177 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/it/it009"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidateBeforeSave()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formGroup">
+    <div class="row mt-2">
+      <div class="col-2 text-right">
+        <p>รหัสผู้ประกอบการ <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode" readonly>
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2" (click)="onOpenModalCustomer()"><i
+                class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right">
+        <p>ชื่อผู้ประกอบการ <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+          formControlName="customerName" readonly>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" formControlName="contractNo" list="contractNo">
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภท <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" formControlName="staffType">
+          <label class="form-check-label" for="defaultCheck1">
+            ค่า Staff page
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>จำนวน : </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" formControlName="staffPageNum">
+      </div>
+      <div class="col-3">
+        <p>Username</p>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+      </div>
+      <div class="col-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" formControlName="publicType">
+          <label class="form-check-label" for="defaultCheck2">
+            ค่า Public page
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>จำนวน : </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" formControlName="publicPageNum">
+      </div>
+      <div class="col-3">
+        <p>Access</p>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>จำนวนเงินรวม : </p>
+      </div>
+      <div class="col-8">
+        <input class="form-control form-control-sm" readonly formControlName="chargeRates">
+      </div>
+      <div class="col-2">
+        <p>บาท</p>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ภาษีมูลค่าเพิ่ม : </p>
+      </div>
+      <div class="col-8">
+        <input class="form-control form-control-sm" readonly formControlName="vat">
+      </div>
+      <div class="col-2">
+        <p>บาท</p>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รวมเงินทั้งหมด : </p>
+      </div>
+      <div class="col-8">
+        <input class="form-control form-control-sm" readonly formControlName="totalAmount">
+      </div>
+      <div class="col-2">
+        <p>บาท</p>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สถานะ : </p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="status">
+          <option value="" selected>เลือกสถานะ</option>
+          <option value="ใช้งาน">ใช้งาน</option>
+          <option value="ยกเลิก">ยกเลิก</option>
+        </select>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่เริ่มใช้งาน <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event)" #calendar></input-calendar>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ : </p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" formControlName="remark"></textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+<!-- select customer -->
+<modal-custom #selectCusModal header="เลือกผู้ประกอบการ">
+  <div body>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">ทีอยู่</th>
+          <th class="text-center">การจัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</modal-custom>
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="callSave()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

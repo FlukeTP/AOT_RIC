@@ -1,0 +1,26 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="" isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button-add routerLink="/pos/pos004detail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>เลขที่สัญญา</th>
+            <th>ชื่อผู้ประกอบการ</th>
+            <th>จำนวนผู้ใช้</th>
+            <th>จัดการผู้ใช้</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

@@ -1,0 +1,23 @@
+/* @import url('https://fonts.googleapis.com/css?family=Kanit:300,400,500,600|Pridi:300,400,500,600|Maitree:300,400,500,600'); */
+
+
+/* @font-face {
+    font-family: 'prompt';
+    src: url('font/prompt/font/Prompt-Regular.ttf'),
+    		url('font/prompt/font/Prompt-Medium.ttf'),
+    	 	url('font/prompt/font/Prompt-SemiBold.ttf');  
+} */
+
+@font-face {
+    font-family: 'Kanit';
+    src:url('font/Kanit/Kanit-Regular.ttf'),
+    	url('font/Kanit/Kanit-Medium.ttf'),
+    	url('font/Kanit/Kanit-SemiBold.ttf');  
+}
+
+body{
+	font-family: 'Kanit', sans-serif;
+}
+/* :not(i) {
+	font-family:"prompt" !important;
+} */

@@ -1,0 +1,164 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <!-- <div class="row">
+    <div class="col-sm-12 text-right">
+      <button-add routerLink="/electricity/ele006detail"></button-add>
+    </div>
+  </div> -->
+  <form [formGroup]="formGroup">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="ชื่อผู้ประกอบการ"
+          formControlName="customerName" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา"
+          formControlName="contractNo" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>Serial No. มิเตอร์ (ใหม่) : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="Serial No. มิเตอร์"
+          formControlName="newSerialNo" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดมิเตอร์เดิม :</p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event)" [default]="false"></input-calendar>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 text-right">
+        <button-search wording="ค้นหา" (click)="onSearchCriteria()"></button-search>
+        <button-downloadex (click)="getExcel()"></button-downloadex>
+      </div>
+    </div>
+  </form>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <div class="scrollX">
+        <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th rowspan="2" class="text-center">รหัสผู้ประกอบการ</th>
+              <th rowspan="2" class="text-center">ผู้ประกอบการ</th>
+              <th rowspan="2" class="text-center">เลขที่สัญญา</th>
+              <th rowspan="2" class="text-center">ประเภทที่ขอใช้</th>
+              <th rowspan="2" class="text-center">Serial No. มิเตอร์ (เดิม)</th>
+              <th rowspan="2" class="text-center">Serial No. มิเตอร์ (ใหม่)</th>
+              <th rowspan="2" class="text-center">เงินประกัน (บาท)</th>
+              <th rowspan="2" class="text-center">วันที่สิ้นสุดมิเตอร์เดิม</th>
+              <th rowspan="2" class="text-center">ใบแจ้งหนี้อัตราค่าภาระ</th>
+              <th rowspan="2" class="text-center">ใบเสร็จอัตราค่าภาระ</th>
+              <th rowspan="2" class="text-center">เลขใบแจ้งหนี้เงินประกัน</th>
+              <th rowspan="2" class="text-center">ใบเสร็จเงินประกัน</th>
+              <th colspan="2" class="text-center">คืนเงินประกัน</th>
+              <th colspan="3" class="text-center">เงินประกัน</th>
+              <th rowspan="2" class="text-center">จัดการ</th>
+            </tr>
+            <tr>
+              <th class="text-center">หมายเลขยืนยันการยกเลิก จาก SAP</th>
+              <th class="text-center">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP</th>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center" style="border-right: 1px solid #dee2e6">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+<app-modal [modalId]="'modalId'" [header]="'Confirm การลบข้อมูลลูกค้านิติบุคคล'">
+  <div body>
+    คุณต้องการลบข้อมูลลูกค้านิติบุคคลใช่หรือไม่
+  </div>
+  <div footer>
+    <button-confirm></button-confirm>
+    <button-cancel></button-cancel>
+  </div>
+</app-modal>
+<!-- compare old/new meter -->
+<ng-template #detailMeter>
+  <div class="modal-header">
+    <p>รายละเอียดมิเตอร์</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form2MeterGroup" style="padding: 10px">
+      <div class="row">
+        <table style="width: 100%">
+          <tbody>
+            <tr>
+              <th class="text-center" colspan="2">มิเตอร์เดิม</th>
+              <th class="text-center" colspan="2">มิเตอร์ใหม่</th>
+            </tr>
+            <tr>
+              <td class="text-right">Serial No. มิเตอร์ </td>
+              <td class=""><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="oldSerialNo" /></td>
+              <td class="text-right">Serial No. มิเตอร์ </td>
+              <td><input type="text" class="form-control form-control-sm" readonly formControlName="newSerialNo" /></td>
+            </tr>
+            <tr>
+              <td class="text-right">ชื่อมิเตอร์ </td>
+              <td class=""><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="oldMeterName" /></td>
+              <td class="text-right">ชื่อมิเตอร์ </td>
+              <td><input type="text" class="form-control form-control-sm" readonly formControlName="newMeterName" />
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">ประเภทมิเตอร์ </td>
+              <td class=""><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="oldMeterType" /></td>
+              <td class="text-right">ประเภทมิเตอร์ </td>
+              <td><input type="text" class="form-control form-control-sm" readonly formControlName="newMeterType" />
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">สถานที่ตั้งมิเตอร์ </td>
+              <td class=""><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="oldMeterLocation" /></td>
+              <td class="text-right">สถานที่ตั้งมิเตอร์ </td>
+              <td><input type="text" class="form-control form-control-sm" readonly formControlName="newMeterLocation" />
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">Functional Location </td>
+              <td class=""><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="oldFunctionalLocation" /></td>
+              <td class="text-right">Functional Location </td>
+              <td><input type="text" class="form-control form-control-sm" readonly
+                  formControlName="newFunctionalLocation" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+  </div>
+</ng-template>
+
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

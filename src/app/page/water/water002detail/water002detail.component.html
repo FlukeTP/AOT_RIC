@@ -1,0 +1,103 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formAddWaterMeter">
+    <div class="row ">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/water/water002"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button-save (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr>
+
+    <!-- <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>dsfdsfsd <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="airport">
+          <option value="" hidden>กรุณาเลือกท่าอากาศยาน</option>
+          <option *ngFor="let item of airport" [value]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div> -->
+
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ท่าอากาศยาน <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="airport">
+          <option value="" hidden>กรุณาเลือกท่าอากาศยาน</option>
+          <option *ngFor="let item of airport" [value]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ขนาดมิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="meterType">
+          <option hidden value="">กรุณาเลือกขนาดมิเตอร์</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>Serial No. มิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก Serial No. มิเตอร์"
+          formControlName="serialNo">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ชื่อมิเตอร์ :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อมิเตอร์"
+          formControlName="meterName">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>สถานที่ตั้งมิเตอร์ :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสถานที่ตั้งมิเตอร์"
+          formControlName="meterLocation">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>สถานะ :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="meterStatus">
+          <option value="" hidden>กรุณาเลือกสถานะ</option>
+          <option *ngFor="let item of waterStatus" [value]="item.descEn1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>หมายเหตุ :</p>
+      </div>
+
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" formControlName="remark" rows="4"></textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

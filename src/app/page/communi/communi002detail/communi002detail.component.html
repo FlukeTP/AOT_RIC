@@ -1,0 +1,187 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-md-6 text-left">
+      <button-back (click)="backPage()"></button-back>
+    </div>
+    <div class="col-md-6 text-right">
+      <button-save (click)="confirm('UPDATE')"></button-save>
+      <!-- <button-cancel routerLink="/communi/communi001"></button-cancel> -->
+    </div>
+  </div>
+  <hr>
+
+  <form [formGroup]="formCancel">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="entreprenuerCode">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="entreprenuerName">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch">
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="contractNo">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ค่าเช่าวิทยุมือถือ : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm" formControlName="chargeRates" numberOnly [dot]="true">
+      </div>
+      <div class="col-1 ">
+        <p> บาท/เดือน </p>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เงินประกันค่าเช่าวิทยุมือถือ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm" formControlName="insuranceRates" numberOnly
+          [dot]="true">
+      </div>
+      <div class="col-1 ">
+        <p> บาท/เครื่อง </p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รวมเงินประกัน : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm" formControlName="totalChargeRates" numberOnly
+          [dot]="true">
+      </div>
+      <div class="col-1 ">
+        <p> บาท </p>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่ยกเลิกใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input *ngIf="flag === 'R'" type="text" class="form-control form-control-sm" formControlName="cancelDateStr"
+          readonly>
+        <input-calendar *ngIf="flag !== 'R'" (changeDate)="setDate($event, 'cancelDateStr')"></input-calendar>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ขอใช้บริการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="requestDateStr">
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดขอใช้บริการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="endDateStr">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <!-- <div class="col-2 text-right ">
+        <p>ประเภทบริการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="serviceType">
+      </div> -->
+      <div class="col-md-2 text-right ">
+        <p>วิธีชำระเงินประกัน : </p>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control form-control-sm" formControlName="paymentType">
+      </div>
+    </div>
+
+    <ng-container *ngIf="control('paymentTypeConst').value === paymentTypeConst[1]">
+      <div class="mt-3 mb-3 " style="border: 3px solid #dee2e6;">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ชื่อธนาคาร: </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="bankName"
+              placeholder="กรุณากรอกชื่อธนาคาร">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>สาขา <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกชื่อสาขา"
+              formControlName="bankBranch">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>คำอธิบาย : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกคำอธิบาย"
+              formControlName="bankExplanation">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>Bank guarantee :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="50"
+              placeholder="กรุณากรอก Bank guarantee" formControlName="bankGuaranteeNo">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>วันหมดอายุ : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="bankExpNoStr">
+            <!-- <input-calendar (changeDate)="setDate($event, 'bankExpNo')"></input-calendar> -->
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ {{formCancel.value.paymentType === paymentTypeConst[0]? '(จะปรากฏอยู่ในใบแจ้งหนี้)': ''}} : </p>
+      </div>
+
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark"
+          [readOnly]="read">คืนเงินประกันเมื่อผู้ใช้แจ้งยกเลิกโดยไม่มีหนี้สินค้างชำระ</textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="update()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

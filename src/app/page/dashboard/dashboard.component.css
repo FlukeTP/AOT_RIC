@@ -1,0 +1,203 @@
+.card-body{
+    position: relative;
+    z-index: 2;
+}
+.elect-card
+, .water-card
+, .call-card
+, .signal-card
+, .it-card
+, .wrench-card
+, .firebrigade-card
+, .garbagedis-card
+, .pos-card{
+    position: relative;
+}
+.elect-card:before {
+    content: "\f0eb"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(248, 245, 215);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.water-card:before {
+    content: "\f043"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(215, 236, 248);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.call-card:before {
+    content: "\f095"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(239, 252, 229);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.signal-card:before {
+    content: "\f012"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(252, 229, 232);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.it-card:before {
+    content: "\f108"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(241, 241, 241);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.wrench-card:before {
+    content: "\f0ad"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(194, 187, 184);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.firebrigade-card:before{
+    content: "\f06d"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(247, 220, 196);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.garbagedis-card:before{
+    content: "\f1f8"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(179, 202, 185);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+.pos-card:before{
+    content: "\f0d6"; 
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #929292;
+    background: rgb(195, 212, 236);
+    text-align: right;
+    padding-right: 20px;
+    width: 100%;
+}
+ul.rectangle-list{
+    list-style-type: none;
+}
+.rectangle-list a{
+    position: relative;
+    display: block;
+    padding: .2em .2em .2em .4em;
+    *padding: .2em;
+    margin: .25em 0 .25em 1.5em;
+    /* background: #ddd; */
+    color: #444;
+    text-decoration: none;
+    transition: all .3s ease-out;   
+}
+
+.rectangle-list a:hover{
+    background: none;
+    cursor: pointer;
+    color: #4686d8;
+} 
+ol {
+    counter-reset: li; /* Initiate a counter */
+    list-style: none; /* Remove default numbering */
+    *list-style: decimal; /* Keep using default numbering for IE6/7 */
+    font: 14px ;
+    padding: 0;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+ol ol {
+    margin: 0 0 0 2em; /* Add some left margin for inner lists */
+}
+.rectangle-list a:before{
+    content: " ";
+    position: absolute; 
+    left: -1.4em;
+    top: 50%;
+    margin-top: -0.4em;
+    background: #4686d8;
+    height: 0.8em;
+    width: 0.8em;
+    line-height: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 1em;
+}
+
+.rectangle-list a:after{
+    position: absolute; 
+    content: '';
+    border: .5em solid transparent;
+    left: -1.5em;
+    top: 50%;
+    margin-top: -.5em;
+    transition: all .3s ease-out;               
+}
+
+.rectangle-list a:hover:after{
+    left: -.5em;
+    border-left-color: #4686d8;             
+}   
+

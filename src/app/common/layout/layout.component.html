@@ -1,0 +1,524 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar" class="shadow" *ngIf="checkrouting">
+    <div class="sidebar-header text-center">
+      <!-- <h3>Bootstrap</h3> -->
+      <img class="logo" src="assets/img/Logo_AOT.png" alt="logo" style="width: 150px;">
+    </div>
+
+    <ul class="list-unstyled list-main components" >
+      <!-- menu 1 -->
+      <li>
+        <a routerLink="/home">
+          <i class="fa fa-home"></i> หน้าแรก
+        </a>
+      </li>
+      <!-- end menu 1 -->
+      <!-- menu 2 -->
+      <li>
+        <a href="#menu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-lightbulb-o"></i> หมวดไฟฟ้า
+        </a>
+        <ul class="collapse list-unstyled" id="menu2">
+          <li>
+            <a href="#" routerLink="/electricity/ele001" routerLinkActive="active" (Click)="toTop()"><i
+                class="fa fa-circle-thin"></i>
+              บันทึกข้อมูลไฟฟ้า</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele002" routerLinkActive="active" (Click)="toTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการมิเตอร์ไฟฟ้า</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele003" routerLinkActive="active" (Click)="toTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้ไฟฟ้า</a>
+          </li>
+          <li>
+            <!-- <a href="#" routerLink="/electricity/ele004" routerLinkActive="active"><i class="fa fa-circle-thin"></i>
+              ขอใช้ไฟฟ้าของบ้านพักพนักงาน</a> -->
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele005" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอยกเลิกการใช้ไฟฟ้า</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele006" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอเปลี่ยนมิเตอร์การใช้ไฟฟ้า</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele007" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระ ค่าบริการไฟฟ้า</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele008" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระการคิดค่าไฟฟ้าประเภทต่างๆ</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/electricity/ele009" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระ ค่าบริการ FT</a>
+          </li>
+        </ul>
+      </li>
+      <!-- end menu 2 -->
+      <!-- menu 3 -->
+      <li>
+        <a href="#menu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-tint"></i> หมวดน้ำประปา
+        </a>
+        <ul class="collapse list-unstyled" id="menu3">
+          <li>
+            <a href="#" routerLink="/water/water001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              บันทึกข้อมูลน้ำประปา</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการมิเตอร์น้ำประปา</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้น้ำประปาและบริการอื่นๆ</a>
+          </li>
+          <!-- <li>
+            <a href="#" routerLink="/water/water004" routerLinkActive="active" (click)="scrollToTop()" ><i class="fa fa-circle-thin"></i>
+              ขอใช้น้ำประปาแบบเหมาจ่าย</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water005" routerLinkActive="active" (click)="scrollToTop()" ><i class="fa fa-circle-thin"></i>
+              ขอใช้น้ำประปาของบ้านพักพนักงาน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water006" routerLinkActive="active" (click)="scrollToTop()" ><i class="fa fa-circle-thin"></i>
+              ขอใช้บริการน้ำประปาอื่นๆ</a>
+          </li>-->
+          <li>
+            <a href="#" routerLink="/water/water007" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอยกเลิกการใช้น้ำประปา</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water008" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอเปลี่ยนมิเตอร์การใช้น้ำประปา</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water009" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ค่าปรับน้ำเสีย</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water010" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระรายเดือน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/water/water011" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระรายครั้ง</a>
+          </li>
+        </ul>
+      </li>
+      <!-- end menu 3 -->
+      <!-- menu 4 -->
+      <li>
+        <a href="#menu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-phone"></i> หมวดโทรศัพท์
+        </a>
+        <ul class="collapse list-unstyled" id="menu4">
+          <li>
+            <a href="#" routerLink="/phone/phone001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              บันทึกข้อมูลโทรศัพท์</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/phone/phone002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้งานเลขหมายโทรศัพท์</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/phone/phone003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอยกเลิกการใช้โทรศัพท์</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/phone/phone004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระ ค่าบริการโทรศัพท์</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#menu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-exchange"></i>&nbsp;
+          หมวดสื่อสาร
+        </a>
+        <ul class="collapse list-unstyled" id="menu5">
+          <li>
+            <a href="#" routerLink="/communi/communi007" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการค่าบริการวิทยุมือถือรายเดือน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/communi/communi001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้วิทยุมือถือ</a>
+          </li>
+
+          <li>
+            <a href="#" routerLink="/communi/communi002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการยกเลิกบริการวิทยุมือถือ</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/communi/communi008" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการบริการข้อมูลตารางการบินรายเดือน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/communi/communi004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการข้อมูลตารางการบิน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/communi/communi005" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการยกเลิกการใช้บริการข้อมูลตารางการบิน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/communi/communi003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการหมวดสื่อสารอื่น ๆ </a>
+          </li>
+
+          <li>
+            <a href="#" routerLink="/communi/communi006" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระการใช้บริการสื่อสาร</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#menu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-television" aria-hidden="true"></i>&nbsp;
+          หมวด IT
+        </a>
+        <ul class="collapse list-unstyled" id="menu6">
+          <li>
+            <a href="#" routerLink="/it/it011" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการบริการเครือข่ายหมวด IT รายเดือน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการเครือข่ายหมวด IT</a>
+          </li>
+          <!-- <li>
+            <a href="#" routerLink="/it/it002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการเช่าท่อร้อยสายสัญญาณ</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการเช่าใช้สายสัญญาณใยแก้วนำแสง</a>
+          </li> -->
+          <li>
+            <a href="#" routerLink="/it/it004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการ IT อื่นๆ</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it005" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการห้องฝึกอบรม CUTE</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it006" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปฏิทินการจองห้องฝึกอบรม CUTE</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it007" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการบริการ Dedicated CUTE รายเดือน</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/it/it008" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการ Dedicated CUTE</a>
+          </li>
+          <!-- <li>
+            <a href="#" routerLink="/it/it009" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการ Staff page และ Public page</a>
+          </li> -->
+          <li>
+            <a href="#" routerLink="/it/it010" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระการใช้บริการ IT</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#menu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-wrench" aria-hidden="true"></i>&nbsp;
+          หมวดเครื่องทุ่นแรง
+        </a>
+        <ul class="collapse list-unstyled" id="menu7">
+          <li>
+            <a href="#" routerLink="/heavyeqp/heavyeqp001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายได้ค่าบริการเครื่องทุ่นแรง</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/heavyeqp/heavyeqp002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการเครื่องทุ่นแรง</a>
+          </li>
+          <!-- <li>
+            <a href="#" routerLink="/heavyeqp/heavyeqp003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระ ค่าบริการเครื่องทุ่นแรง</a>
+          </li> -->
+          <li>
+            <a href="#" routerLink="/heavyeqp/heavyeqp004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการประเภทเครื่องทุ่นแรง</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#menu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-hospital-o" aria-hidden="true"></i>&nbsp;
+          หมวดดับเพลิง
+        </a>
+        <ul class="collapse list-unstyled" id="menu8">
+          <li>
+            <a href="#" routerLink="/firebrigade/firebrigade001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              บริหารจัดการรายได้ค่าจัดฝึกอบรมการดับเพลิงและกู้ภัย</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/firebrigade/firebrigade002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระจัดฝึกอบรมการดับเพลิงและกู้ภัย</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#menu9" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+          หมวดกำจัดขยะ
+        </a>
+        <ul class="collapse list-unstyled" id="menu9">
+          <li>
+            <a href="#" routerLink="/garbagedis/garbagedis001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              บันทึกข้อมูลบริการกำจัดขยะ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/garbagedis/garbagedis002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ขอใช้บริการกำจัดขยะ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/garbagedis/garbagedis003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ปรับปรุงอัตราค่าภาระ ค่าบริการกำจัดขยะ</a>
+          </li>
+        </ul>
+      </li>
+
+
+      <li>
+        <a href="#menu10" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-money" aria-hidden="true"></i>&nbsp;
+          หมวดข้อมูลยอดรายได้
+        </a>
+        <ul class="collapse list-unstyled" id="menu10">
+          <li>
+            <a href="#" routerLink="/pos/pos001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ข้อมูลยอดรายได้ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/pos/pos002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ตรวจสอบสถานะผู้ประกอบการ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/pos/pos003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ข้อมูลยอดรายได้ของผู้ประกอบการ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/pos/pos004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการบัญชีผู้ประกอบการ </a>
+          </li>
+          <!-- <li>
+            <a href="#" target="_blank" routerLink="/pos/pos005"  routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ข้อมูลยอดรายได้ 1 </a>
+          </li> -->
+        </ul>
+      </li>
+      <li>
+        <a  href="#menu19"  routerLink="/cndn/cndn001" aria-expanded="false" class="dropdown">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp;
+          รายการเพิ่ม/ลดหนี้
+        </a>
+       
+      </li>
+
+
+      <li>
+        <a href="#menu11" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-id-card-o" aria-hidden="true"></i>&nbsp;
+          ข้อมูลทั่วไป
+        </a>
+        <ul class="collapse list-unstyled" id="menu11">
+          <li>
+            <a href="#" routerLink="/generalinfo/generalinfo001" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ตรวจสอบอัตราค่าภาระ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/generalinfo/generalinfo002" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ค้นหาข้อมูลผู้ประกอบการ </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/generalinfo/generalinfo003" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายงานการให้บริการแยกตามผู้ประกอบการ </a>
+          </li>
+          <!-- <li>
+            <a href="#" routerLink="/generalinfo/generalinfo004" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              จัดการบัญชีผู้ประกอบการ </a>
+          </li> -->
+        </ul>
+      </li>
+
+      <!-- <li>
+        <a href="#menu12" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-laptop" aria-hidden="true"></i>&nbsp;
+          งานจากระบบอื่น
+        </a>
+        <ul class="collapse list-unstyled" id="menu12">
+          <li>
+            <a href="#" routerLink="/0" routerLinkActive="active"><i class="fa fa-circle-thin"
+                (click)="scrollToTop()"></i>
+              กล่องจดหมาย </a>
+          </li>
+
+        </ul>
+      </li> -->
+
+
+      <li>
+        <a href="#menu13" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
+          การตั้งค่าผู้ใช้งาน
+        </a>
+        <ul class="collapse list-unstyled" id="menu13">
+          <li>
+            <a href="#" routerLink="/user/user" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              ผู้ใช้งาน </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/user/role" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              สิทธิ์การใช้งาน </a>
+          </li>
+          <li>
+            <a href="#" routerLink="/user/organize" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              หน่วยงาน </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#menu14" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
+          การตั้งค่าข้อมูล
+        </a>
+        <ul class="collapse list-unstyled" id="menu14">
+          <li>
+            <a href="#" routerLink="/components/lov/" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการข้อมูล LOV</a>
+          </li>
+          <li>
+            <a href="#" routerLink="/components/constant/" routerLinkActive="active" (click)="scrollToTop()"><i
+                class="fa fa-circle-thin"></i>
+              รายการConstant</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Page Content  -->
+  <div id="content" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light shadow colorNav p-3"  *ngIf="checkrouting">
+      <div class="container-fluid">
+        <i class="fa fa-bars" aria-hidden="true" id="sidebarCollapse" style="color:aliceblue; cursor: pointer;"></i>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" style="padding-right: 44px">
+            <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
+              <i class="fa fa-user "></i>
+              <!-- ดร. กษิภณ อภิมุขคุณานนท์ -->
+              {{ this.user.fullName }} | {{ this.user.organizeDesc }}
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu p-2">
+              <!-- <li><a href="#"> <i class="fa fa-gears text-info"></i> User setting</a></li>
+              <li><a href="#"> <i class="fa fa-file text-info"></i> Online Guide</a></li> -->
+              <li>
+                <!-- <hr class="mt-2"> -->
+                <a routerLink="/login"><i class="fa fa-sign-out text-danger"></i> Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <!-- alert success -->
+      <div class="alert alert-success alert-dismissible fade show" style="display: none" id="alert-success">
+        <a class="close" onclick="$('#alert-success').hide()">×</a>
+        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+      </div>
+      <!-- alert danger -->
+      <div class="alert alert-danger alert-dismissible fade show" style="display: none" id="alert-danger">
+        <a class="close" onclick="$('#alert-danger').hide()">×</a>
+        <strong>Danger!</strong> fail process.
+      </div>
+      <!-- alert warning -->
+      <div class="alert alert-warning alert-dismissible fade show" style="display: none" id="alert-warning">
+        <a class="close" onclick="$('#alert-warning').hide()">×</a>
+        <strong>Warning!</strong> Warning process.
+      </div>
+      <div (click)="otherClick()">
+        <router-outlet></router-outlet>
+        <div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,18 @@
+h5{
+    color: #0073A8;
+}
+
+.custom-control-label::before, 
+.custom-control-label::after {
+    top: -0.2rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.bg-primary{
+    background: #337ab7 !important;
+    color: #ffffff;
+}
+.btn-outline-secondary{
+    border: #ffffff 1px solid;
+}

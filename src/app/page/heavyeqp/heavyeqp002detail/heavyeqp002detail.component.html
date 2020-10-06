@@ -1,0 +1,94 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formManageHeavyEquipment">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/heavyeqp/heavyeqp002"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button-save (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr />
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทเครื่องทุ่นแรง : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="equipmentType" (change)="onChangeType($event)">
+          <option value="" hidden>กรุณาเลือกประเภทเครื่องทุ่นแรง</option>
+          <option *ngFor="let item of equipmentType" [value]="item.equipmentType.trim()">{{item.equipmentType.trim()}}
+          </option>
+        </select>
+      </div>
+      <div class="col-2 text-right ">
+          <p>หมายเลขรถ : <span class="text-danger">*</span></p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกหมายเลขเครื่องทุ่นแรง/รถทุ่นแรง"
+            formControlName="numberLicensePlate" />
+        </div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเลขเครื่องทุ่นแรง(Equipment) : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกหมายเลขเครื่องทุ่นแรง"
+          formControlName="equipmentNo" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>ทะเบียนรถ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรอกทะเบียนรถ"
+          formControlName="licensePlate" />
+      </div>
+    </div>
+    <div class="row mt-2">
+
+        <div class="col-2 text-right ">
+            <p>รหัสเครื่องทุ่นแรง : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-4">
+            <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกรหัสเครื่องทุ่นแรง"
+              formControlName="equipmentCode" />
+          </div>
+
+
+      <div class="col-2 text-right ">
+        <p>สถานะ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="status">
+          <option value="" hidden>กรุณาเลือกสถานะ</option>
+          <option *ngFor="let item of equipmentStatus" [ngValue]="item.descTh1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ผู้รับผิดชอบ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกผุ้รับผิดชอบ"
+          formControlName="responsiblePerson" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>รายละเอียด : </p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" formControlName="remark"></textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>

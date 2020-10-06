@@ -1,0 +1,73 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formSearch">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="รหัสผู้ประกอบการ"
+          formControlName="customerCode">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="ชื่อผู้ประกอบการ"
+          formControlName="customerName">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา" formControlName="contractNo">
+      </div>
+      <div class="col-md-6 text-right">
+        <button-search (click)="search()"></button-search>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-md-12 text-right">
+        <button-add routerLink="/communi/communi003detail"></button-add>
+      </div>
+    </div>
+  </form>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="scrollX">
+        <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th class="text-center">รหัสผู้ประกอบการ</th>
+              <th class="text-center">ผู้ประกอบการ</th>
+              <th class="text-center">เลขที่สัญญา</th>
+              <!-- <th class="text-center">สาขา</th> -->
+              <!-- <th class="text-center">พื้นที่เช่า</th> -->
+              <th class="text-center">วันที่ขอใช้บริการ</th>
+              <th class="text-center">วันที่สิ้นสุดขอใช้บริการ</th>
+              <th class="text-center">ประเภทการบริการ</th>
+              <th class="text-center">จำนวนเงิน (บาท)</th>
+              <th class="text-center">จำนวนเงินรวมภาษี (บาท)</th>
+              <th class="text-center">วิธีชำระเงิน</th>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center" style="border-right: 1px solid #dee2e6;">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP</th>
+              <th class="text-center">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

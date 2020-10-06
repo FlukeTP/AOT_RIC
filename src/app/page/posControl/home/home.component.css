@@ -1,0 +1,28 @@
+h5{
+    color: #0073A8;
+}
+
+.custom-control-label::before, 
+.custom-control-label::after {
+top: -0.2rem;
+width: 1.25rem;
+height: 1.25rem;
+}
+
+.home-content{
+    width: calc(100% -250px);
+    width: -moz-calc(100% - 250px);
+    width: -webkit-calc(100% - 250px);
+}
+.home-content-100{
+    width:100%;
+}
+.text-primary{
+    color: #337ab7 !important;
+}
+input {
+    outline: unset !important;
+}
+.list-time:hover{
+    color: #337ab7 !important;
+}

@@ -1,0 +1,52 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+        <button-excel wording="Export CSV"></button-excel>
+      <button-add routerLink="/water/water004detail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table *ngIf="showMainContent" id="datatable" class="table table-bordered table-striped table-sm"
+        style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ผู้ประกอบการ</th>
+            <th>เลขที่สัญญา</th>
+            <th>สถานที่ใช้น้ำประปา</th>
+            <th>ประเภท</th>
+            <th>จำนวนคน</th>
+            <th>จำนวนหน่วย</th>
+            <th>อัตราค่าภาระ</th>
+            <th>วันที่เข้าใช้งาน</th>
+            <th>วันที่สิ้นสุดการใช้งาน</th>
+            <th>เอกสารแนบ</th>
+            <th>เลขที่ใบแจ้งหนี้</th>
+            <th>เลขที่ใบเสร็จ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Italian</td>
+            <td>0001526</td>
+            <td>ห้องควบคุม 1</td>
+            <td>เฉลีย/คน/วัน</td>
+            <td>55 คน</td>
+            <td>100 หน่วย</td>
+            <td>5350 บาท</td>
+            <td>02/03/2019</td>
+            <td>03/03/2019</td>
+            <td align="center">
+                <button-icon  color="info"><i class="fa fa-file-o" aria-hidden="true"></i></button-icon>
+              </td>
+            <td>2503111</td>
+            <td>2563254</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>

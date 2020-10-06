@@ -1,0 +1,33 @@
+<app-card header="Datepicker">
+  <div class="row">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+      <div class="input-group">
+        <input 
+        type="text" 
+        class="form-control form-control-sm" 
+        placeholder="dd/MM/yyyy" 
+        bsDatepicker 
+        [bsConfig]="formatDate" 
+       
+        [maxDate]="maxDate">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fa fa-calendar-check-o"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+      <div class="input-group">
+        <input type="text" class="form-control form-control-sm" placeholder="dd/MM/yyyy" bsDaterangepicker>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fa fa-calendar-check-o"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <pre>
+      {{txtPicker}}
+  </pre>
+</app-card>

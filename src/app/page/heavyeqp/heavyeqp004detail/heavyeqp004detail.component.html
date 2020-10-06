@@ -1,0 +1,47 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formManageHeavyEquipment">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/heavyeqp/heavyeqp004"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button-save (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr />
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>GL Account : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก GL Account"
+          formControlName="glAccount" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ประเภทเครื่องทุ่นแรง : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกประเภทเครื่องทุ่นแรง"
+          formControlName="equipmentType" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>รายละเอียด :  <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" formControlName="detail"></textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>

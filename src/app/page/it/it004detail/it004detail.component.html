@@ -1,0 +1,269 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-md-6 text-left">
+      <button-back routerLink="/it/it004"></button-back>
+    </div>
+    <div class="col-md-6 text-right">
+      <button-save (click)="onValidateBeforeSave()" *ngIf="!flagEdit"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formSave">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" [value]="control('entreprenuerCode').value"
+            readOnly>
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2"
+              (click)="openModalCustom(customModal)"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+          [value]="control('entreprenuerName').value" readOnly>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" list="contractNo" placeholder="เลขที่สัญญา"
+          formControlName="contractNo" [readonly]="flagEdit" (change)="onContractNoChange($event)">
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+      <div class="col-2 text-right ">
+        <p>สาขา<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="entreprenuerBranch" maxlength="190"
+          readonly />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>พื้นที่เช่า<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="พื้นที่เช่า" list="roName"
+          formControlName="rentalObject" [readonly]="flagEdit">
+        <datalist id="roName">
+          <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+        </datalist>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่ขอใช้บริการ<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="requestStartDate" *ngIf="flagEdit"
+          readonly>
+        <input-calendar (changeDate)="setDate($event, 'requestStartDate')" #calendar *ngIf="!flagEdit"></input-calendar>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-2 text-right ">
+        <p>ประเภทบริการ<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control form-control-sm" formControlName="otherType" *ngIf="flagEdit" readonly>
+        <select class="form-control form-control-sm" formControlName="otherType" (change)="setDataForOtherType($event)"
+          *ngIf="!flagEdit">
+          <option value="" selected disabled>กรุณาเลือกประเภทบริการ</option>
+          <option *ngFor="let item of otherTypeList; index as i" [value]="item.serviceType">{{item.serviceType}}
+          </option>
+        </select>
+      </div>
+      <div class="col-2 text-right " *ngIf="formSave.get('chargeRatesType').value === 'ค่าประกัน'">
+        <p>วันที่สิ้นสุดใช้บริการ<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4" *ngIf="formSave.get('chargeRatesType').value === 'ค่าประกัน'">
+        <input type="text" class="form-control form-control-sm" formControlName="requestEndDate" *ngIf="flagEdit"
+          readonly>
+        <input-calendar (changeDate)="setDate($event, 'requestEndDate')" #calendar *ngIf="!flagEdit"></input-calendar>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทอัตราค่าภาระ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="chargeRatesType" disabled>
+      </div>
+      <div class="col-2 text-right ">
+        <p>อัตราค่าภาระ : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm text-right" formControlName="chargeRates" numberOnly
+          [dot]="true" readonly>
+      </div>
+      <div class="col-1 ">
+        <p> บาท/หน่วย </p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>จำนวน : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm text-right" formControlName="totalAmount" numberOnly
+          (change)="calculateTotal()" [readonly]="flagEdit">
+      </div>
+      <div class="col-1 ">
+        <p> หน่วย </p>
+      </div>
+      <div class="col-2 text-right ">
+        <p>จำนวนเงินรวม : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm text-right" formControlName="totalChargeRates" numberOnly
+          [dot]="true" readonly>
+      </div>
+      <div class="col-1 ">
+        <p> บาท </p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2 text-right " *ngIf="wordingPayment">
+        <p>วิธีชำระเงินประกัน<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-md-2 text-right " *ngIf="!wordingPayment">
+        <p>วิธีชำระเงิน<span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control form-control-sm" formControlName="paymentType" *ngIf="flagEdit" readonly>
+        <select class="form-control form-control-sm" formControlName="paymentType" *ngIf="!flagEdit">
+          <option value="" selected disabled>กรุณาเลือกวิธีการชำระเงิน</option>
+          <option *ngFor="let item of paymentTypeList" [value]="item.descEn1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- <ng-container
+      *ngIf="formSave.value.paymentType === paymentTypeConst[0] || formSave.value.paymentType === paymentTypeConst[2]"> -->
+    <ng-container
+      *ngIf="formSave.get('chargeRatesType').value === 'รายครั้ง' || formSave.value.paymentType === paymentTypeConst[0]">
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>หมายเหตุ (จะปรากฏอยู่ในใบแจ้งหนี้) : </p>
+        </div>
+
+        <div class="col-10">
+          <textarea class="form-control form-control-sm" formControlName="remark"
+            [readonly]="flagEdit">คืนเงินประกันเมื่อผู้ใช้แจ้งยกเลิกโดยไม่มีหนี้สินค้างชำระ</textarea>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="formSave.value.paymentType === paymentTypeConst[1]">
+      <div class="mt-3 mb-3 " style="border: 3px solid #dee2e6;">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ชื่อธนาคาร <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="bankName"
+              placeholder="กรุณากรอกชื่อธนาคาร" [readonly]="flagEdit">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>สาขา <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกชื่อสาขา"
+              formControlName="bankBranch" [readonly]="flagEdit">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>คำอธิบาย <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกคำอธิบาย"
+              formControlName="bankExplanation" [readonly]="flagEdit">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>Bank guarantee<span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="50"
+              placeholder="กรุณากรอก Bank guarantee" formControlName="bankGuaranteeNo" [readonly]="flagEdit">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>วันหมดอายุ <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="bankExpNo" readonly
+              *ngIf="flagEdit">
+            <input-calendar (changeDate)="setDate($event, 'bankExpNo')" *ngIf="!flagEdit"></input-calendar>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</app-card>
+
+<ng-template #customModal>
+  <div class="modal-header">
+    <p>เลือกผู้ประกอบการ </p>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+            formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCustomerList()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th>รหัสผู้ประกอบการ</th>
+          <th style="text-align: center!important">ชื่อผู้ประกอบการ</th>
+          <th style="text-align: center!important">รหัสสาขา</th>
+          <th style="text-align: center!important">ทีอยู่</th>
+          <th>การจัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="save()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

@@ -1,0 +1,178 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/water/water005"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save routerLink="/water/water005"></button-save>
+      <button-cancel routerLink="/water/water005"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รหัสพนักงาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ">
+    </div>
+    <div class="col-2">
+      <button-icon color="info"><i class="fa fa-search" aria-hidden="true"></i></button-icon>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ชื่อพนักงาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>หมายเลขบัตรประจำตัวประชาชน :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ขนาดมิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option> </option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>Serial No. มิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option> </option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ชื่อมิเตอร์ :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <br>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>เงินประกัน :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ภาษีเงินประกัน :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รวมเงินประกันใช้น้ำประปา :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <br>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ค่าติดตั้งมิเตอร์ :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ภาษีค่าติดตั้งมิเตอร์ :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รวมค่าติดตั้งมิเตอร์ :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <br>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รวมค่าใช้จ่ายทั้งหมด :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <br>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>สถานที่ตั้งมิเตอร์ :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วิธีการชำระเงิน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option> </option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่ขอใช้บริการ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่สิ้นสุดการใช้บริการ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ที่อยู่ใบแจ้งหนี้ :</p>
+    </div>
+    <div class="col-4">
+      <textarea class="form-control form-control-sm" rows="4" readonly></textarea>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>หมายเหตุ :</p>
+    </div>
+    <div class="col-4">
+      <textarea class="form-control form-control-sm" rows="4"></textarea>
+    </div>
+  </div>
+</app-card>

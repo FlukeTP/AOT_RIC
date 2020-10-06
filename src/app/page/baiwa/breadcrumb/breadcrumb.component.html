@@ -1,0 +1,18 @@
+<app-card header="Breadcrumb">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+            </div>
+            <div class="form-group">
+                <hr>
+                <h4 *ngFor="let item of breadcrumb">
+                    {{item.label}}
+                </h4>
+                <hr>
+                <h1>Using</h1>
+                <pre>{{breadcrumbText}}</pre>
+            </div>
+        </div>
+    </div>
+</app-card>

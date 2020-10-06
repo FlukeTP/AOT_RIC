@@ -1,0 +1,48 @@
+<div class="form-group">
+  <app-card header="Datatable">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th rowspan="2">ID</th>
+          <th colspan="2">name</th>
+          <th colspan="2">Address</th>
+          <th rowspan="2" style="border-left: 2px solid; border-color: #f2f2f2;">age</th>       
+        </tr>
+
+        <tr>
+          <th>First</th>
+          <th>FiLastrst</th>
+
+          <th>1</th>
+          <th>2</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr *ngFor="let item of datas">
+          <td>{{item.data1}}</td>
+          <td>{{item.data2}}</td>
+          <td>{{item.data3}}</td>
+          <td>{{item.data4}}</td>
+          <td>{{item.data5}}</td>
+          <td>{{item.data6}}</td>
+        </tr>
+      </tbody> -->
+    </table>
+    <h3>Use</h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-6">
+        <h5>Html</h5>
+        <pre>
+          {{tableHtml}}
+        </pre>
+      </div>
+      <div class="col-sm-6">
+        <h5>Ts</h5>
+        <pre>
+          {{tableTs}}
+        </pre>
+      </div>
+    </div>
+  </app-card>
+</div>

@@ -1,0 +1,42 @@
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9 text-right">
+      <!-- <button-add routerLink="/garbagedis/garbagedis0301detail"></button-add> -->
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">วันที่มีผล</th>
+            <th class="text-center">ปรเภท</th>
+            <th class="text-center">ขนาด</th>
+            <th class="text-center">อัตราค่าภาระ</th>
+            <th class="text-center">วันที่ปรับปรุง</th>
+            <th class="text-center">ปรับปรุงโดย</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<!-- modalRemark -->
+
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <form>
+      <div class="row ">
+        <div class="col-md-12">
+          <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</modal-custom>

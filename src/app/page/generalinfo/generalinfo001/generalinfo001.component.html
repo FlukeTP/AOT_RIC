@@ -1,0 +1,38 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-3">
+ 
+    </div>
+    <div class="col-md-9 text-right">
+      <button-excel wording="Export CSV"></button-excel>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ชื่อเอกสาร</th>
+            <th>วันที่สร้าง</th>
+            <th>วันที่แก้ไข</th>
+            <th> เวอร์ชัน</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>อัตราค่าภาระ ทสภ. ประจำปี 2560.pdf</td>
+            <td>
+              28/09/2560</td>
+            <td>
+              28/09/2560</td>
+            <td>
+              1.0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>

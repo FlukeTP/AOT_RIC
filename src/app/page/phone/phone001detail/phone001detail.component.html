@@ -1,0 +1,83 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+          <button-back  routerLink="/phone/phone001"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save  routerLink="/phone/phone001"></button-save>
+      <button-cancel  routerLink="/phone/phone001"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>ประเภทมิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>กรุณาเลือกประเภทมิเตอร์</option>
+      </select>
+    </div>
+    <div class="col-2 text-right ">
+      <p>Serial No.มิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก Serial No. มิเตอร์">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>ชื่อมิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อมิเตอร์">
+    </div>
+    <div class="col-2 text-right ">
+      <p>ตัวคูณ : </p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกตัวคูณ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>สถานที่ตั้งมิเตอร์ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสถานที่ตั้งมิเตอร์">
+    </div>
+    <div class="col-2 text-right ">
+      <p>Functional Location <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกFunctional Location">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>สถานะ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>ใช้งาน</option>
+        <option>ไม่ใช้งาน</option>
+      </select>
+    </div>
+    <div class="col-2 text-right ">
+      <p>เลขที่ให้บริการ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก เลขที่ให้บริการ/เลขที่สัญญา">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>หมายเหตุ <span class="text-danger">*</span> :</p>
+    </div>
+
+    <div class="col-10">
+      <textarea class="form-control form-control-sm"></textarea>
+    </div>
+  </div>
+</app-card>

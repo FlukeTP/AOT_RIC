@@ -1,0 +1,116 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+
+  <div class="row mt-2">
+    <div class="col-2 text-right">
+      <p>เลขที่สัญญา : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>กรุณาเลือกเลขที่สัญญา</option>
+      </select>
+    </div>
+    <div class="col-2 text-right">
+      <p>ชื่อผู้ประกอบการ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>กรุณาเลือกผู้ประกอบการ</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>เลือกวันที่ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <label class="form-check-label" for="exampleRadios1">
+          วันที่ขาย
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+          วันที่นำเข้าข้อมูล
+        </label>
+      </div>
+    </div>
+
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>วันที่นำเข้าข้อมูล(เริ่มต้น)
+        :</p>
+    </div>
+    <div class="col-4">
+      <input-calendar></input-calendar>
+    </div>
+    <div class="col-2 text-right ">
+      <p> วันที่นำเข้าข้อมูล(สิ้นสุด)
+        : </p>
+    </div>
+    <div class="col-4">
+      <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>สถานะ : </p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>กรุณาเลือกสถานะ</option>
+      </select>
+    </div>
+    <div class="col-1  ">
+      <p>บาท</p>
+    </div>
+  </div>
+  <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                 
+                </div>
+                <div class="col-sm-6 text-right">
+                    <button type="button" class="btn btn-primary btn-sm">
+                        <i class="fa fa-search" aria-hidden="true"></i> ค้นหา</button>
+                </div>
+              </div>
+              <br>
+            <div class="form-group">
+                <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+                    <thead class="text-center">
+                        <tr>
+                            <th>เลขที่สัญญา</th>
+                            <th>ผู้ประกอบการ</th>
+                            <th>วันที่ขาย(เริ่มต้น)</th>
+                            <th>วันที่ขาย(สิ้นสุด)</th>
+                            <th>ประเภทสินค้า/บริการ</th>
+                            <th>ยอดขายรวมภาษี</th>
+                            <th>ยอดขายไม่รวมภาษี</th>
+                            <th>จำนวนใบเสร็จ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td>06CMFN0162001</td>
+                          <td>บริษัท บางจาก จำกัด (มหาชน)</td>
+                          <td>12/02/2019</td>
+                          <td>12/02/2019</td>
+                          <td>  น้ำมัน</td>
+                          <td>500000 บาท</td>
+                          <td>465000 บาท</td>
+                          <td> 80 ใบ</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</app-card>

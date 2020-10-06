@@ -1,0 +1,96 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="บันทึกข้อมูลไฟฟ้า" isButton="false">
+    <form [formGroup]="formGroup">
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>ชื่อผู้ประกอบการ : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" placeholder="ชื่อผู้ประกอบการ"
+                    formControlName="customerName" />
+            </div>
+            <div class="col-2 text-right ">
+                <p>เลขที่สัญญา :</p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา"
+                    formControlName="contractNo" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <!-- <div class="col-2 text-right ">
+                <p>ประเภท : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" placeholder="ประเภท"
+                    formControlName="courseName" />
+            </div> -->
+            <div class="col-2 text-right ">
+                <p>สถานะ :</p>
+            </div>
+            <div class="col-4">
+                <select class="form-control form-control-sm" formControlName="status">
+                    <option value="" selected>เลือกสถานะ</option>
+                    <option value="ใช้งาน">ใช้งาน</option>
+                    <option value="ยกเลิก">ยกเลิก</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 text-right">
+                <button-search wording="ค้นหา" (click)="getList()"></button-search>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button-excel wording="ส่งข้อมูลเข้าระบบ"></button-excel>
+            <button-add routerLink="/it/it009detail"></button-add>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm-12">
+            <div class="scrollX">
+                <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+                    <thead class="text-center">
+                        <tr>
+                            <th rowspan="2" class="text-center">รหัสผู้ประกอบการ</th>
+                            <th rowspan="2" class="text-center">ชื่อผู้ประกอบการ</th>
+                            <th rowspan="2" class="text-center">เลขที่สัญญา</th>
+                            <th rowspan="2" class="text-center">ประเภท</th>
+                            <th rowspan="2" class="text-center">จำนวน</th>
+                            <th rowspan="2" class="text-center">จำนวนเงิน</th>
+                            <th rowspan="2" class="text-center">จำนวนเงิน(รวมภาษีมูลค่าเพิ่ม)</th>
+                            <th rowspan="2" class="text-center">วันที่เริ่มใช้งาน</th>
+                            <th rowspan="2" class="text-center">วันที่ยกเลิก</th>
+                            <th rowspan="2" class="text-center">สถานะ</th>
+                            <th colspan="3" class="text-center">อัตราค่าภาระ </th>
+                            <th rowspan="2" class="text-center">จัดการ</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+                            <th class="text-center">เลขที่ใบเสร็จ</th>
+                            <th class="text-center" style="border-right: 1px solid #dee2e6;">
+                                สถานะการส่งข้อมูลเข้าสู่ระบบ SAP </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</app-card>
+<app-modal [modalId]="'modalId'" [header]="'Confirm การลบข้อมูลลูกค้านิติบุคคล'">
+    <div body>
+        คุณต้องการลบข้อมูลลูกค้านิติบุคคลใช่หรือไม่
+    </div>
+    <div footer>
+        <button-confirm></button-confirm>
+        <button-cancel></button-cancel>
+    </div>
+</app-modal>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

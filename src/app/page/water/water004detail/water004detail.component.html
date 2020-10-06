@@ -1,0 +1,132 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/water/water004"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save routerLink="/water/water004"></button-save>
+      <button-cancel routerLink="/water/water004"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รหัสผู้ประกอบการ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ">
+    </div>
+    <div class="col-2">
+      <button-icon color="info"><i class="fa fa-search" aria-hidden="true"></i></button-icon>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ชื่อผู้ประกอบการ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>เลขที่สัญญา :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ประเภท <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="radio1" name="radio-stacked">
+        <label class="custom-control-label" for="radio1">เฉลี่ย/คน/วัน</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="radio2" name="radio-stacked">
+        <label class="custom-control-label" for="radio2">เหมาหน่วย</label>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>จำนวนคน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกจำนวนหน่วย">
+    </div>
+    <div class="col-1">
+      <label>คน</label>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>จำนวนหน่วย <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกจำนวนหน่วย">
+    </div>
+    <div class="col-1">
+      <label>หน่วย</label>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>อัตราค่าภาระ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกอัตราค่าภาระ">
+    </div>
+    <div class="col-1">
+      <label>บาท</label>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>สถานที่ใช้น้ำ <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสถานที่ใช้น้ำ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>พื้นที่เช่า :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่เข้าใช้งาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+        <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่สิ้นสุดการใช้งาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+        <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>หมายเหตุ :</p>
+    </div>
+
+    <div class="col-4">
+      <textarea class="form-control form-control-sm" rows="4"></textarea>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <h5>เอกสารแนบ</h5>
+</app-card>

@@ -1,0 +1,41 @@
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button-downloadex (click)="getExcel()"></button-downloadex>
+          <button-add routerLink="/it/it0104detail"></button-add>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="scrollX">
+            <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th class="text-center">วันที่มีผล</th>
+                  <th class="text-center">สัญญา(เดือน)</th>
+                  <th class="text-center">ประเภทบริการ</th>
+                  <th class="text-center">จำนวนเงิน</th>
+                  <th class="text-center">วันที่ปรับปรุง </th>
+                  <th class="text-center">ปรับปรุงโดย</th>
+                  <th class="text-center">จัดการ</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>
+<!-- remark -->
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <div class="row">
+      <div class="col-sm-12">
+        <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+      </div>
+    </div>
+  </div>
+</modal-custom>

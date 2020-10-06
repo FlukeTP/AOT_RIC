@@ -1,0 +1,366 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back (click)="onPages()"></button-back>
+    </div>
+    <div class="col-sm-6 text-right" *ngIf="!flagEdit">
+      <button-save (click)="onValidate()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formSave">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : <span class="text-danger">*</span> </p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="entreprenuerCode"
+            maxlength="90" [readonly]='flagEdit'>
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2" *ngIf="!flagEdit"
+              (click)="openModalEntrepreneur(entrepreneurModal)"><i class="fa fa-search"
+                aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : <span class="text-danger">*</span> </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+          formControlName="entreprenuerName" maxlength="90" readonly>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch" maxlength="90"
+          readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input formControlName="contractNo" list="contractNo" class="form-control form-control-sm" [readonly]="flagEdit"
+          (change)="getRentalAreaList($event)" />
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2 text-right ">
+        <p>พื้นที่เช่า (rental object) : </p>
+      </div>
+      <div class="col-md-4">
+        <input formControlName="rentalAreaName" type="text" class="form-control form-control-sm" *ngIf="flagEdit"
+          readonly>
+
+        <input class="form-control form-control-sm" formControlName="rentalAreaName" type="text" list="roName"
+          placeholder="พื้นที่เช่า (rental object)" (change)="roChange($event.target.value)" *ngIf="!flagEdit">
+        <datalist id="roName">
+          <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+        </datalist>
+
+      </div>
+      <div class="col-2 text-right ">
+        <p>วิธีชำระเงินประกัน <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="paymentTypeShow" *ngIf="flagEdit"
+          readonly>
+        <select class="form-control form-control-sm" formControlName="paymentType" *ngIf="!flagEdit">
+          <option value="" selected disabled>กรุณาเลือกวิธีการชำระเงิน</option>
+          <option *ngFor="let item of paymentTypeList" [value]="item.descEn1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ขอใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="requestDateStr" *ngIf="flagEdit"
+          readonly>
+        <input-calendar (changeDate)="setDate($event, 'requestDateStr')" #calendarStart *ngIf="!flagEdit">
+        </input-calendar>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดขอใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="endDateStr" *ngIf="flagEdit" readonly>
+        <input-calendar (changeDate)="setDate($event, 'endDateStr')" #calendarEnd *ngIf="!flagEdit"></input-calendar>
+      </div>
+    </div>
+
+    <ng-container *ngIf="formSave.value.paymentType === paymentTypeConst[1]">
+      <div class="mt-3 mb-3 " style="border: 3px solid #dee2e6;">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ชื่อธนาคาร <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="bankName"
+              placeholder="กรุณากรอกชื่อธนาคาร" [readonly]="flagEdit">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>สาขา <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกชื่อสาขา"
+              formControlName="bankBranch" [readonly]="flagEdit">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>คำอธิบาย <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกคำอธิบาย"
+              formControlName="bankExplanation" [readonly]="flagEdit">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>Bank guarantee<span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" maxlength="50"
+              placeholder="กรุณากรอก Bank guarantee" formControlName="bankGuaranteeNo" [readonly]="flagEdit">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>วันหมดอายุ <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="bankExpNo" *ngIf="flagEdit"
+              readonly>
+            <input-calendar (changeDate)="setDate($event, 'bankExpNo')" *ngIf="!flagEdit"></input-calendar>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ {{formSave.value.paymentType === paymentTypeConst[0]? '(จะปรากฏอยู่ในใบแจ้งหนี้)': ''}} : </p>
+      </div>
+
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark"
+          [readOnly]="flag === 'R' || flag === 'C'">คืนเงินประกันเมื่อผู้ใช้แจ้งยกเลิกโดยไม่มีหนี้สินค้างชำระ</textarea>
+      </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <!-- <p>รายละเอียด</p> -->
+          <div class="form-group text-right" *ngIf="!flagEdit">
+            <button-add wording="เพิ่มค่าภาระ" (click)="showAddModal()"></button-add>
+          </div>
+          <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>ชื่อสัญญาณภาพ</th>
+                <th>สถานที่เชื่อมต่อสัญญาณภาพ</th>
+                <th>เงินประกัน(บาท)</th>
+                <th>ค่าบริการรายเดือน(บาท)</th>
+                <th>หมายเหตุ</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="serviceCharge">
+              <ng-container *ngIf="formSave.controls">
+                <ng-container *ngIf="formSave.controls.serviceCharge.controls!=0">
+                  <tr [formGroupName]="i"
+                    *ngFor="let item of formSave.controls.serviceCharge.controls; let i = index;let first = first;let last = last">
+                    <td class=" text-center">{{ item.get('connectSignal').value | isEmpty}}</td>
+                    <td class=" text-center">{{ item.get('location').value | isEmpty}}</td>
+                    <td class=" text-right">{{ item.get('amountLg').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class=" text-right">{{ item.get('amountMonth').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-info btn-social-icon" type="button"
+                        (click)="onRemark(item.get('remark').value)">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-danger btn-sm" type="button" (click)="removeDtl(i)" [disabled]="flagEdit">
+                        <i class="fa  fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+
+                <ng-container *ngIf="formSave.controls.serviceCharge.controls==0">
+                  <tr class="text-center">
+                    <td colspan="14">ไม่พบข้อมูล</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" class="text-right">
+                  คำนวณรวม</td>
+                <td class="text-right">{{amountLg | decimalFormat:"###,###.00"}}</td>
+                <td class="text-right">{{amountMonth | decimalFormat:"###,###.00"}}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</app-card>
+
+
+<!-- entrepreneur Modal -->
+<ng-template #entrepreneurModal>
+  <div class="modal-header">
+    <p>เลือก ผู้ประกอบการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ , ชื่อผู้ประกอบการ , รหัสสาขา , ทีอยู่" formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCus()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">รหัสสาขา</th>
+          <th class="text-center">ทีอยู่</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>
+
+
+<!-- addModal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">เพิ่มค่าภาระ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="modalForm">
+
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ชื่อสัญญาณภาพ :</p>
+            </div>
+            <div class="col-8">
+              <textarea class="form-control form-control-sm" formControlName="connectSignal" maxlength="90"></textarea>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>สถานที่เชื่อมต่อสัญญาณภาพ :</p>
+            </div>
+            <div class="col-8">
+              <textarea class="form-control form-control-sm" formControlName="location" maxlength="90"></textarea>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ค่าบริการรายเดือน <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-5">
+              <input type="text" class="form-control form-control-sm text-right" formControlName="amountM" numberOnly>
+            </div>
+            <div class="col-3 text-left">
+              <p>บาท</p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>เงินประกัน <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-5">
+              <input type="text" class="form-control form-control-sm text-right" formControlName="amountL" numberOnly>
+            </div>
+            <div class="col-3 text-left">
+              <p>บาท</p>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>หมายเหตุ :</p>
+            </div>
+            <div class="col-8">
+              <textarea class="form-control form-control-sm" formControlName="remark" maxlength="90"></textarea>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button-save (click)="onValidateDtl()"></button-save>
+        <button-cancel (click)="hideAddModal()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modalRemark -->
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <div class="row">
+      <div class="col-sm-12">
+        <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+      </div>
+    </div>
+  </div>
+</modal-custom>
+
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

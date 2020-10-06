@@ -1,0 +1,52 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-sm-12 text-right">
+      <button-add routerLink="/electricity/ele004detail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>พนักงาน</th>
+            <th>หมายเลขบัตรประจำตัวประชาชน</th>
+            <th>เลขที่สัญญา</th>
+            <th>อัตราค่าภาระ</th>
+            <th>วันที่ขอใช้</th>
+            <th>วันที่สิ้นสุด</th>
+            <th>สถานะ</th>
+            <th>เลขที่ใบแจ้งหนี้</th>
+            <th>เลขที่ใบเสร็จ</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>สมปอง ใจหมาย</td>
+                <td>1399900089737</td>
+                <td align="center">0523652</td>
+                <td align="center">823.5</td>
+                <td align="center">18-03-2019</td>
+                <td align="center">20-04-2019</td>
+                <td align="center">3555.00</td>
+                <td align="center">00522</td>
+                <td align="center">05205</td>
+          
+              </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+<app-modal [modalId]="'modalId'" [header]="'Confirm การลบข้อมูลลูกค้านิติบุคคล'">
+  <div body>
+    คุณต้องการลบข้อมูลลูกค้านิติบุคคลใช่หรือไม่
+  </div>
+  <div footer>
+    <button-confirm></button-confirm>
+    <button-cancel></button-cancel>
+  </div>
+</app-modal>

@@ -1,0 +1,181 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="บันทึกข้อมูลไฟฟ้า" isButton="false">
+  <form id="upload-form">
+    <div class="form-group row">
+      <div class="col-md-12 text-right">
+        <!-- <button-custom icon="fa fa-refresh" wording="ซิงค์ข้อมูล" (click)="confirm('SYNC')"
+          [disabled]="countSyncData == 0"> -->
+        <button-custom icon="fa fa-refresh" wording="ซิงค์ข้อมูล" (click)="confirm('SYNC')">
+        </button-custom>
+        <button-download (click)="downloadTemplate()" [disabled]="flagDownload == 0"></button-download>
+
+        <input type="file" name="file" id="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+          (change)="onChangeUpload($event)" style="background-color: #f2f2f2; border-radius: 0 8px 8px 0 !important;">
+        <!-- <button-upload></button-upload> -->
+        <button-excel (click)="uploadExcel()" [disabled]="file.length == 0"></button-excel>
+        <button-sap (click)="sendToSAP()" [disabled]="idxList.length == 0"></button-sap>
+      </div>
+    </div>
+  </form>
+  <br>
+
+  <form [formGroup]="formSearch">
+    <div class="row form-group">
+      <label class="col-sm-2 col-form-label text-right">เลขที่สัญญา</label>
+      <div class="col-md-2 text-right ">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา" formControlName="contractNo">
+      </div>
+
+      <label class="col-sm-1 col-form-label text-right">ผู้ประกอบการ</label>
+      <div class="col-md-3 text-right ">
+        <input type="text" class="form-control form-control-sm" placeholder="ผู้ประกอบการ/พนักงาน"
+          formControlName="entreprenuerName">
+      </div>
+
+      <label class="col-sm-1 col-form-label text-right">ชื่อมิเตอร์</label>
+      <div class="col-md-2">
+        <input type="text" class="form-control form-control-sm" placeholder="ชื่อมิเตอร์" formControlName="meterName">
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <label class="col-sm-2 col-form-label text-right">Serial No. มิเตอร์</label>
+      <div class="col-md-2">
+        <!-- <select class="form-control form-control-sm" formControlName="serialNoMeter">
+          <option value="" selected>ทั้งหมด</option>
+          <option *ngFor="let item of serialNoList" value="{{item.serialNoMeter}}">{{ item.serialNoMeter }}</option>
+        </select> -->
+        <input formControlName="serialNoMeter" list="serialNoMeter" class="form-control form-control-sm">
+        <datalist id="serialNoMeter">
+          <option *ngFor="let item of serialNoList" [value]="item.serialNoMeter">{{ item.serialNoMeter }}</option>
+        </datalist>
+      </div>
+
+      <label class="col-sm-1 col-form-label text-right">ประจำเดือน</label>
+      <div class="col-md-2">
+        <input-calendar (changeDate)="setDate($event)" format="MM/yyyy" #calendar1>
+        </input-calendar>
+      </div>
+
+      <div class="col-md-5 text-right">
+        <button-search (click)="search()"></button-search>
+      </div>
+    </div>
+
+    <!-- <br> -->
+
+    <div class="row text-center">
+      <div class="col-md-12 text-right">
+        <button-save (click)="confirm('SAVE')" [disabled]="table.length == 0 || disPreviosMonth"></button-save>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="scrollX">
+        <table id="datatable" class="table table-bordered table-striped table-sm display nowrap">
+          <thead>
+            <tr>
+              <th rowspan="2" class="text-center">
+                <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" id="checkAll" value=""
+                    aria-label="..." (click)="checkAll($event)" [disabled]="table.length == 0">
+                </div>
+              </th>
+              <th class="text-center" rowspan="2">เลขที่สัญญา</th>
+              <th class="text-center" rowspan="2">ชื่อผู้ประกอบการ/ชื่อพนักงาน</th>
+              <th class="text-center" rowspan="2">ชื่อมิเตอร์</th>
+              <th class="text-center" rowspan="2">Serial No. มิเตอร์</th>
+              <!-- <th class="text-center" rowspan="2">ประเภทน้ำ</th> -->
+              <th class="text-center" rowspan="2">จดครั้งก่อน</th>
+              <th class="text-center" rowspan="2">วันที่จดเลข</th>
+              <th class="text-center" rowspan="2">จดครั้งนี้</th>
+              <th class="text-center" rowspan="2">จำนวนที่ใช้(ลบ.ม.)</th>
+              <th class="text-center" rowspan="2">ค่าน้ำประปา(บาท)</th>
+              <th class="text-center" rowspan="2">ค่าบำบัด(บาท)</th>
+              <th class="text-center" rowspan="2">ค่าน้ำรีไซเคิล(บาท)</th>
+              <th class="text-center" rowspan="2">ค่าบำรุงรักษา(บาท/เดือน)</th>
+              <th class="text-center" rowspan="2">เป็นเงิน(บาท)</th>
+              <th class="text-center" rowspan="2">VAT(บาท)</th>
+              <th class="text-center" rowspan="2">รวมเป็นเงิน(บาท)</th>
+              <th class="text-center" colspan="3">ค่าน้ำประปา</th>
+            </tr>
+            <tr>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center">สถานะ SAP</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+
+<!-- <app-modal [modalId]="'modalId'" [header]="'Confirm การลบข้อมูลลูกค้านิติบุคคล'">
+  <div body>
+    คุณต้องการลบข้อมูลลูกค้านิติบุคคลใช่หรือไม่
+  </div>
+  <div footer>
+    <button-confirm></button-confirm>
+    <button-cancel></button-cancel>
+  </div>
+</app-modal> -->
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="save()">
+</modal-confirm>
+<!-- syncModal -->
+<modal-confirm #syncModal (onConfirm)="syncData()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>
+
+<ng-template #contractNoModal>
+  <div class="modal-header">
+    <p>รายละเอียดเลขที่สัญญา</p>
+  </div>
+  <div class="modal-body">
+    <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">Serial No. มิเตอร์</th>
+          <th class="text-center">ขนาดมิเตอร์</th>
+          <th class="text-center">สถานที่ตั้งมิเตอร์</th>
+          <th class="text-center">พื้นที่เช่า</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>
+
+<ng-template #backwardMeterValueModal>
+  <div class="modal-header">
+    <p>รายละเอียดหน่วยการใช้ไฟฟ้า</p>
+  </div>
+  <div class="modal-body">
+    <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">ประจำเดือน</th>
+          <th class="text-center">เลขหน่วยครั้งก่อน</th>
+          <th class="text-center">หน่วยที่ใช้ไปครั้งก่อน</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>

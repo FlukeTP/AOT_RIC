@@ -1,0 +1,22 @@
+<app-card [header]="'Modal'">
+  <button-custom (click)="onShowModal()" wording="Show modal"></button-custom>
+
+
+  <br>
+  <br>
+  <br>
+  <pre>
+      {{txtModal}}
+  </pre>
+</app-card>
+
+<!-- modal -->
+<app-modal [modalId]="'modalId'" [header]="'Modal'">
+  <div body>
+    content...
+  </div>
+  <div footer>
+    <button-save (click)="onCancel()"></button-save>
+    <button-cancel (click)="onCancel()"></button-cancel>
+  </div>
+</app-modal>

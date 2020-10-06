@@ -1,0 +1,78 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-md-6 text-left">
+      <!-- <button-back routerLink="/electricity/ele007"></button-back> -->
+      <button-back (click)="onPages()"></button-back>
+    </div>
+    <div class="col-md-6 text-right">
+      <button-save (click)="onValidate()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formDetail">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่มีผล <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="setDate($event)" #calendar1></input-calendar>
+      </div>
+      <div class="col-2 text-right ">
+        <p>จำนวนเฟส <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกจำนวนเฟส"
+          formControlName="phase" maxlength="4" numberOnly [ngClass]="{'is-invalid': validateControlSave('phase')}">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทบริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกประเภทบริการ"
+          formControlName="serviceType" maxlength="90" [ngClass]="{'is-invalid': validateControlSave('serviceType')}">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ขนาดการใช้ไฟฟ้า(แอมแปร์) <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกขนาดการใช้ไฟฟ้า(แอมแปร์)"
+          formControlName="rangeAmpere" maxlength="90" [ngClass]="{'is-invalid': validateControlSave('rangeAmpere')}">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>อัตราค่าภาระ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm text-right" placeholder=""
+          formControlName="chargeRates" numberOnly [dot]= "true" maxlength="12" [ngClass]="{'is-invalid': validateControlSave('chargeRates')}">
+      </div>
+      <div class="col-1 ">
+        <p> บาท </p>
+      </div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ : </p>
+      </div>
+
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark" maxlength="90"></textarea>
+      </div>
+    </div>
+  </form>
+
+</app-card>
+
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- successModal -->
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'">
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

@@ -1,0 +1,49 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button-add routerLink="/electricity/ele007detail"></button-add>
+            <button-downloadex (click)="getExcel()"></button-downloadex>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th style="text-align: center !important">วันที่มีผล</th>
+                  <th style="text-align: center !important">จำนวนเฟส</th>
+                  <th style="text-align: center !important">ประเภทบริการ</th>
+                  <th style="text-align: center !important">ขนาดการใช้ไฟฟ้า<br>(แอมแปร์)</th>
+                  <th style="text-align: center !important">อัตราค่าภาระ <br>(บาท)</th>
+                  <th style="text-align: center !important">วันที่ปรับปรุง</th>
+                  <th style="text-align: center !important">ปรับปรุงโดย</th>
+                  <th style="text-align: center !important">จัดการ</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</app-card>
+
+<!-- modalRemark -->
+
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <form>
+      <div class="row ">
+        <div class="col-md-12">
+          <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</modal-custom>

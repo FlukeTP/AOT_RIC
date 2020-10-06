@@ -1,0 +1,340 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formAddManageHeavyEquipment">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/heavyeqp/heavyeqp001"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button-save (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr />
+    <!-- <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>รหัสผู้รับบริการ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้รับบริการ" aria-label="รหัสผู้รับบริการ"
+          aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-info" type="button" id="button-addon2"><i class="fa fa-search"
+              aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 text-right ">
+      <p>ชื่อผู้รับบริการ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้รับบริการ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>เลขที่สัญญาของผู้รับบริการ : </p>
+    </div>
+    <div class="col-4">
+      <input class="form-control form-control-sm">
+    </div>
+    <div class="col-2 text-right ">
+    </div>
+    <div class="col-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          จ่ายโดยผู้รับบริการ
+        </label>
+      </div>
+    </div>
+  </div> -->
+    <div class="row mt-2">
+      <div class="col-6">
+        <!-- --------------topcal-------------------- -->
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>รหัสผู้ประกอบการ : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+                aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="custumerCode"
+                maxlength="90">
+              <div class="input-group-append">
+                <button class="btn btn-outline-info" type="button" id="button-addon2"
+                  (click)="openModalEntrepreneur(entrepreneurModal)"><i class="fa fa-search"
+                    aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ชื่อผู้ประกอบการ : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" formControlName="custumerName" maxlength="90"
+              readonly>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>สาขา : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" formControlName="custumerBranch" maxlength="190"
+              readonly>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>เลขที่สัญญา : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" formControlName="contractNo" list="contractNo"
+              placeholder="กรุณากรอกเลขที่สัญญา" maxlength="90">
+            <datalist id="contractNo">
+              <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ผู้ขอใช้บริการ : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" formControlName="entreprenuerServiceName"
+              maxlength="190">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>รวมเงินจากการใช้งาน : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-6">
+            <input class="form-control form-control-sm text-right" type="text" formControlName="allFees" (keyup)="sum()"
+              numberOnly [dot]="true">
+          </div>
+          <div class="col-2 ">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ภาษีมูลค่าเพิ่ม :</p>
+          </div>
+          <div class="col-6">
+            <input class="form-control form-control-sm text-right" formControlName="vat" readonly >
+          </div>
+          <div class="col-2 ">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ค่าปฎิบัติงานล่วงเวลาของพนักงาน ทอท. :</p>
+          </div>
+          <div class="col-6">
+            <input class="form-control form-control-sm text-right" type="text" formControlName="driverRates"
+              (keyup)="sum()" numberOnly [dot]="true">
+          </div>
+          <div class="col-2 ">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>จำนวนเงินรวม :</p>
+          </div>
+          <div class="col-6">
+            <input class="form-control form-control-sm text-right" formControlName="totalMoney" numberOnly [dot]="true">
+          </div>
+          <div class="col-2 ">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ประเภทการชำระเงิน : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <select class="form-control form-control-sm" formControlName="paymentType">
+              <option value="" hidden>กรุณาเลือกประเภทการชำระเงิน</option>
+              <option *ngFor="let item of paymentType" [value]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>รายละเอียด : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <textarea class="form-control form-control-sm" formControlName="remark"></textarea>
+          </div>
+        </div>
+
+        <!-- --------------topcal-------------------- -->
+      </div>
+      <div class="col-6">
+        <!-- --------------topcal-------------------- -->
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>รหัสเครื่องทุ่นแรง :</p>
+          </div>
+          <div class="col-8">
+            <select class="form-control form-control-sm" formControlName="equipmentCode"
+              (change)="onChangeType($event)">
+              <option value="" hidden>กรุณาเลือกเครื่องทุ่นแรง</option>
+              <option *ngFor="let item of eqplist" value="{{item.manageHeavyEquipmentId}}">{{item.equipmentNo.trim()}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>เครื่องทุ่นแรง :</p>
+          </div>
+          <div class="col-8">
+            <input class="form-control form-control-sm" formControlName="equipmentType">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>หมายเลข :</p>
+          </div>
+          <div class="col-8">
+            <input class="form-control form-control-sm" formControlName="numberLicensePlate">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ทะเบียนรถ :</p>
+          </div>
+          <div class="col-8">
+            <input class="form-control form-control-sm" formControlName="licensePlate">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ผู้รับผิดชอบ :</p>
+          </div>
+          <div class="col-8">
+            <input class="form-control form-control-sm" formControlName="responsiblePerson">
+          </div>
+        </div>
+
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>วันเวลาที่เริ่ม : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-4">
+            <input-calendar (changeDate)="setDate($event)"></input-calendar>
+          </div>
+          <div class="col-1">
+            <input class="form-control form-control-sm  text-center bs-timepicker-field" maxlength="2" placeholder="HH"
+              (keyup)="setTime()" formControlName="startTimeHH">
+          </div>
+          :
+          <div class="col-1 ">
+            <input class="form-control form-control-sm  text-center bs-timepicker-field" maxlength="2" placeholder="MM"
+              (keyup)="setTime()" formControlName="startTimeMM">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>วันเวลาที่สิ้นสุด : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-4">
+            <input-calendar (changeDate)="setDateEnd($event)"></input-calendar>
+          </div>
+          <div class="col-1">
+            <input class="form-control form-control-sm  text-center bs-timepicker-field" maxlength="2" placeholder="HH"
+              (keyup)="setTime()" formControlName="endDateHH">
+          </div>
+          :
+          <div class="col-1 ">
+            <input class="form-control form-control-sm  text-center bs-timepicker-field" maxlength="2" placeholder="MM"
+              (keyup)="setTime()" formControlName="endDateMM">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ระยะเวลาที่ใช้ :</p>
+          </div>
+          <div class="col-8">
+            <input class="form-control form-control-sm" formControlName="periodTime">
+          </div>
+        </div>
+
+        <!-- --------------topcal-------------------- -->
+      </div>
+    </div>
+  </form>
+</app-card>
+
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>
+
+<!-- customerModal -->
+<!-- entrepreneur Modal -->
+<ng-template #entrepreneurModal>
+  <div class="modal-header">
+    <p>เลือก ผู้ประกอบการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ , ชื่อผู้ประกอบการ , รหัสสาขา , ทีอยู่" formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCus()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">รหัสสาขา</th>
+          <th class="text-center">ทีอยู่</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>

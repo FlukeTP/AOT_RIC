@@ -1,0 +1,108 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formAddElectricity">
+    <div class="row ">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/electricity/ele002"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <!-- routerLink="/electricity/ele002" -->
+        <!-- <button-save  (click)="editFormAddElectricity()"></button-save> -->
+        <button-save  (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทมิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="meterType" >
+          <option value="" hidden>กรุณาเลือกประเภทมิเตอร์</option>
+          <option *ngFor="let item of meterType" [ngValue]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+      <div class="col-2 text-right ">
+        <p>Serial No.มิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก Serial No. มิเตอร์" formControlName="serialNo"  maxlength="90">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ชื่อมิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อมิเตอร์" formControlName="meterName"  maxlength="90">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ตัวคูณ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="number" class="form-control form-control-sm" placeholder="กรุณากรอกตัวคูณ" formControlName="multipleValue" >
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สถานที่ตั้งมิเตอร์ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสถานที่ตั้งมิเตอร์"
+          formControlName="meterLocation"  maxlength="90">
+      </div>
+      <div class="col-2 text-right ">
+        <p>Functional Location <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกFunctional Location"
+          formControlName="functionalLocation"  maxlength="90">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สถานะ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="meterStatus">
+          <option hidden value="">กรุณาเลือกสถานะ</option>
+          <option value="open">ใช้งาน</option>
+          <option value="close">ไม่ใช้งาน</option>
+        </select>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่ให้บริการ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอก เลขที่ให้บริการ/เลขที่สัญญา"
+          formControlName="serviceNumber"  maxlength="90">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สนามบิน <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="airport">
+          <option value="" hidden>กรุณาเลือกสนามบิน</option>
+          <option *ngFor="let item of airport" [value]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark"  maxlength="500"></textarea>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>

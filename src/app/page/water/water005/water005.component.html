@@ -1,0 +1,48 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button-excel wording="Export CSV"></button-excel>
+      <button-add routerLink="/water/water005detail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table *ngIf="showMainContent" id="datatable" class="table table-bordered table-striped table-sm"
+        style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>พนักงาน</th>
+            <th>หมายเลขบัตรประจำตัวประชาชน</th>
+            <th>ที่อยู่ใบแจ้งหนี้</th>
+            <th>ขนาดมิเตอร์</th>
+            <th>Serial No. มิเตอร์</th>
+            <th>ชื่อมิเตอร์</th>
+            <th>สถานที่ตั้งมิเตอร์</th>
+            <th>อัตราค่าภาระ</th>
+            <th>สถานะ</th>
+            <th>เลขที่ใบแจ้งหนี้</th>
+            <th>เลขที่ใบเสร็จ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>สมใจ รักสะอาด</td>
+            <td>1399900089737</td>
+            <td>11/12 บางรัก</td>
+            <td>ขนาดมิเตอร์ 1/2 นิ้ว</td>
+            <td>000124</td>
+            <td>D-001</td>
+            <td>ห้องควบคุม 1</td>
+            <td>5000 บาท</td>
+            <td>Active</td>
+            <td>250001</td>
+            <td>250001</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>

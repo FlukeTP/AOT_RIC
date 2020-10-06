@@ -1,0 +1,283 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form class="row">
+    <div class="col-sm-4 text-left">
+      <button-back (click)="onBack()"></button-back>
+    </div>
+    <form class="col-sm-8 text-right">
+      <form id="upload-form">
+        <div class="form-group row">
+          <div class="col-md-12 text-right">
+            <input id="file" type="file" name="file" (change)="onUpload($event)"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+            <button-save (click)="onCheckBeforeSave()"></button-save>
+          </div>
+        </div>
+      </form>
+    </form>
+  </form>
+
+  <hr>
+  <form [formGroup]="formGroupHeader">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" readonly formControlName="contractNo">
+      </div>
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" readonly formControlName="customerCode">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" readonly formControlName="customerName">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ไฟล์แนบ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" readonly formControlName="fileName">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ขายเริ่มต้น :</p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event, 'startSaleDate')" #startCalendar></input-calendar>
+        <!-- <input type="text" class="form-control form-control-sm" formControlName="startSaleDate"> -->
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่ขายสิ้นสุด : </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event, 'endSaleDate')" #endCalendar></input-calendar>
+        <!-- <input type="text" class="form-control form-control-sm" formControlName="endSaleDate"> -->
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row mt-2">
+    <div class="col-4">
+      <b>รายละเอียดสินค้า/บริการ</b>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4 text-right">
+      <button-add (click)="openModalCustom('PRODUCT', 'ADD')"></button-add>
+    </div>
+  </div>
+  <hr>
+  <div class="col-sm-12">
+    <div class="scrollX">
+      <table class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ประเภทสินค้า/บริการ</th>
+            <th class="text-center">ยอดขายรวมภาษี</th>
+            <th class="text-center">ยอดขายไม่รวมภาษี</th>
+            <th class="text-center">จำนวนใบเสร็จ</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="formArrayProduct.controls.length == 0">
+            <td colspan="5" class="text-center">ไม่มีข้อมูล</td>
+          </tr>
+          <tr *ngFor="let item of formArrayProduct.value; let i = index;">
+            <td class="text-left">{{item.productType}}</td>
+            <td class="text-right">{{item.includingVatSale}} บาท</td>
+            <td class="text-right">{{item.excludingVatSale}} บาท</td>
+            <td class="text-right">{{item.receiptNum}} ใบ</td>
+            <td class="text-center">
+              <button-edit (click)="editProduct(i, 'PRODUCT', 'EDIT')"></button-edit>
+              <button-delete (click)="removeProductConfirm(i)"></button-delete>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div class="row mt-2">
+    <div class="col-4">
+      <b>รายละเอียดการชำระเงิน</b>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4 text-right">
+      <button-add (click)="openModalCustom('PAYMENT', 'ADD')"></button-add>
+    </div>
+  </div>
+  <hr>
+  <div class="col-sm-12">
+    <div class="scrollX">
+      <table class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ประเภทการชำระเงิน</th>
+            <th class="text-center">สกุลเงิน</th>
+            <th class="text-center">อัตราแลกเปลี่ยน</th>
+            <th class="text-center">จำนวนเงิน</th>
+            <th class="text-center">จำนวนเงิน(บาท)</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="formArrayPayment.controls.length == 0">
+            <td colspan="6" class="text-center">ไม่มีข้อมูล</td>
+          </tr>
+          <tr *ngFor="let item of formArrayPayment.value; let i = index;">
+            <td class="text-left">{{item.paymentType}}</td>
+            <td class="text-left">{{item.currency}}</td>
+            <td class="text-right">{{item.exchangeRate}}</td>
+            <td class="text-right">{{item.amount}}</td>
+            <td class="text-right">{{item.amountBaht}} บาท</td>
+            <td class="text-center">
+              <button-edit (click)="editPayment(i, 'PAYMENT', 'EDIT')"></button-edit>
+              <button-delete (click)="removePaymentConfirm(i)"></button-delete>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()">
+</modal-confirm>
+<!-- saveModal -->
+<modal-confirm #removeProduct (onConfirm)="onRemoveProduct()">
+</modal-confirm>
+<!-- saveModal -->
+<modal-confirm #removePayment (onConfirm)="onRemovePayment()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>
+<!-- add detail product -->
+<ng-template #addProductModal>
+  <div class="modal-header">
+    <p>เพิ่มรายละเอียดสินค้า/บริการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formGroupProduct" style="padding: 10px">
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>ประเภทสินค้า/บริการ : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="productType">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>ยอดขายรวมภาษี : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="includingVatSale" numberOnly>
+        </div>
+        <div class="col-2">
+          <label>บาท</label>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>ยอดขายไม่รวมภาษี : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="excludingVatSale" numberOnly>
+        </div>
+        <div class="col-2">
+          <label>บาท</label>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>จำนวนใบเสร็จ : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="receiptNum" numberOnly>
+        </div>
+        <div class="col-2">
+          <label>ใบ</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button-confirm (click)="checkCaseEditProduct()"></button-confirm>
+  </div>
+</ng-template>
+<!-- add payment -->
+<ng-template #addPaymentModal>
+  <div class="modal-header">
+    <p>เพิ่มรายละเอียดการชำระเงิน</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formGroupPayment" style="padding: 10px">
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>ประเภทการชำระเงิน : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="paymentType">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>สกุลเงิน : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="currency">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>อัตราแลกเปลี่ยน : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="exchangeRate" numberOnly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>จำนวนเงิน : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="amount" numberOnly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-4 text-right ">
+          <p>จำนวนเงิน(บาท) : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="amountBaht" numberOnly>
+        </div>
+        <div class="col-2">
+          <label>บาท</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button-confirm (click)="checkCaseEditPayment()"></button-confirm>
+  </div>
+</ng-template>

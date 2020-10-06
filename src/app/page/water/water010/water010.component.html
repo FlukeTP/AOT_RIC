@@ -1,0 +1,21 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<ul class="nav nav-tabs">
+  <li class="nav-item ">
+    <a class="nav-link active" (click)="clickTap(1)"
+      [ngClass]="{'active': tabIdx == 1}">ปรับปรุงอัตราค่าภาระบริการน้ำประปา</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(2)"
+      [ngClass]="{'active': tabIdx == 2}">ปรับปรุงอัตราค่าภาระบำรุงรักษามิเตอร์</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div *ngIf="tabIdx == 1">
+    <app-water0101></app-water0101>
+  </div>
+  <div *ngIf="tabIdx == 2">
+    <app-water0102></app-water0102>
+  </div>
+</div>

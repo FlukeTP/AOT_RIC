@@ -1,0 +1,173 @@
+<pc-heaer [company]="companyDesc"
+          [contract]="contract"
+          [username]="user.username"
+          [fullname]="user.fullName">
+  </pc-heaer>
+<div class="d-flex flex-row">
+  <div class="col-md-auto" *ngIf="showmenu" style="max-width: 300px;">
+    <div class="card ">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item " (click)="toggleShow()">
+          <div class="row">
+            <div class="col-10 font-weight-normal text-primary">Upload Time</div>
+          </div>
+        </li>
+        <div class="p-1">
+          <select class="form-control form-control-sm " [(ngModel)]="reportingRule" (ngModelChange)="onChangeReportingRule($event)" >
+            <option  value="">Reporting rule ทั้งหมด</option>
+            <option  *ngFor="let item of reportingRuleList" value="{{item.value}}">{{item.label}}</option>
+          </select>
+          <input type="text" class="form-control form-control-sm " [(ngModel)]="searchDate" (ngModelChange)="onChangeSearch($event)" placeholder="ค้นหา"  />
+          <li class="list-group-item" *ngFor="let item of frequency">
+            <a (click)="clickReq(item)" class="list-time"><small>{{item.startDate | date:'dd/MM/yyyy'}} - {{item.endDate | date:'dd/MM/yyyy'}}</small> <i *ngIf="item.status == 'S'" class="fa fa-check text-success pull-right"></i></a>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <!-- <div class="card mt-2">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item ">
+          <div class="row">
+            <div class="col-10 font-weight-normal">CITIES</div>
+            <div class="col-2 text-right">
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </div>
+          </div>
+        </li>
+
+
+        <li class="list-group-item" style="padding-top: 1px; padding-bottom: 0px;">
+
+          <div class="row">
+            <div class="col-9" style="margin-top: 17px;"> <a style="color: #C05719">Seattle, Washington, USA (2)</a></div>
+            <div class="col-3 text-right " style="margin-top: 12px;">
+              <div class="custom-control form-control-lg custom-checkbox">
+                <input type="checkbox" class="custom-control-input" checked id="customCheck1">
+                <label class="custom-control-label" for="customCheck1"></label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item"><a >
+          
+            <div class="row">
+                <div class="col-9" style="margin-top: 17px;"> <a style="color: #C05719">Hyderabad, Telangana, IND (5)</a></div>
+                <div class="col-3 text-right " style="margin-top: 12px;">
+                  <div class="custom-control form-control-lg custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" checked id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1"></label>
+                  </div>
+                </div>
+              </div>
+        </a></li>
+        <li class="list-group-item"><a>
+          
+            <div class="row">
+                <div class="col-9" style="margin-top: 17px;"> <a style="color: #C05719">Berlin, Berlin, DEU (9)</a></div>
+                <div class="col-3 text-right " style="margin-top: 12px;">
+                  <div class="custom-control form-control-lg custom-checkbox">
+                    <input type="checkbox" class="custom-control-input"  checked id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1"></label>
+                  </div>
+                </div>
+              </div>
+        </a></li>
+      
+      </ul>
+    </div> -->
+
+    <div class="card mt-4">
+      <a class="btn btn-block btn-danger" routerLink="/login" ><i class="fa fa-sign-out"></i> ออกจากระบบ</a>
+    </div>
+
+  </div>
+  <div class="col-md-auto "   [ngClass]="showmenu ? 'home-content' : 'home-content-100' ">
+      
+    <div class="card" *ngIf="itemSelect">
+      <div class="card-header ">
+        <div class="row">
+        <div class="col text-left" >
+            <h5>{{itemSelect.saleTypeName}} ( {{itemSelect.saleType}} )</h5>
+            <p style="color: #474D4F">ช่วงเวลา {{itemSelect.startDate | date:'dd/MM/yyyy' }} - {{itemSelect.endDate | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="col text-right" >
+          <button type="button" class="btn btn-outline-primary btn-sm " (click)="menuShow()">
+            <i class="fa " [ngClass]="showmenu ? 'fa-expand' : 'fa-compress' "></i>
+          </button>
+        </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngIf="frequency.status != 'S'">
+          <div class="col text-left" *ngIf="AUT_BUTTON.UPLOAD">
+            <input type="file" #inpFileUpload (change)="onFileChange($event.target.files)" accept=".xlsx , .xls" class="form-control form-control-sm " />
+          </div>
+          <div class="col text-left" *ngIf="AUT_BUTTON.UPLOAD">
+              <button-excel (click)="uploadExcel()"></button-excel>
+            </div>
+          <div class="col text-right" *ngIf="AUT_BUTTON.DOWNLOAD">
+            <button-custom [color]="'success'" [wording]="'ดาวน์โหลดข้อมูลปัจจุบัน'" [icon]="'fa fa-file-excel-o'" (click)="downloadExcel()"></button-custom>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col overflow-auto">
+            
+            <table  datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-sm " style="width:100%">
+                <thead class="text-center">
+                    <tr>
+                      <th>Sale Document Number</th>
+                      <th>Sale Date</th>
+                      <th>POS Terminal Number</th>
+                      <th>Document date and time</th>
+                      <th>Sale Type</th>
+                      <th>Void date and time</th>
+                      <th>Void reason</th>
+                      <th>Sequence</th>
+                      <th>Product Code</th>
+                      <th>Product Description</th>
+                      <th>RE Sales Type</th>
+                      <th>VAT Type</th>
+                      <th>VAT Rate (%)</th>
+                      <th>Sale Quantity</th>
+                      <th>Unit Code (Stock Unit)</th>
+                      <th>Price per unit (Stock Unit)</th>
+                      <th>Discount</th>
+                      <th>VAT Amount</th>
+                      <th>Amount Exclude VAT</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of tableList">
+                    <tr >
+                      <td>{{item.saleNo}}</td>
+                      <td>{{item.saleDate}}</td>
+                      <td>{{item.posNo}}</td>
+                      <td>{{item.docDate}}</td>
+                      <td>{{item.saleType}}</td>
+                      <td>{{item.voidDate}}</td>
+                      <td>{{item.voidReason}}</td>
+                      <td>{{item.dtlSeq}}</td>
+                      <td>{{item.dtlProductCode}}</td>
+                      <td>{{item.dtlProductName}}</td>
+                      <td>{{item.dtlReSalesType}}</td>
+                      <td>{{item.dtlVatType}}</td>
+                      <td>{{item.dtlVatRate}}</td>
+                      <td>{{item.dtlProductQty}}</td>
+                      <td>{{item.dtlUnitCode}}</td>
+                      <td>{{item.dtlUnitPrice}}</td>
+                      <td>{{item.dtlDiscountAmt}}</td>
+                      <td>{{item.dtlVatAmt}}</td>
+                      <td>{{item.dtlAmtExcVat}}</td>
+                    </tr>
+                  </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'"></modal-success>
+<modal-error #errorModal></modal-error>

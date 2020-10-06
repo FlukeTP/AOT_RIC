@@ -1,0 +1,128 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/user/user"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save *ngIf="!buttomedit" (click)="edit()"></button-save>
+      <button-save *ngIf="buttomedit" (click)="modalSave.openModal()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formAddUser">
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ชื่อ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm " placeholder="ชื่อ" formControlName="name"
+          [ngClass]="{'is-invalid': validateControlSave2('name')}">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>นามสกุล <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm " placeholder="นามสกุล" formControlName="surname"
+          [ngClass]="{'is-invalid': validateControlSave2('surname')}">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>ท่าอากาศยาน <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="airportCode" (change)="setAirport($event)">
+          <option value="" hidden>กรุณาเลือกสนามบิน</option>
+          <option *ngFor="let item of airport; let i=index" [value]="item.lovCode">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>email <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="email" class="form-control form-control-sm info " placeholder="Email" formControlName="email"
+          (change)="onChange($event)" email="true" [ngClass]="{'is-invalid': validateControlSave2('email')}">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>Username <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm " placeholder="UserName" formControlName="userName"
+          [ngClass]="{'is-invalid': validateControlSave2('userName')}">
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="buttomedit">
+      <div class="col-4 text-right ">
+        <p>Password <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="password" formControlName="password" class="form-control form-control-sm " placeholder="Password">
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="buttomedit">
+      <div class="col-4 text-right ">
+        <p>Confirm Password <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="password" formControlName="confirmPass" class="form-control form-control-sm " placeholder="ConfirmPassword">
+      </div>
+    </div>
+  </form>
+
+</app-card>
+<hr>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>
+                  <!-- <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="all">
+                    <label class="custom-control-label" for="all"></label>
+                  </div> -->
+                </th>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Date Created</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of roleList; let i=index">
+                <th>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customControlInline{{i}}"
+                      (change)="checkboxUser(item,$event)" [checked]="checkdVal(item)" >
+                    <label class="custom-control-label" for="customControlInline{{i}}"></label>
+                  </div>
+                </th>
+                <td style="text-align: center">{{item.roleCode}}</td>
+                <td>{{item.roleCategory}}</td>
+                <td>{{item.roleDesc}}</td>
+                <td style="text-align: center">{{item.createDate}}</td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>
+
+<modal-confirm #saveModal (onConfirm)="saveUser()">
+</modal-confirm>
+
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

@@ -1,0 +1,56 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/heavyeqp/heavyeqp003"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save routerLink="/heavyeqp/heavyeqp003"></button-save>
+      <button-cancel routerLink="/heavyeqp/heavyeqp003"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>วันที่มีผล : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+        <input-calendar></input-calendar>
+    </div>
+    <div class="col-2 text-right ">
+      <p>ประเภทเครื่องทุ่นแรง : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>กรุณาเลือกประเภทเครื่องทุ่นแรง</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-2 text-right ">
+      <p>อัตราค่าภาระ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกอัตราค่าภาระ">
+    </div>
+    <div class="col-2 text-right ">
+      <p>หน่วยอัตราค่าภาระ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-4">
+        <select class="form-control form-control-sm">
+            <option>กรุณาเลือกหน่วยอัตราค่าภาระ</option>
+          </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+
+    <div class="col-2 text-right ">
+      <p>หมายเหตุ : <span class="text-danger">*</span></p>
+    </div>
+    <div class="col-10">
+      <textarea class="form-control form-control-sm"></textarea>
+    </div>
+  </div>
+
+</app-card>

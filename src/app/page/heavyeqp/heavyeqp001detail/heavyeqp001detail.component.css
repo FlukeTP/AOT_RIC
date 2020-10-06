@@ -1,0 +1,20 @@
+label {
+    display: inline-block;
+    width: 36px;
+    margin: 8px;
+    text-align: right;
+  }
+  
+  dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-gap: 8px;
+  }
+  
+  dt {
+    grid-column-start: 1;
+  }
+  
+  dd {
+    grid-column-start: 2;
+  }

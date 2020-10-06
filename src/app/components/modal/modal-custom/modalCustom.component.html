@@ -1,0 +1,15 @@
+<ng-template #modalCustom>
+  <div class="modal-header">
+    <p>{{header}}</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onClick('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-content select="[body]"></ng-content>
+  </div>
+  <div class="modal-footer text-right">
+    <ng-content select="[footer]"></ng-content>
+    <button-close (click)="onClick('close')"></button-close>
+  </div>
+</ng-template>

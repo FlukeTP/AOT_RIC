@@ -1,0 +1,42 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<ul class="nav nav-tabs">
+  <li class="nav-item ">
+    <a class="nav-link active" (click)="clickTap(1)"
+      [ngClass]="{'active': tabIdx == 1}">ปรับปรุงอัตราค่าภาระการใช้บริการเครือข่าย</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(2)" [ngClass]="{'active': tabIdx == 2}">ปรับปรุงอัตราค่าภาระการใช้บริการ IT
+      อื่นๆ</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(3)"
+      [ngClass]="{'active': tabIdx == 3}">ปรับปรุงอัตราค่าภาระการใช้บริการห้องฝึกอบรม CUTE</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(4)" [ngClass]="{'active': tabIdx == 4}">ปรับปรุงอัตราค่าภาระการใช้บริการ
+      DEDICATED CUTE</a>
+  </li>
+  <!-- <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(5)"
+      [ngClass]="{'active': tabIdx == 5}">ปรับปรุงอัตราค่าภาระการใช้บริการ STAFF PAGE และ PUBLIC PAGE</a>
+  </li> -->
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div *ngIf="tabIdx == 1">
+    <app-it0101></app-it0101>
+  </div>
+  <div *ngIf="tabIdx == 2">
+    <app-it0102></app-it0102>
+  </div>
+  <div *ngIf="tabIdx == 3">
+    <app-it0103></app-it0103>
+  </div>
+  <div *ngIf="tabIdx == 4">
+    <app-it0104></app-it0104>
+  </div>
+  <!-- <div *ngIf="tabIdx == 5">
+    <app-it0105></app-it0105>
+  </div> -->
+</div>

@@ -1,0 +1,139 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card isButton="false">
+  <form [formGroup]="formSearch">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ/พนักงาน : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="รหัสผู้ประกอบการ"
+          formControlName="customerCode" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ/พนักงาน : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="ชื่อผู้ประกอบการ/พนักงาน"
+          formControlName="customerName" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา" formControlName="contracNo" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>สถานะ :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="requestStatus">
+          <option value="" selected>ทั้งหมด</option>
+          <option value="Y">ใช้งาน</option>
+          <option value="N">ไม่ใช้งาน</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>พื้นที่เช่า (rental object) : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="พื้นที่เช่า (rental object)"
+          formControlName="rentalAreaName" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>สถานที่ให้บริการ :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="สถานที่ให้บริการ"
+          formControlName="installPositionService" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทผู้ใช้ : </p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="customerType">
+          <option value="" selected>ทั้งหมด</option>
+          <option value="C">ผู้ประกอบการ</option>
+          <option value="E">พนักงาน</option>
+        </select>
+      </div>
+
+      <div class="col-2 text-right ">
+        <p>ประเภทที่ขอใช้ :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="requestType">
+          <option value="" selected>ทั้งหมด</option>
+          <option *ngFor="let item of requestTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 text-right ">
+        <button-search (click)="getFindList()"></button-search>
+      </div>
+    </div>
+
+  </form>
+  <br>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <!-- <button-excel wording="Export CSV"></button-excel> -->
+      <button-add routerLink="/water/water003detail"></button-add>
+      <button-downloadex (click)="getExcel()"></button-downloadex>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="scrollX">
+        <table id="dataTable" class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th rowspan="2" class="text-center">วันที่ขอใช้</th>
+              <th rowspan="2" class="text-center">วันที่สิ้นสุด</th>
+              <th rowspan="2" class="text-center">รหัสผู้ประกอบการ/พนักงาน</th>
+              <th rowspan="2" class="text-center">ผู้ประกอบการ/พนักงาน</th>
+              <th rowspan="2" class="text-center">เลขที่สัญญา</th>
+              <th rowspan="2" class="text-center">Serial No. มิเตอร์</th>
+              <th rowspan="2" class="text-center">พื้นที่เช่า (rental object)</th>
+              <th rowspan="2" class="text-center">สถานที่ให้บริการ</th>
+              <th rowspan="2" class="text-center">อัตราค่าภาระ</th>
+              <!-- <th rowspan="2" class="text-center">สถานะ</th> -->
+              <td colspan="3" class="text-center">ค่าติดตั้ง</td>
+              <td colspan="3" class="text-center">เงินประกัน</td>
+              <td colspan="3" class="text-center">เหมาจ่าย</td>
+              <th rowspan="2" class="text-center" style="border-left: 1px solid #dee2e6;">จัดการ</th>
+            </tr>
+            <tr>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center">สถานะ</th>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center">สถานะ</th>
+              <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+              <th class="text-center">เลขที่ใบเสร็จ</th>
+              <th class="text-center">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+
+<modal-error #errorModal></modal-error>
+<modal-alert #alertModal></modal-alert>
+<app-modal #normalModal></app-modal>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>

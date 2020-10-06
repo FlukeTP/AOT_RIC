@@ -1,0 +1,94 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card isButton="false">
+  <form [formGroup]="formSearch">
+    <div class="row mt-2">
+      <div class="col-2 text-right">
+        <p>ค้นหา : </p>
+      </div>
+      <div class="col-6">
+        <input type="text" class="form-control form-control-sm"
+          placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+          formControlName="criteria">
+      </div>
+    </div>
+  </form>
+  <div class="row mt-3">
+    <div class="col-12 text-right">
+      <button-search (click)='search()'></button-search>
+    </div>
+  </div>
+  <p>ผลลัพธ์ของการค้นหาผู้ประกอบการ</p>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="scrollX">
+        <table id="datatable" class="table nowrap table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th class="text-center">รหัสผู้ประกอบการ</th>
+              <th class="text-center">ชื่อผู้ประกอบการ</th>
+              <th class="text-center">สาขา</th>
+              <th class="text-center">ที่อยู่</th>
+              <th class="text-center">รายละเอียด</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+
+<ng-template #modalDetail>
+  <div class="modal-header">
+    <p>รายละเอียด </p>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formDetail">
+      <div class="row">
+        <div class="col-3 text-right ">
+          <p>รหัสผู้ประกอบการ : </p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" formControlName="customerCode" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 text-right ">
+          <p>ชื่อผู้ประกอบการ : </p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" formControlName="customerName" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 text-right ">
+          <p>สาขา : </p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" formControlName="adrKind" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 text-right ">
+          <p>ที่อยู่ : </p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm" formControlName="address" readonly>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <!-- {{contractNoList|json}} -->
+        <table id="datatableContract" class="table nowrap table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th class="text-center">เลขที่สัญญา</th>
+              <th class="text-center">พื้นที่เช่า</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>

@@ -1,0 +1,48 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-3">
+        <input-calendar></input-calendar>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-7 text-right">
+      <button-excel></button-excel>
+      <button-add routerLink="/water/water006detail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table *ngIf="showMainContent" id="datatable" class="table table-bordered table-striped table-sm"
+        style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ผู้ประกอบการ/พนักงาน</th>
+            <th>ประเภทที่ขอใช้</th>
+            <th>อัตราค่าภาระ</th>
+            <th>ที่อยู่ใบแจ้งหนี้</th>
+            <th>วันที่ขอใช้</th>
+            <th>วันที่สิ้นสุด</th>
+            <th>หมายเหตุ</th>
+            <th>เลขที่ใบแจ้งหนี้</th>
+            <th>เลขที่ใบเสร็จ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Seven-Eleven</td>
+          <td>ค่าบำบัดน้ำเสีย</td>
+          <td>6 บาท</td>
+          <td>sabsa</td>
+          <td>03-04-2020</td>
+          <td>05-06-2020</td>
+          <td>asdasd</td>
+          <td>25000001</td>
+          <td>25600001</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>

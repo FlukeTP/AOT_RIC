@@ -1,0 +1,59 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<app-card isButton="false">
+
+
+
+  <div class="row mt-2">
+    <div class="col-2 text-right">
+      <p>Rental Object : </p>
+    </div>
+    <div class="col-4">
+        <select class="form-control form-control-sm"> 
+            <option >TH-BKK-AOB-05-01</option>
+          </select>
+    </div>
+    <div class="col-2 text-right">
+      <p>ผู้ประกอบการ : </p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option >Atos</option>
+      </select>
+    </div>
+  </div>
+
+  <p>ผลลัพธ์ของการค้นหาผู้ประกอบการ</p>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ผู้ประกอบการ</th>
+            <th>ประเภทบริการ</th>
+            <th>หมวด</th>
+            <th> สถานที่ติดตั้ง</th>
+            <th> Rental Object</th>
+            <th> เลขที่สัญญา</th>
+            <th> เลขที่ใบแจ้งหนี้/ใบเสร็จ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Atos</td>
+            <td>ถาวร</td>
+            <td>
+              ไฟฟ้า</td>
+            <td>
+              ตึก AOB</td>
+            <td>TH-BKK-AOB-05-01</td>
+            <td>102589</td>
+            <td align="center">
+              <button-icon color="info"><i class="fa fa-search" aria-hidden="true"></i></button-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>

@@ -1,0 +1,180 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/water/water006"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save routerLink="/water/water001"></button-save>
+      <button-cancel routerLink="/water/water001"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>รหัสผู้ประกอบการ/พนักงาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-3">
+      <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ">
+    </div>
+    <div class="col-1">
+      <button-icon color="info"><i class="fa fa-search" aria-hidden="true"></i></button-icon>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ชื่อผู้ประกอบการ/พนักงาน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>เลขที่สัญญา :</p>
+    </div>
+    <div class="col-4">
+      <input type="text" class="form-control form-control-sm" readonly>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่เริ่มใช้งาน :</p>
+    </div>
+    <div class="col-4">
+        <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วันที่สิ้นสุดการใช้บริการ :</p>
+    </div>
+    <div class="col-4">
+        <input-calendar></input-calendar>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>ที่อยู่ใบแจ้งหนี้ :</p>
+    </div>
+    <div class="col-4">
+      <textarea type="text" class="form-control form-control-sm" placeholder="ที่อยู่ใบแจ้งหนี้"></textarea>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>วิธีการชำระเงิน <span class="text-danger">*</span> :</p>
+    </div>
+    <div class="col-4">
+      <select class="form-control form-control-sm">
+        <option>Option 1</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-3 text-right ">
+      <p>หมายเหตุ :</p>
+    </div>
+    <div class="col-4">
+      <textarea type="text" class="form-control form-control-sm" placeholder="หมายเหตุ"></textarea>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>รายละเอียด</p>
+          <div class="form-group text-right">
+            <button-add (click)="ShowModae()" ></button-add>
+  
+          </div>
+          <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>ประเภทบริการ</th>
+                <th>อัตราค่าภาระ</th>
+                <th>ค่าภาษี</th>
+                <th>จำนวนเงินสุทธิ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" class="text-center">ไม่มีข้อมูล</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="text-right">
+                  คำนวณรวมอัตราค่าภาระ</td>
+                <td class="text-right">บาท</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+</app-card>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">ประเภท:</label>
+              <select class="form-control form-control-sm">
+                <option>กรุณาเลือกเฟส</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col-3 text-right ">
+                <p>อัตราค่าภาระ: </p>
+              </div>
+              <div class="col-7">
+                <input type="text" class="form-control form-control-sm">
+              </div>
+              <div class="col-2 text-left">
+                <p>บาท </p>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-3 text-right ">
+                <p>ภาษีมูลค่าเพิ่ม: </p>
+              </div>
+              <div class="col-7">
+                <input type="text" class="form-control form-control-sm">
+              </div>
+              <div class="col-2 text-left">
+                <p>บาท </p>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-3 text-right ">
+                <p>จำนวนเงินรวม: </p>
+              </div>
+              <div class="col-7">
+                <input type="text" class="form-control form-control-sm">
+              </div>
+              <div class="col-2 text-left">
+                <p>บาท </p>
+              </div>
+            </div>
+          </form>
+  
+        </div>
+        <div class="modal-footer">
+          <button-save data-dismiss="modal" (click)="HideModal()"></button-save>
+          <button-cancel (click)="HideModal()"></button-cancel>
+        </div>
+      </div>
+    </div>
+  </div>

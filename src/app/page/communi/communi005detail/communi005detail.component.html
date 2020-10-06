@@ -1,0 +1,121 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back (click)="backPage()"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidate()"></button-save>
+    </div>
+  </div>
+  <hr>
+
+  <form [formGroup]="formSave">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" aria-label="รหัสผู้ประกอบการ"
+          aria-describedby="button-addon2" formControlName="entreprenuerCode" readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="entreprenuerName" maxlength="90"
+          readonly>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : </p>
+      </div>
+      <div class="col-4">
+        <input formControlName="contractNo" class="form-control form-control-sm" readonly />
+      </div>
+      <div class="col-2 text-right ">
+        <p>พื้นที่เช่า : </p>
+      </div>
+      <div class="col-4">
+        <input formControlName="rentalAreaName" type="text" class="form-control form-control-sm" readonly>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รวมเงินประกัน : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm" formControlName="amountLg" numberOnly [dot]="true">
+      </div>
+      <div class="col-1">
+        <p>บาท</p>
+      </div>
+      <div class="col-2 text-right ">
+        <p>รวมค่าบริการรายเดือน : </p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm" formControlName="amountMonth" readonly>
+      </div>
+      <div class="col-1">
+        <p>บาท</p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ขอใช้บริการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="requestDateStr" readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดขอใช้บริการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="endDateStr" readonly>
+        <!-- <input-calendar (changeDate)="setDate($event, 'endDateStr')"></input-calendar> -->
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่ยกเลิกใช้บริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input [hidden]="flag !== 'R'" type="text" class="form-control form-control-sm" formControlName="cancelDateStr">
+        <input-calendar [hidden]="flag === 'R'" (changeDate)="setDate($event, 'cancelDateStr')"></input-calendar>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ :</p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark" maxlength="90"></textarea>
+      </div>
+    </div>
+  </form>
+
+  <hr>
+</app-card>
+
+<!-- modalRemark -->
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <div class="row">
+      <div class="col-sm-12">
+        <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+      </div>
+    </div>
+  </div>
+</modal-custom>
+
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

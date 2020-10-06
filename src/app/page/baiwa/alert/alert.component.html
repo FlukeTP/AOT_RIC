@@ -1,0 +1,37 @@
+<app-card header="Alert">
+  <div class="row">
+    <div class="col-sm-12">
+      <button-custom color="success" (click)="onAlertSuccess()" wording="Alert success"></button-custom>
+      <button-custom color="danger" (click)="onAlertDanger()" wording="Alert dagner"></button-custom>
+      <button-custom color="warning" (click)="onAlertWarning()" wording="Alert warning"></button-custom>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- alert success -->
+      <div class="alert alert-success alert-dismissible fade show" id="alert-success">
+        <a class="close">×</a>
+        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+      </div>
+      <!-- alert danger -->
+      <div class="alert alert-danger alert-dismissible fade show" id="alert-danger">
+        <a class="close">×</a>
+        <strong>Danger!</strong> fail process.
+      </div>
+      <!-- alert warning -->
+      <div class="alert alert-warning alert-dismissible fade show" id="alert-warning">
+        <a class="close" o>×</a>
+        <strong>Warning!</strong> Warning process.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <pre>{{txtAlert}}</pre>
+    </div>
+  </div>
+</app-card>

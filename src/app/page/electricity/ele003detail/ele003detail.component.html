@@ -1,0 +1,791 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+
+  <div class="row">
+    <div class="col-sm-2 text-left">
+      <button-back routerLink="/electricity/ele003"></button-back>
+    </div>
+    <div class="col-sm-4" *ngIf="!isUploadFile">
+      <div class="tabbable-line">
+        <ul class="nav nav-tabs ">
+          <li [ngClass]="{'active': typeCustomer == 0, '': typeCustomer == 1}">
+            <button class="btn" (click)="typeCustomer = 0"><i class="fa fa-users blue-color"
+                aria-hidden="true"></i><span class="blue-color">ผู้ประกอบการ</span></button>
+          </li>
+          <li [ngClass]="{'active': typeCustomer == 1, '': typeCustomer == 0}">
+            <button class="btn" (click)="typeCustomer = 1"><i class="fa fa-address-card blue-color"
+                aria-hidden="true"></i><span class="blue-color">พนักงาน</span></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-6 text-right" *ngIf="!isUploadFile">
+      <button-save (click)="validateCheck()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <ng-container *ngIf="typeCustomer == 0">
+    <form [formGroup]="formSave">
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>รหัสผู้ประกอบการ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+              aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode"
+              [readonly]='isUploadFile'>
+            <div class="input-group-append" *ngIf="!isUploadFile">
+              <button class="btn btn-outline-info" type="button" id="button-addon2"
+                (click)="openModalCustom2(customModal2)"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 text-right">
+          <p>ชื่อผู้ประกอบการ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+            formControlName="customerName" readonly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>สาขา <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" formControlName="customerBranch" readonly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>เลขที่สัญญา <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <input formControlName="contractNo" list="contractNo" class="form-control form-control-sm"
+            [readonly]='isUploadFile' (change)="getRentalAreaList($event.target.value)">
+          <datalist id="contractNo">
+            <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+          </datalist>
+        </div>
+
+        <ng-container *ngIf="formSave.value.requestType === requestType[0] ">
+          <div class="col-md-2 text-right ">
+            <p>ที่อยู่จัดส่งเอกสาร <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <textarea class="form-control form-control-sm" formControlName="addressDocument" maxlength="190"
+              [readonly]="isUploadFile || formSave.value.requestType !== requestType[0]"></textarea>
+          </div>
+        </ng-container>
+
+
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right">
+          <p>ประเภทที่ขอใช้ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" formControlName="requestType" *ngIf="isUploadFile"
+            readonly>
+          <select class="form-control form-control-sm" formControlName="requestType" *ngIf="!isUploadFile"
+            (change)='requestTypeCk($event)'>
+            <option value="" selected disabled>กรุณาเลือกประเภทที่ขอใช้</option>
+            <option *ngFor="let item of requestTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+          </select>
+        </div>
+        <div class="col-md-2 text-right " *ngIf="formSave.value.requestType !== requestType[0]">
+          <p>เจ้าของมิเตอร์ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4" *ngIf="formSave.value.requestType !== requestType[0]">
+          <input type="text" class="form-control form-control-sm" formControlName="applyType" *ngIf="isUploadFile"
+            readonly>
+          <select class="form-control form-control-sm" formControlName="applyType" *ngIf="!isUploadFile"
+            (change)="addTypeMeter($event)">
+            <option value="" selected disabled>กรุณาเลือกเจ้าของมิเตอร์</option>
+            <option *ngFor="let item of applyTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+          </select>
+        </div>
+      </div>
+
+      <ng-container *ngIf="formSave.value.requestType !== requestType[0]">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ประเภทค่าไฟฟ้า <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="voltageType" *ngIf="isUploadFile"
+              readonly>
+            <select class="form-control form-control-sm" formControlName="voltageType" *ngIf="!isUploadFile">
+              <option value="" selected disabled>กรุณาเลือกประเภทค่าไฟ</option>
+              <option *ngFor="let item of electricCalTypeList" [value]="item.lovCode">{{item.descTh1}}</option>
+            </select>
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>ประเภทอัตราไฟฟ้า <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="electricRateType"
+              *ngIf="isUploadFile" readonly>
+            <select class="form-control form-control-sm" formControlName="electricRateType" *ngIf="!isUploadFile">
+              <option value="" selected disabled>กรุณาเลือกประเภทอัตราไฟฟ้า</option>
+              <option *ngFor="let item of electricRateTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf="formSave.value.requestType !== requestType[0]">
+          <div class="col-md-2 text-right ">
+            <p>แรงดันไฟฟ้า <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control form-control-sm" formControlName="electricVoltageType"
+                *ngIf="isUploadFile" readonly>
+              <select class="form-control form-control-sm" formControlName="electricVoltageType" *ngIf="!isUploadFile">
+                <option value="" selected disabled>กรุณาเลือกแรงดันไฟฟ้า</option>
+                <option *ngFor="let item of electricVoltageTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>Serial No. มิเตอร์ <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control form-control-sm"
+                [placeholder]="formSave.value.applyType === applyType[0]?'กรุณากรอก Serial No. มิเตอร์':'ค้นหาSerial No. มิเตอร์'"
+                aria-label="Serial No. มิเตอร์" aria-describedby="button-addon2" formControlName="meterSerialNo"
+                [readonly]='isUploadFile'>
+              <div class="input-group-append" *ngIf="!isUploadFile && formSave.value.applyType !== applyType[0]">
+                <button class="btn btn-outline-info" type="button" id="button-addon2"
+                  (click)="openModalCustom(customModal)"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>เลขที่มิเตอร์เริ่มต้น <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control form-control-sm" formControlName="defaultMeterNo"
+              [readonly]="isUploadFile">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>ชื่อมิเตอร์ : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="meterName" maxlength="90"
+              [readonly]="isUploadFile || formSave.value.applyType !== applyType[0]">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ประเภทมิเตอร์ : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="meterType" readonly>
+          </div>
+
+          <div class="col-md-2 text-right ">
+            <p>สถานที่ตั้งมิเตอร์ : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" placeholder="" maxlength="90"
+              formControlName="installPosition" [readonly]="isUploadFile || formSave.value.applyType !== applyType[0]">
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="formSave.value.requestType === requestType[0]">
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>ประเภทเหมาจ่าย <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="adhocType" *ngIf="isUploadFile"
+              readonly>
+            <select class="form-control form-control-sm" formControlName="adhocType" *ngIf="!isUploadFile"
+              (change)="adhocTypeCk($event)">
+              <option value="" selected disabled>กรุณาเลือกประเภทเหมาจ่าย</option>
+              <option *ngFor="let item of adhocTypeList" [value]="item.lovCode"> {{item.descTh1}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2 text-right ">
+            <p>จำนวนหน่วย <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control form-control-sm"
+              placeholder="กรุณาเลือกประเภทค่าไฟฟ้าและกรอกจำนวนหน่วย" formControlName="adhocUnit"
+              (change)="setUnitOrMoney('fromUnit',$event.target.value)"
+              [readonly]="isUploadFile || (formSave.value.adhocType !== adhocType[0]) " id="adhocUnit">
+          </div>
+          <div class="col-md-2 text-right ">
+            <p>จำนวนเงิน <span class="text-danger">*</span> :</p>
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control form-control-sm"
+              placeholder="กรุณาเลือกประเภทค่าไฟฟ้าและกรอกจำนวนเงิน" formControlName="adhocChargeRate"
+              [readonly]="isUploadFile || (formSave.value.adhocType !== adhocType[1])" id="adhocChargeRate">
+          </div>
+
+          <!-- (change)="setUnitOrMoney('fromMoney',$event.target.value)" -->
+        </div>
+      </ng-container>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>สถานที่ให้บริการ :</p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" placeholder="" maxlength="90"
+            formControlName="installPositionService" [readonly]='isUploadFile'>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>พื้นที่เช่า (rental object) : </p>
+        </div>
+        <div class="col-md-4">
+          <!-- <input type="text" class="form-control form-control-sm" formControlName="rentalAreaName" readonly> -->
+          <input class="form-control form-control-sm" formControlName="rentalAreaName" type="text" list="rentalAreaName"
+            placeholder="พื้นที่เช่า (rental object)" (change)="roChange($event.target.value)">
+          <datalist id="rentalAreaName">
+            <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+          </datalist>
+        </div>
+
+        <ng-container *ngIf="formSave.value.requestType !== 'ขอใช้เหมาจ่าย'">
+          <div class="col-md-2 text-right ">
+            <p>วิธีชำระเงินประกัน <span class="text-danger">*</span> : </p>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" formControlName="paymentType" *ngIf="isUploadFile"
+              readonly>
+            <select class="form-control form-control-sm" (change)="setDataBank($event)" formControlName="paymentType"
+              *ngIf="!isUploadFile">
+              <option value="" selected disabled>กรุณาเลือกวิธีการชำระเงิน</option>
+              <option *ngFor="let item of paymentTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+            </select>
+          </div>
+        </ng-container>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>วันที่เริ่มใช้บริการ :<span class="text-danger">*</span> </p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" formControlName="requestStartDate"
+            *ngIf="isUploadFile" readonly>
+          <input-calendar (changeDate)="setDate('requestStartDate', $event)" *ngIf="!isUploadFile"></input-calendar>
+        </div>
+        <div class="col-md-2 text-right ">
+          <p>วันที่สิ้นสุดการใช้บริการ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" formControlName="requestEndDate" *ngIf="isUploadFile"
+            readonly>
+          <input-calendar (changeDate)="setDate('requestEndDate', $event)" *ngIf="!isUploadFile" #calendarEnd>
+          </input-calendar>
+        </div>
+      </div>
+      <ng-container *ngIf="formSave.value.paymentType === paymentType[1]">
+        <div class="mt-3 mb-3 " style="border: 3px solid #dee2e6;">
+          <div class="row mt-2">
+            <div class="col-md-2 text-right ">
+              <p>ชื่อธนาคาร <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="bankName"
+                placeholder="กรุณากรอกชื่อธนาคาร" [readonly]='isUploadFile'>
+            </div>
+            <div class="col-md-2 text-right ">
+              <p>สาขา <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกชื่อสาขา"
+                formControlName="bankBranch" [readonly]='isUploadFile'>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-2 text-right ">
+              <p>คำอธิบาย <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" maxlength="90" placeholder="กรุณากรอกคำอธิบาย"
+                formControlName="bankExplanation" [readonly]='isUploadFile'>
+            </div>
+            <div class="col-md-2 text-right ">
+              <p>Bank guarantee<span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" maxlength="50"
+                placeholder="กรุณากรอก Bank guarantee" formControlName="bankGuaranteeNo" [readonly]='isUploadFile'>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-2 text-right ">
+              <p>วันหมดอายุ <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" formControlName="bankExpNo" *ngIf="isUploadFile"
+                readonly>
+              <input-calendar (changeDate)="setDate('bankExpNo', $event)" *ngIf="!isUploadFile"></input-calendar>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+
+
+      <div class="row mt-2">
+        <div class="col-md-2 text-right" style=" padding-right: 0px; padding-left: 0px; ">
+          <div class="col-12">
+            <p style=" margin-bottom: 0px; ">หมายเหตุ <span class="text-danger"
+                *ngIf="formSave.value.paymentType !== paymentType[1]">*</span> :</p>
+          </div>
+          <div class=" col-12" *ngIf="formSave.value.paymentType === paymentType[0]">
+            <p style=" margin-bottom: 0px; ">(จะปรากฏอยู่ในใบแจ้งหนี้)</p>
+          </div>
+        </div>
+
+        <div class=" col-md-10">
+          <textarea class="form-control form-control-sm" formControlName="remark" maxlength="50"
+            [readonly]="isUploadFile || formSave.value.paymentType === paymentType[1]"></textarea>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="typeCustomer == 1">
+    <form [formGroup]="formSave2">
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>รหัสพนักงาน <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสพนักงาน"
+              aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode"
+              [readonly]='isUploadFile'>
+            <div class="input-group-append" *ngIf="!isUploadFile">
+              <button class="btn btn-outline-info" type="button" id="button-addon2"
+                (click)="openModalCustom2(customModal2)"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-2 text-right ">
+          <p>ชื่อพนักงาน : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อพนักงาน"
+            formControlName="customerName" readonly>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>หมายเลขประจำตัวประชาชน <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" maxlength="13" class="form-control form-control-sm" formControlName="idCard"
+            [readonly]='isUploadFile'>
+        </div>
+        <div class="col-2 text-right ">
+          <p>ประเภทค่าไฟฟ้า : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="voltageType" readonly>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>ประเภทอัตราไฟฟ้า <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="electricRateType" readonly>
+        </div>
+        <div class="col-2 text-right ">
+          <p>แรงดันไฟฟ้า <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="electricVoltageType" readonly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 text-right ">
+          <p>Serial No. มิเตอร์ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control form-control-sm" placeholder="ค้นหาSerial No. มิเตอร์"
+              aria-label="Serial No. มิเตอร์" aria-describedby="button-addon2" formControlName="meterSerialNo"
+              [readonly]='isUploadFile'>
+            <div class="input-group-append" *ngIf="!isUploadFile">
+              <button class="btn btn-outline-info" type="button" id="button-addon2"
+                (click)="openModalCustom(customModal)"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>เลขที่มิเตอร์เริ่มต้น <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="number" class="form-control form-control-sm" formControlName="defaultMeterNo"
+            [readonly]="isUploadFile">
+        </div>
+        <div class="col-2 text-right ">
+          <p>ชื่อมิเตอร์ : </p>
+        </div>
+        <div class="col-4">
+          <input class="form-control form-control-sm" formControlName="meterName" maxlength="90" readonly>
+
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>ประเภทมิเตอร์ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="meterType" readonly>
+        </div>
+        <div class="col-2 text-right ">
+          <p>สถานที่ตั้งมิเตอร์ : </p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="installPosition" maxlength="90"
+            readonly>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>วันที่เริ่มใช้บริการ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" formControlName="requestStartDate"
+            *ngIf="isUploadFile" readonly>
+          <input-calendar (changeDate)="setDate('requestStartDate', $event)" *ngIf="!isUploadFile"></input-calendar>
+        </div>
+        <div class="col-2 text-right ">
+          <p>วันที่สิ้นสุดการใช้บริการ <span class="text-danger">*</span> :</p>
+        </div>
+        <div class="col-4">
+          <!-- <input type="text" class="form-control form-control-sm" formControlName="requestEndDate"
+            *ngIf="isUploadFile" readonly> -->
+          <input-calendar (changeDate)="setDate('requestEndDate', $event)" *ngIf="!isUploadFile"></input-calendar>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>สถานที่ให้บริการ :</p>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" maxlength="90"
+            formControlName="installPositionService" [readonly]='isUploadFile'>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-2 text-right ">
+          <p>หมายเหตุ :</p>
+        </div>
+        <div class="col-10">
+          <textarea class="form-control form-control-sm" formControlName="remark" [readonly]='isUploadFile'
+            maxlength="50"></textarea>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="formSave.value.requestType !== 'ขอใช้เหมาจ่าย' && typeCustomer === 0">
+    <hr>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>รายละเอียด</p>
+          <div class="form-group text-right" *ngIf="!isUploadFile">
+            <button-add (click)="showModal()" wording="เพิ่มค่าภาระ"></button-add>
+
+          </div>
+          <table id="datatableChange" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>เฟส</th>
+                <th>ประเภทบริการ</th>
+                <th>ขนาดการใช้ไฟฟ้า(แอมแปร์)</th>
+                <th>อัตราค่าภาระ</th>
+                <th>ค่าภาษี</th>
+                <th>จำนวนเงินสุทธิ</th>
+                <th>การจัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--  -->
+              <tr *ngIf="formSave.value.serviceCharge.length === 0 && typeCustomer === 0">
+                <td colspan="7" class="text-center">ไม่มีข้อมูล</td>
+              </tr>
+              <tr *ngIf="formSave2.value.serviceCharge.length === 0 && typeCustomer === 1">
+                <td colspan="7" class="text-center">ไม่มีข้อมูล</td>
+              </tr>
+              <ng-container *ngIf="formSave.value.serviceCharge.length > 0 || formSave2.value.serviceCharge.length > 0">
+                <ng-container *ngIf="typeCustomer === 0">
+                  <tr *ngFor="let data of formSave.value.serviceCharge; let i = index;">
+                    <td class="text-center">{{data.electricPhase}}</td>
+                    <td>{{data.chargeType}}</td>
+                    <td>{{data.electricAmpere}}</td>
+                    <td class="text-right">{{data.chargeRate | decimalFormat:"###,###.00"}}</td>
+                    <td class="text-right">{{data.chargeVat | decimalFormat:"###,###.00"}}</td>
+                    <td class="text-right">{{data.totalChargeRate | decimalFormat:"###,###.00"}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-danger btn-sm" type="button" (click)="delDetail(i)"
+                        [disabled]="isUploadFile">
+                        <i class="fa  fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="typeCustomer === 1">
+                  <tr *ngFor="let data of formSave2.value.serviceCharge; let i = index;">
+                    <td class="text-center">{{data.electricPhase}}</td>
+                    <td>{{data.chargeType}}</td>
+                    <td>{{data.electricAmpere}}</td>
+                    <td class="text-right">{{data.chargeRate| decimalFormat:"###,###.00"}}</td>
+                    <td class="text-right">{{data.chargeVat| decimalFormat:"###,###.00"}}</td>
+                    <td class="text-right">{{data.totalChargeRate| decimalFormat:"###,###.00"}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-danger btn-sm" type="button" (click)="delDetail(i)"
+                        [disabled]="isUploadFile">
+                        <i class="fa  fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <th colspan="3" class="text-right">
+                  รวม ( เฉพาะอัตราค่าภาระ ไม่คิดรวม เงินประกัน )</th>
+                <ng-container *ngIf="typeCustomer === 0">
+                  <td class="text-right">{{sumChargeRateNoLg1 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{chargeVatNoLg1 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{totalChargeRateNoLg1 | decimalFormat:"###,###.00"}} บาท</td>
+                </ng-container>
+                <ng-container *ngIf="typeCustomer === 1">
+                  <td class="text-right">{{sumChargeRateNoLg2 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{chargeVatNoLg2 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{totalChargeRateNoLg2 | decimalFormat:"###,###.00"}} บาท</td>
+                </ng-container>
+              </tr>
+              <tr>
+                <th colspan="3" class="text-right">
+                  รวม ทั้งหมด </th>
+                <ng-container *ngIf="typeCustomer === 0">
+                  <td class="text-right">{{sumChargeRate1 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{chargeVat1 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{totalChargeRate1 | decimalFormat:"###,###.00"}} บาท</td>
+                </ng-container>
+                <ng-container *ngIf="typeCustomer === 1">
+                  <td class="text-right">{{sumChargeRate2 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{chargeVat2 | decimalFormat:"###,###.00"}} บาท</td>
+                  <td class="text-right">{{totalChargeRate2 | decimalFormat:"###,###.00"}} บาท</td>
+                </ng-container>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <br>
+
+  <ng-container *ngIf="isUploadFile">
+    <hr>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>จัดการไฟล์</p>
+          <form id="upload-form">
+            <div class="text-right">
+              <input id="file" type="file" name="file"
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+              <button-upload (click)="onUpload($event)"></button-upload>
+            </div>
+            <br>
+          </form>
+          <table id="datatableFile" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th class="text-center">ชื่อไฟล์</th>
+                <th class="text-center">นามสกุลไฟล์</th>
+                <th class="text-center">วันที่อัพโหลดไฟล์</th>
+                <th class="text-center">จัดการ</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-card>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formServiceCharge">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">เฟส:</label>
+            <select class="form-control form-control-sm" formControlName="electricPhase" (change)="searchConfig()">
+              <option value="" selected disabled>กรุณาเลือกเฟส</option>
+              <option *ngFor="let item of electricPhaseList" [value]="item.descTh1">{{item.descTh1}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">ขนาดการใช้ไฟฟ้า(แอมแปร์):</label>
+            <select class="form-control form-control-sm" formControlName="electricAmpere" (change)="searchConfig()">
+              <option value="" selected disabled>กรุณาเลือกขนาดการใช้ไฟฟ้า(แอมแปร์)</option>
+              <option *ngFor="let item of electricAmpereRangeList" [value]="item.descTh1">{{item.descTh1}}</option>
+            </select>
+          </div>
+          <br>
+          <table class="table table-bordered table-striped table-sm" style="width: 100%">
+            <thead class="text-center">
+              <tr>
+                <th>ประเภทบริการ</th>
+                <th>อัตราค่าภาระ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of configList">
+                <td>{{item.serviceType | decimalFormat:"###,###.00"}}</td>
+                <td class="text-right">{{item.chargeRates | decimalFormat:"###,###.00"}}</td>
+              </tr>
+              <tr *ngIf="configList.length === 0">
+                <td colspan="2" class="text-center">ไม่มีข้อมูล</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button-save data-dismiss="modal" (click)="addServiceCharge()"></button-save>
+        <button-cancel (click)="hideModal()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal-confirm #saveModal (onConfirm)="onSubmit()">
+</modal-confirm>
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'"></modal-success>
+<modal-alert #alertModal [body]="textAlert"></modal-alert>
+<modal-error #errorModal></modal-error>
+<!-- deleteFileModal -->
+<modal-confirm #deleteFileModal (onConfirm)="onClickDeleteFile()">
+</modal-confirm>
+
+
+
+<ng-template #customModal>
+  <div class="modal-header">
+    <p>เลือกมิเตอร์</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchMeter">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="Serial No. มิเตอร์ , ชื่อมิเตอร์ , ประเภทมิเตอร์" formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getAllMeter()"></button-search>
+        </div>
+      </div>
+    </form>
+
+    <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th style="text-align: center!important">Serial No. มิเตอร์</th>
+          <th style="text-align: center!important">ชื่อมิเตอร์</th>
+          <th style="text-align: center!important">ประเภทมิเตอร์</th>
+          <th style="text-align: center!important">สถานที่ตั้งมิเตอร์</th>
+          <th style="text-align: center!important">Functional Location</th>
+          <th style="text-align: center!important">การจัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>
+
+<ng-template #customModal2>
+  <div class="modal-header">
+    <p>เลือก
+      <ng-container *ngIf="typeCustomer === 0">ผู้ประกอบการ</ng-container>
+      <ng-container *ngIf="typeCustomer === 1">พนักงาน</ng-container>
+    </p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+            formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCus()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <ng-container *ngIf="typeCustomer === 0">
+            <th>รหัสผู้ประกอบการ</th>
+            <th style="text-align: center!important">ชื่อผู้ประกอบการ</th>
+            <th style="text-align: center!important">รหัสสาขา</th>
+            <th style="text-align: center!important">ทีอยู่</th>
+          </ng-container>
+          <ng-container *ngIf="typeCustomer === 1">
+            <th>รหัสพนักงาน</th>
+            <th style="text-align: center">ชื่อพนักงาน</th>
+          </ng-container>
+          <th>การจัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>

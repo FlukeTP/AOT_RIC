@@ -1,0 +1,63 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+
+  <form [formGroup]="formSearch">
+    <div class="row">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="รหัสผู้ประกอบการ"
+          formControlName="entreprenuerCode">
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา" formControlName="contractNo">
+      </div>
+    </div>
+
+
+    <div class="row mt-1">
+      <div class="col-md-12 text-right">
+        <button-search (click)="search()"></button-search>
+      </div>
+    </div>
+  </form>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <div class="scrollX">
+        <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th class="text-center">เลขที่ใบเสร็จขอใช้</th>
+              <th class="text-center">รหัสผู้ประกอบการ</th>
+              <th class="text-center">ชื่อผู้ประกอบการ</th>
+              <th class="text-center">เลขที่สัญญา</th>
+              <!-- <th class="text-center">พื้นที่เช่า</th> -->
+              <th class="text-center">วันที่ยกเลิก</th>
+              <th class="text-center">เงินประกัน (บาท)</th>
+              <th class="text-center">จำนวนเงินรวมภาษี (บาท)</th>
+              <th class="text-center">หมายเลขยืนยันการยกเลิก จาก SAP</th>
+              <th class="text-center">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP</th>
+              <th class="text-center">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</app-card>
+
+<!-- sapModal -->
+<!-- <modal-confirm #sapModal (onConfirm)="sendTosap()">
+</modal-confirm> -->
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

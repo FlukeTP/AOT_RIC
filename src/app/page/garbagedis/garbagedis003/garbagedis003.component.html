@@ -1,0 +1,20 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<ul class="nav nav-tabs">
+  <!-- <li class="nav-item ">
+    <a class="nav-link active" (click)="clickTap(1)" [ngClass]="{'active': tabIdx == 1}">ค่าบริการกำจัดขยะ</a>
+  </li> -->
+  <!-- <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(2)"
+      [ngClass]="{'active': tabIdx == 2}">ขนาดถังขยะ (ขยะทั่วไป)</a>
+  </li> -->
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div *ngIf="tabIdx == 1">
+    <app-garbagedis0301></app-garbagedis0301>
+  </div>
+  <!-- <div *ngIf="tabIdx == 2">
+    <app-garbagedis0302></app-garbagedis0302>
+  </div> -->
+</div>

@@ -1,0 +1,78 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formAddLov">
+    <div class="row ">
+      <div class="col-sm-6 text-left">
+        <button-back routerLink="/components/lov"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <!-- routerLink="/electricity/ele002" -->
+        <button-edit *ngIf="!buttomedit" (click)="editFormAddLov()"></button-edit>
+        <button-save *ngIf="buttomedit" (click)="modalSave.openModal()"></button-save>
+        <button-cancel routerLink="/components/lov"></button-cancel>
+      </div>
+    </div>
+    <hr>
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>LovKey :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกLovKey" formControlName="lovKey" readonly>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-4 text-right ">
+        <p>Descripton :</p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" formControlName="descripton" placeholder="กรุณากรอกdescripton" ></textarea>
+      </div>
+    </div>
+  </form>
+  <hr>
+  <div class="row mt-2">
+    <div class="col-md-12 text-right">
+      <button-add (click)="addCreds()"></button-add>
+    </div>
+  </div>
+  <form [formGroup]="formSave">
+  <div class="row mt-3" *ngIf="formSave['controls'].fwLovDetailReqs['controls']">
+    <div class="col-md-12" >
+      <table class="table table-bordered table-striped table-sm" style="width:100%" >
+        <thead class="text-center">
+          <tr>
+            <th>Lov_Code</th>
+            <th>Desc_Th_1</th>
+            <th>Desc_Th_2</th>
+            <th>Desc_En_1</th>
+            <th>Desc_En_2</th>
+            <th>Order</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <ng-container formArrayName="fwLovDetailReqs" *ngFor="let lov of fwLovDetailReqs.controls; let i = index">
+        <tbody>
+          <tr [formGroupName]="i" >
+            <td><input type="text" class="form-control form-control-sm" formControlName="lovCode"></td>
+            <td><input type="text" class="form-control form-control-sm" formControlName="descTh1"></td>
+            <td><input type="text" class="form-control form-control-sm" formControlName="descTh2"></td>
+            <td><input type="text" class="form-control form-control-sm" formControlName="descEn1"></td>
+            <td><input type="text" class="form-control form-control-sm" formControlName="descEn2"></td>
+            <td><input type="text" class="form-control form-control-sm" formControlName="orderNo"></td>
+            <td  class="text-center"  ><button-icon color="danger" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"
+              ></i>
+          </button-icon></td>
+          </tr>
+        </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="saveToData()">
+</modal-confirm>

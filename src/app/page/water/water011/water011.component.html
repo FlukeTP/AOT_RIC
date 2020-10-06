@@ -1,0 +1,35 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<ul class="nav nav-tabs">
+  <li class="nav-item ">
+    <a class="nav-link active" (click)="clickTap(1)" [ngClass]="{'active': tabIdx == 1}">ปรับปรุงอัตราค่าภาระ
+      ค่าประกันการใช้น้ำประปา</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(2)"
+      [ngClass]="{'active': tabIdx == 2}">ปรับปรุงอัตราค่าภาระค่าติดตั้งมิเตอร์</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(3)"
+      [ngClass]="{'active': tabIdx == 3}">ปรับปรุงอัตราค่าภาระบริการน้ำประปาอื่นๆ</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(4)" [ngClass]="{'active': tabIdx == 4}">
+      ปรับปรุงอัตราค่าภาระค่าปรับน้ำเสีย</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div *ngIf="tabIdx == 1">
+    <app-water0111></app-water0111>
+  </div>
+  <div *ngIf="tabIdx == 2">
+    <app-water0112></app-water0112>
+  </div>
+  <div *ngIf="tabIdx == 3">
+    <app-water0113></app-water0113>
+  </div>
+  <div *ngIf="tabIdx == 4">
+    <app-water0114></app-water0114>
+  </div>
+</div>

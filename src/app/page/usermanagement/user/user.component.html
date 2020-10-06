@@ -1,0 +1,36 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="บันทึกข้อมูลไฟฟ้า" isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+
+      <button-add routerLink="/user/userDetail"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead >
+          <tr>
+            <td class="text-center" >#</td>
+            <td class="text-center" >Name</td>
+            <td class="text-center" >UserName</td>
+            <td class="text-center" >Surname</td>
+            <td class="text-center" >Date Created</td>
+            <td class="text-center" >Action</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+<app-modal [modalId]="'modalId'" [header]="'Confirm การลบข้อมูลลูกค้านิติบุคคล'">
+  <div body>
+    คุณต้องการลบข้อมูลลูกค้านิติบุคคลใช่หรือไม่
+  </div>
+  <div footer>
+    <button-confirm></button-confirm>
+    <button-cancel></button-cancel>
+  </div>
+</app-modal>

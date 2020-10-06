@@ -1,0 +1,217 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <button-back (click)="goBack()"></button-back>
+        </div>
+        <div class="col-sm-6 text-right">
+            <button-save (click)="onValidateBeforeSave()" *ngIf="flagEdit"></button-save>
+        </div>
+    </div>
+    <hr>
+    <form [formGroup]="formSave">
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>รหัสผู้ประกอบการ<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+                        aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2"
+                        [value]="control('entreprenuerCode').value" readOnly>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-info" type="button" id="button-addon2"
+                            (click)="openModalCustom(customModal)" *ngIf="flagEdit"><i class="fa fa-search"
+                                aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 text-right ">
+                <p>ชื่อผู้ประกอบการ<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+                    [value]="control('entreprenuerName').value" readonly>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>สาขา<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสาขา"
+                    formControlName="entreprenuerBranch" maxlength="190" [readonly]="!flagEdit" />
+            </div>
+            <div class="col-2 text-right ">
+                <p>เลขที่สัญญา<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <input class="form-control form-control-sm" list="contractNo" placeholder="เลขที่สัญญา"
+                    [readonly]="!flagEdit" formControlName="contractNo" (change)="onContractNoChange($event)">
+                <datalist id="contractNo">
+                    <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}
+                    </option>
+                </datalist>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>พื้นที่เช่า<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" list="roName" placeholder="พื้นที่เช่า"
+                    [readonly]="!flagEdit" formControlName="rentalObjectCode">
+                <datalist id="roName">
+                    <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+                </datalist>
+            </div>
+            <div class="col-2 text-right ">
+                <p>สถานที่ติดตั้ง : </p>
+            </div>
+            <div class="col-4">
+                <input class="form-control form-control-sm" placeholder="สถานที่ติดตั้ง" formControlName="itLocation"
+                    [readonly]="!flagEdit">
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>วันที่ขอใช้บริการ<span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control form-control-sm" formControlName="requestStartDate"
+                    *ngIf="!flagEdit" readonly>
+                <input-calendar (changeDate)="setStartDate($event, 'requestStartDate')" #calendarStart *ngIf="flagEdit">
+                </input-calendar>
+            </div>
+            <div class="col-2 text-right ">
+                <p>วันที่สิ้นสุดการใช้งาน<span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-4">
+                <!-- <input type="text" class="form-control form-control-sm" readonly formControlName="requestEndDate" /> -->
+                <input type="text" class="form-control form-control-sm" formControlName="requestEndDate"
+                    *ngIf="!flagEdit" readonly>
+                <input-calendar (changeDate)="setEndDate($event, 'requestEndDate')" #calendarEnd *ngIf="flagEdit">
+                </input-calendar>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2 text-right ">
+                <p>หมายเหตุ : </p>
+            </div>
+            <div class="col-10">
+                <textarea class="form-control form-control-sm" formControlName="remark"
+                    [readonly]="!flagEdit"></textarea>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <p>รายละเอียด</p>
+                    <div class="form-group text-right">
+                        <button-custom color="warning" wording="Reset" icon="fa fa-repeat" (click)="getListChargeRate()"
+                            *ngIf="flagEdit">
+                        </button-custom>
+                    </div>
+                    <table id="datatableChargeRate" class="table table-bordered table-striped table-sm"
+                        style="width:100%">
+                        <thead class="text-center">
+                            <tr>
+                                <th>ประเภทบริการ</th>
+                                <th>อัตราค่าภาระ</th>
+                                <th>ข้อมูลการคำนวณ</th>
+                                <th>จำนวนเงิน</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr formArrayName="detailChargeRate"
+                                *ngFor="let item of formSave.get('detailChargeRate')['controls']; let i = index;">
+                                <ng-container [formGroupName]="i">
+                                    <td>
+                                        <span>{{item.value.serviceType}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{item.value.chargeRate}}</span>
+                                    </td>
+                                    <td>
+                                        <input class="form-control form-control-sm" formControlName="calculateInfo"
+                                            [readonly]="!flagEdit" placeholder="กรอกข้อมูลกการคำนวณ">
+                                    </td>
+                                    <td>
+                                        <input class="form-control form-control-sm text-right"
+                                            formControlName="totalAmount" type="text" (change)="calculateTotalAmount(i)"
+                                            [readonly]="!flagEdit" numberOnly [dot]="true" placeholder="กรอกจำนวนเงิน">
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-danger btn-sm" type="button" (click)="removeDtl(i)"
+                                            [disabled]="!flagEdit">
+                                            <i class="fa  fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right">จำนวนเงิน</td>
+                                <td colspan="1" class="text-right">
+                                    {{this.formSave.get("totalAmount").value | decimalFormat:"###,###.00"}}</td>
+                                <td colspan="1" class="text-center">บาท</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-card>
+
+<ng-template #customModal>
+    <div class="modal-header">
+        <p>เลือกผู้ประกอบการ </p>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formSearchCus">
+            <div class="row mt-2">
+                <div class="col-2 offset-2 text-right ">
+                    <p>ค้นหา :</p>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control form-control-sm"
+                        placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+                        formControlName="criteria">
+                </div>
+                <div class="col-2 text-right ">
+                    <button-search (click)="getCustomerList()"></button-search>
+                </div>
+            </div>
+        </form>
+        <table id="datatableCustomer" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+                <tr>
+                    <th>รหัสผู้ประกอบการ</th>
+                    <th style="text-align: center!important">ชื่อผู้ประกอบการ</th>
+                    <th style="text-align: center!important">รหัสสาขา</th>
+                    <th style="text-align: center!important">ทีอยู่</th>
+                    <th>การจัดการ</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="modal-footer text-right">
+        <button-close (click)="onCloseModal()"></button-close>
+    </div>
+</ng-template>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="save()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

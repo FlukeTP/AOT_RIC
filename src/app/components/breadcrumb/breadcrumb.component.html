@@ -1,0 +1,9 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb shadow">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item" *ngFor="let item of breadcrumb" >
+        <a *ngIf="item.link != '#'" routerLink="/{{item.link}}" href="#">{{item.label}}</a>
+        <span *ngIf="item.link == '#'" class="last-breadcrumb-item">{{item.label}}</span>
+    </li>
+  </ol>
+</nav>

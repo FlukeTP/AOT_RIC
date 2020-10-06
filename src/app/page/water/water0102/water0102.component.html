@@ -1,0 +1,40 @@
+<app-card isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button-add routerLink="/water/water0102detail"></button-add>
+      <button-downloadex (click)="getExcel()"></button-downloadex>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ท่าอากาศยาน</th>
+            <th>วันที่มีผล</th>
+            <th>ขนาดมิเตอร์</th>
+            <th>อัตราค่าภาระ</th>
+            <th>วันที่ปรับปรุง</th>
+            <th>ปรับปรุงโดย</th>
+            <th>จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<modal-custom #modalRemark header="หมายเหตุ">
+  <div body>
+    <div class="row">
+      <div class="col-sm-12">
+        <textarea class="form-control form-control-sm" readonly>{{remarkStr}}</textarea>
+      </div>
+    </div>
+  </div>
+</modal-custom>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

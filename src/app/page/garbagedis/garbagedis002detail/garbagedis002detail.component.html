@@ -1,0 +1,299 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formAddGarbage">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <button-back (click)="goBack()"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button-save (click)="onValidate()"></button-save>
+      </div>
+    </div>
+    <hr />
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode"
+            maxlength="90" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2"
+              (click)="openModalCustomer(customerModal)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerName" maxlength="90"
+          readonly />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch" maxlength="190"
+          readonly />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" list="contractNo" placeholder="กรุณากรอกเลขที่สัญญา"
+          maxlength="90" (change)="onContractNoChange($event)" formControlName="contractNo" />
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{ items.contractNo }}</option>
+        </datalist>
+      </div>
+      <div class="col-2 text-right ">
+        <p>พื้นที่เช่า (rental object) : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" list="roName" placeholder="กรุณากรอกพื้นที่เช่า"
+          formControlName="rentalObject" />
+        <datalist id="roName">
+          <option *ngFor="let item of roList" value="{{item.roName}}">{{item.roName}}</option>
+        </datalist>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทการขอบริการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <!-- <ng-container *ngIf="isInfoUpdate">
+          <input type="text" class="form-control form-control-sm" formControlName="serviceType" readonly />
+        </ng-container>
+        <ng-container *ngIf="!isInfoUpdate"> -->
+        <select class="form-control form-control-sm" id="selectCourse" formControlName="serviceType">
+          <option value="" selected disabled>ประเภทการขอบริการ</option>
+          <option value="สัญญาจ้าง">สัญญาจ้าง</option>
+          <option value="สัญญาประกอบกิจการ">สัญญาประกอบกิจการ</option>
+        </select>
+        <!-- </ng-container> -->
+      </div>
+      <div class="col-2 text-right ">
+        <p>สถานที่วางถังขยะ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกสถานที่วางถังขยะ"
+          formControlName="trashLocation" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่เริ่มใช่บริการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange('startDate', $event)" #calendarStart></input-calendar>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วันที่สิ้นสุดบริการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <!-- <input type="text" class="form-control form-control-sm" readonly formControlName="endDate" /> -->
+        <input-calendar (changeDate)="dateChange('endDate', $event)" #calendarEnd></input-calendar>
+      </div>
+    </div>
+    <!-- <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รวมอัตราค่าภาระ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" numberOnly class="form-control form-control-sm text-right"
+          formControlName="totalChargeRates" />
+      </div>
+      <div class="col-1">
+        <p>บาท</p>
+      </div>
+    </div> -->
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ที่อยู่จัดส่งใบแจ้งหนี้ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" placeholder="ที่อยู่จัดส่งใบแจ้งหนี้"
+          formControlName="address"></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ : </p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark"
+          placeholder="ยกเว้นการเรียกเก็บค่าบริการกำจัดขยะสำหรับหน่วยงานราชการต่างๆที่ปฎิบัติงานภายในอาคารผู้โดยสารและเขตปลอดอากรภายใน ทสภ. และ ผู้ประกอบการที่เช่าพื้นที่ที่มีการเรียกเก็บค่าธรรมเนียมการใช้บริการในอาคารแล้ว"></textarea>
+      </div>
+    </div>
+  </form>
+  <br>
+  <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <p>รายละเอียด</p>
+        <!-- <div class="form-group text-right">
+          <button-add (click)="showChargeRateModal()" wording="เพิ่มค่าภาระ"></button-add>
+        </div> -->
+        <table class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th class="text-center">ประเภทขยะ</th>
+              <th class="text-center">น้ำหนักขยะ</th>
+              <th class="text-center">จำนวนเงิน</th>
+              <th class="text-center">อัตราค่าภาระ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="formAddGarbage.value.chargeRateDtl.length === 0">
+              <td colspan="7" class="text-center">ไม่มีข้อมูล</td>
+            </tr>
+            <ng-container *ngIf="formAddGarbage.value.chargeRateDtl.length > 0">
+              <tr *ngFor="let data of formAddGarbage.value.chargeRateDtl; let i = index;">
+                <td class="text-center">{{data.trashType}}</td>
+                <td class="text-right">
+                  <input type="text" numberOnly class="form-control form-control-sm text-right"
+                    [value]="data.trashWeight" (change)="onTrashWeightChange(i, $event)" />
+                </td>
+                <td class="text-right">{{data.moneyAmount | decimalFormat:"###,###.00"}}</td>
+                <td class="text-right">{{data.chargeRates | decimalFormat:"###,###.00"}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="1" class="text-right">รวม ทั้งหมด </th>
+              <td class="text-right">{{formAddGarbage.value.totalTrashWeight | decimalFormat:"###,###"}} กก.</td>
+              <td class="text-right">{{formAddGarbage.value.totalMoneyAmount | decimalFormat:"###,###.00"}} บาท</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-card>
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>
+
+<!-- customerModal -->
+<ng-template #customerModal>
+  <div class="modal-header">
+    <p>เลือก ผู้ประกอบการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModalCustomer()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+            formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="onSearchModal()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCustomer" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">รหัสสาขา</th>
+          <th class="text-center">ทีอยู่</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModalCustomer()"></button-close>
+  </div>
+</ng-template>
+<!-- detail -->
+<!-- <modal-custom #chargeRateModal header="ค่าบริการ">
+  <div body>
+    <form [formGroup]="formChargeRate">
+      <div class="form-group">
+        <div class="row mt-2">
+          <div class="col-2 text-right ">
+            <label for="recipient-name" class="col-form-label">ประเภทขยะ : <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-10">
+            <select class="form-control form-control-sm" formControlName="trashType" (change)="onChargeRateChange()">
+              <option value="" selected disabled>กรุณาเลือกปรเภท</option>
+              <option *ngFor="let item of trashList" [value]="item.trashType">{{item.trashType}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-2 text-right ">
+            <label for="recipient-name" class="col-form-label">น้ำหนักขยะ : <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-9">
+            <input type="text" numberOnly class="form-control form-control-sm text-right" formControlName="trashWeight"
+              (change)="onTrashWeightChange()" />
+          </div>
+          <div class="col-1">
+            <p>กก.</p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-2 text-right ">
+            <p>ขนาด : </p>
+          </div>
+          <div class="col-9">
+            <input type="text" readonly class="form-control form-control-sm text-right" formControlName="trashSize" />
+          </div>
+          <div class="col-1">
+            <p>กก.</p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-2 text-right ">
+            <p>อัตราค่าภาระ : </p>
+          </div>
+          <div class="col-9">
+            <input type="text" readonly class="form-control form-control-sm text-right" formControlName="chargeRates" />
+          </div>
+          <div class="col-1">
+            <p>บาท</p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-2 text-right ">
+            <p>จำนวนเงิน : </p>
+          </div>
+          <div class="col-9">
+            <input type="text" readonly class="form-control form-control-sm text-right" formControlName="moneyAmount" />
+          </div>
+          <div class="col-1">
+            <p>บาท</p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div footer>
+    <button-save data-dismiss="modal" (click)="addChargeRate()"></button-save>
+  </div>
+</modal-custom> -->

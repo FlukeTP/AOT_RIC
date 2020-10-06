@@ -1,0 +1,73 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back (click)="onPages()"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidate()"></button-save>
+      <!-- <button-cancel (click)="onPages()"></button-cancel> -->
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formDetail">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ท่าอากาศยาน <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="airport">
+          <option value="" hidden>กรุณาเลือกสนามบิน</option>
+          <option *ngFor="let item of airport" [value]="item.descTh1.trim()">{{item.descTh1.trim()}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่มีผล <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="setDate($event)"  #calendar1></input-calendar>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภท <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกประเภทที่บริการ" maxlength="90" formControlName="serviceType">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>อัตราค่าภาระ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-3">
+        <input type="number" class="form-control form-control-sm text-right"  formControlName="chargeRates">
+      </div>
+      <div class="col-1">
+        บาท
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ :</p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" maxlength="90" placeholder="หมายเหตุ" formControlName="remark"></textarea>
+      </div>
+    </div>
+  </form>
+
+
+  <hr>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+<!-- successModal -->
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'">
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>

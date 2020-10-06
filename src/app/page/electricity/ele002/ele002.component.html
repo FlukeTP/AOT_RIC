@@ -1,0 +1,165 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card isButton="false">
+  <form [formGroup]="formSearch">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>keyWord : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="keyWord" formControlName="serialNo">
+      </div>
+
+      <!-- <div class="col-2 text-right ">
+        <p>Meter No. : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="Meter No." formControlName="meterNp">
+      </div> -->
+      <div class="col-2 text-right ">
+        <p>Status. : </p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="status">
+          <option hidden value="">กรุณาเลือกสถานะ</option>
+          <option value="">ทั้งหมด</option>
+          <option value="open">ใช้งาน</option>
+          <option value="close">ไม่ใช้งาน</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 text-right ">
+        <button-search (click)="getList()"></button-search>
+      </div>
+    </div>
+  </form>
+
+  <div class="row mt-2">
+    <div class="col-md-12 text-right">
+      <button-add routerLink="/electricity/ele002detail"></button-add>
+      <button-downloadex (click)="getExcel()"></button-downloadex>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">Serial No. มิเตอร์</th>
+            <th class="text-center">ชื่อมิเตอร์</th>
+            <th class="text-center">ประเภทมิเตอร์</th>
+            <th class="text-center">สถานที่ตั้งมิเตอร์</th>
+            <th class="text-center">Functional Location</th>
+            <th class="text-center">เลขที่ให้บริการ</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="datadetail">
+        <form>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>สนามบิน :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.airport}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>Serial No.มิเตอร์ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.serviceNumber}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ชื่อมิเตอร์ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.meterName}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ประเภทมิเตอร์ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.meterType}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>สถานที่ตั้งมิเตอร์ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.meterLocation}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>Functional Location :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.functionalLocation}}"
+                readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>เลขที่ให้บริการ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.serviceNumber}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>สถานะ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.meterStatus}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ตัวคูณ :</p>
+            </div>
+            <div class="col-8">
+              <input class="form-control form-control-sm" type="text" value="{{datadetail.multipleValue}}" readonly>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>หมายเหตุ :</p>
+            </div>
+            <div class="col-8">
+              <textarea class="form-control form-control-sm" value="{{datadetail.remark}}" readonly></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button-cancel (click)="hideModal()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>

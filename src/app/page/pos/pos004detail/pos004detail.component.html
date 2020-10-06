@@ -1,0 +1,389 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/pos/pos004"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidateCustomer()"></button-save>
+    </div>
+  </div>
+  <hr>
+
+  <form [formGroup]="formDataCustomer">
+    <div class="row mt-2">
+      <div class="col-2 text-right">
+        <p>รหัสผู้ประกอบการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode"
+            maxlength="90" [readonly]="id">
+          <div class="input-group-append">
+            <button *ngIf="!id" class="btn btn-outline-info btn-sm" type="button" id="button-addon2"
+              (click)="openModalCustomer(customerModal)"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right">
+        <p>ชื่อผู้ประกอบการ : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerName" maxlength="90" readonly>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch" maxlength="190"
+          readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="contractNo" list="contractNo"
+          placeholder="กรุณากรอกเลขที่สัญญา" maxlength="90" [readonly]="id">
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>พื้นที่การเช่า : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกพื้นที่การเช่า"
+          formControlName="rentalArea" maxlength="190">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ : </p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark" maxlength="190"></textarea>
+      </div>
+    </div>
+    <hr>
+
+
+
+    <div class="row" *ngIf="id">
+      <div class="col-sm-6 text-left">
+        <p>รายละเอียด</p>
+      </div>
+      <div class="col-sm-6 text-right">
+        <!-- <button-add (click)="openModalUser(userModal)"></button-add> -->
+        <button-add (click)="openModalUser()"></button-add>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row mt-3" *ngIf="id">
+    <div class="col-sm-12">
+
+      <table id="datatableUser" class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <th>ชื่อผู้ใช้งาน</th>
+            <th>ชื่อ-นามสกุล</th>
+            <th>ท่าอากาศยาน</th>
+            <th>บทบาท</th>
+            <th>แก้ไข</th>
+            <th>ลบ</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveCustomerModal (onConfirm)="onSaveCustomer()"></modal-confirm>
+
+<!-- successModal -->
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'"></modal-success>
+
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+
+<!-- delModal -->
+<modal-confirm #delModal (onConfirm)="onDelUser()"></modal-confirm>
+
+<!-- customerModal -->
+<ng-template #customerModal>
+  <div class="modal-header">
+    <p>เลือก ผู้ประกอบการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModalCustomer()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="datatableCustomer" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">รหัสสาขา</th>
+          <th class="text-center">ทีอยู่</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModalCustomer()"></button-close>
+  </div>
+</ng-template>
+
+<!-- addUserModal -->
+<!-- <ng-template #userModal>
+  <div class="modal-header">
+    <h5 class="modal-title">สร้างชื่อผู้ใช้งาน</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModalUser()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formDataUser">
+      <div class="row">
+         col 1 
+         <div class="col-6">
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ชื่อ <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm " placeholder="ชื่อ" formControlName="name">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>นามสกุล <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm " placeholder="นามสกุล" formControlName="surname">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>email <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm " placeholder="Email" formControlName="email">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>ท่าอากาศยาน <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <select class="form-control form-control-sm" formControlName="airportCode" id="airportCode"
+                (change)="setAirport($event)">
+                <option value="" hidden>กรุณาเลือกสนามบิน</option>
+                <option *ngFor="let item of airportList; let i=index" [value]="item.lovCode">{{item.descTh1.trim()}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div> 
+
+         col 2 
+        <div class="col-6">
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>Username <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control form-control-sm " placeholder="Username" formControlName="userName"
+                id="userName">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>Password <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="password" class="form-control form-control-sm " placeholder="Password"
+                formControlName="password" id="password">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4 text-right ">
+              <p>Confirm Password <span class="text-danger">*</span> :</p>
+            </div>
+            <div class="col-8">
+              <input type="password" class="form-control form-control-sm " placeholder="ConfirmPassword"
+                formControlName="confirmPass">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row mt-2">
+        <div class="col-12">
+          <table id="datatableRole" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th></th>
+                <th>Code</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let item of posRoleList; let i=index">
+                <td style="text-align: center">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customControlInline{{i}}"
+                      (change)="checkboxUser(item,$event)">
+                    <label class="custom-control-label" for="customControlInline{{i}}"></label>
+                  </div>
+                </td>
+                <td style="text-align: center">{{item.lovCode}}</td>
+                <td style="text-align: center">{{item.descTh1}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button-save (click)="addUser()"></button-save>
+    <button-cancel (click)="onCloseModalUser()"></button-cancel>
+  </div>
+</ng-template> -->
+
+
+<div class="modal fade " id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">สร้างผู้ใช้งาน</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formDataUser">
+          <div class="row">
+            <!-- col 1 -->
+            <div class="col-6">
+              <div class="row mt-2">
+                <div class="col-4 text-right ">
+                  <p>ชื่อ <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm " placeholder="ชื่อ" formControlName="name">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-4 text-right ">
+                  <p>นามสกุล <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm " placeholder="นามสกุล"
+                    formControlName="surname">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-4 text-right ">
+                  <p>email <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm " placeholder="Email" formControlName="email">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-4 text-right ">
+                  <p>ท่าอากาศยาน <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <select class="form-control form-control-sm" formControlName="airportCode" id="airportCode"
+                    (change)="setAirport($event)">
+                    <option value="" hidden>กรุณาเลือกสนามบิน</option>
+                    <option *ngFor="let item of airportList; let i=index" [value]="item.lovCode">{{item.descTh1.trim()}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- col 2 -->
+            <div class="col-6">
+              <div class="row mt-2">
+                <div class="col-4 text-right ">
+                  <p>Username <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm " placeholder="Username"
+                    formControlName="userName" id="userName">
+                </div>
+              </div>
+              <div class="row mt-2" *ngIf="!formDataUser.value.userId">
+                <div class="col-4 text-right ">
+                  <p>Password <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="password" class="form-control form-control-sm " placeholder="Password"
+                    formControlName="password" id="password">
+                </div>
+              </div>
+              <div class="row mt-2" *ngIf="!formDataUser.value.userId">
+                <div class="col-4 text-right ">
+                  <p>Confirm Password <span class="text-danger">*</span> :</p>
+                </div>
+                <div class="col-8">
+                  <input type="password" class="form-control form-control-sm " placeholder="ConfirmPassword"
+                    formControlName="confirmPass">
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row mt-2">
+            <div class="col-12">
+              <table id="datatableRole" class="table table-bordered table-striped table-sm" style="width:100%">
+                <thead class="text-center">
+                  <tr>
+                    <th></th>
+                    <th>Code</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngFor="let item of posRoleList; let i=index">
+                    <td style="text-align: center">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customControlInline{{i}}"
+                          (change)="checkboxUser(item,$event)" [checked]="checkdVal(item)">
+                        <label class="custom-control-label" for="customControlInline{{i}}"></label>
+                      </div>
+                    </td>
+                    <td style="text-align: center">{{item.lovCode}}</td>
+                    <td style="text-align: center">{{item.descTh1}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button-save (click)="onSaveUser()"></button-save>
+        <button-cancel (click)="onCloseModalUser()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>

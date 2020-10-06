@@ -1,0 +1,41 @@
+<div class="login-wrap">
+  
+  <div class="login-html">
+    <div class="row ">
+        <div class="col-md-12 text-center">
+          <img  [src]="imagePath" style="width:250px;margin-bottom: 30px;" />
+        </div>
+      </div>
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+    <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
+    <div class="login-form">
+      <div class="sign-in-htm">
+        <div class="group">
+          <label for="user" class="label">Username or Email</label>
+          <input  type="text" [(ngModel)]="username" class="input">
+        </div>
+        <div class="group"> 
+          <label for="pass" class="label">Password</label>
+          <input id="pass" type="password" [(ngModel)]="password"  (keyup.enter)="login('template')"  class="input">
+        </div>
+        <div class="group">
+          <button type="button" (click)="login('template')"class="button">Sign In</button>
+        </div>
+        <div class="hr"></div>
+      </div>
+      <div class="for-pwd-htm">
+        <div class="group">
+          <label for="user" class="label">Username or Email</label>
+          <input type="text" class="input" [(ngModel)]="username">
+        </div>
+        <div class="group">
+          <input type="button" routerLink="/dashboard" class="button" value="Reset Password">
+        </div>
+        <div class="hr"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal-alert #errorModal [body]="bodyModal">
+</modal-alert>

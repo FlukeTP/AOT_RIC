@@ -1,0 +1,71 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row ">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/user/organize"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onOpenModalSave()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formGroup">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>Code : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm " placeholder="ใส่รหัส" formControlName="orgCode">
+      </div>
+      <div class="col-2 text-right ">
+        <p>Description : <span class="text-danger">*</span></p>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control form-control-sm " placeholder="ใส่คำอธิบาย" formControlName="orgDescription">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-12 text-right">
+        <button-add (click)="addDepartDetailForm()"></button-add>
+      </div>
+    </div>
+    <div class="row mt-3 justify-content-center" *ngIf="formGroup['controls'].departDetail['controls']" >
+      <div class="col-md-11">
+        <table class="table table-bordered table-striped table-sm" style="width:100%">
+          <thead class="text-center">
+            <tr>
+              <th>#</th>
+              <th>Department Code</th>
+              <th>Department Description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <ng-container formArrayName="departDetail">
+            <tbody>
+              <tr *ngFor="let item of formGroup['controls'].departDetail['controls']; let i = index" [formGroupName]="i">
+                <td class="text-center">{{i+1}}</td>
+                <td><input type="text" class="form-control form-control-sm " formControlName=departCode></td>
+                <td><input type="text" class="form-control form-control-sm " formControlName="departDesc"></td>
+                <td class="text-center">
+                  <button-icon color="danger" (click)="removeDepartDetailForm(i)"><i class="fa fa-trash"
+                      aria-hidden="true"></i>
+                  </button-icon>
+                </td>
+              </tr>
+            </tbody>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onClickSave()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

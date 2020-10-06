@@ -1,0 +1,46 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="จัดระบบ" isButton="false">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button-add wording="Add" routerLink="/user/organize-add"></button-add>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <table class="table table-bordered table-striped table-sm" style="width:100%">
+        <thead class="text-center">
+          <tr>
+            <td>#</td>
+            <td>Code</td>
+            <td>Description</td>
+            <td>Date Created</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orgList; let i=index">
+            <td style="text-align: center">{{i + 1}}</td>
+            <td style="text-align: center">{{item.orgCode}}</td>
+            <td>{{item.orgDescription}}</td>
+            <td style="text-align: center">{{item.createDate}}</td>
+            <td align="center">
+              <button-icon color="info" (click)="onClickEdit(item.orgId)"><i class="fa fa-edit" aria-hidden="true"></i></button-icon>
+              <button-icon color="danger" (click)="onDelete(item.orgId)"><i class="fa fa-trash" aria-hidden="true"></i></button-icon>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-card>
+
+<!-- saveModal -->
+<modal-confirm #confirmModal (onConfirm)="onClickConfirm()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

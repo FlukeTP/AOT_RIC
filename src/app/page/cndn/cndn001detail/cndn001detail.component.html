@@ -1,0 +1,203 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ.">
+  <form [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <button-back (click)="onBack()"></button-back>
+      </div>
+      <div class="col-sm-6 text-right">
+        <ng-container *ngIf="sapStatus === 'SAP_CONNECTION_FAIL'">
+          <span class="text-danger">ไม่สามารถเชื่อมต่อ SAP ได้</span>
+        </ng-container>
+
+        <ng-container *ngIf="sapStatus === 'SAP_FAIL'">
+          <span class="text-danger">เกิดข้อผิดพลาด</span>
+          <button type="button" data-toggle="tooltip" title="ดูรายละเอียด" class="btn btn-info btn-sm" id="sapErr"
+            (click)="onClickSapErr()">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="sapStatus === 'SAP_SUCCESS'">
+          <span class="text-success">ส่งสำเร็จ</span>
+        </ng-container>
+
+        <ng-container
+          *ngIf="sapStatus !== 'SAP_CONNECTION_FAIL' && sapStatus !== 'SAP_SUCCESS' && sapStatus !== 'SAP_FAIL'">
+          <span class="text-warning">รอการส่ง</span>
+        </ng-container>
+        &nbsp;
+        <button-custom (click)="onOpenModalSave()" wording="ส่งข้อมูลเข้าระบบ SAP" icon="fa fa-share-square-o"
+          color="success" [disabled]="sapStatus === 'SAP_SUCCESS'">
+        </button-custom>
+      </div>
+    </div>
+    <hr />
+    <div class="row mt-2">
+      <div class="col-6">
+        <!-- --------------topcal-------------------- -->
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>รหัสผู้ประกอบการ : </p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="customerCode">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ชื่อผู้ประกอบการ : </p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="customerName">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ประเภท : </p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="190" readonly formControlName="sapType">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>GL Account : </p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly formControlName="glAccount">
+          </div>
+        </div>
+
+        <!-- --------------topcal-------------------- -->
+      </div>
+      <div class="col-6">
+        <!-- --------------topcal-------------------- -->
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>เลขที่ใบแจ้งหนี้ :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="oldInvoiceNo">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>เลขที่ใบเสร็จ :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="oldReceiptNo">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>หมวดรายได้
+              :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly formControlName="docType">
+          </div>
+        </div>
+
+        <!-- --------------topcal-------------------- -->
+      </div>
+    </div>
+  </form>
+
+  <hr>
+
+
+  <form [formGroup]="formGroup">
+    <div class="row mt-2">
+
+
+      <div class="col-6">
+        <!-- --------------topcal-------------------- -->
+        <div class="row mt-2">
+          <div class="col-4"></div>
+          <div class="col-8 ">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="DN"
+                (change)="onChangeCnDn($event)">
+              <label class="form-check-label" for="inlineRadio1">เพิ่มหนี้</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="CN"
+                (change)="onChangeCnDn($event)">
+              <label class="form-check-label" for="inlineRadio2">ลดหนี้</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>จำนวนเงิน : <span class="text-danger">*</span></p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm text-right" maxlength="90" formControlName="amount"
+              numberOnly [dot]="true" (keyup)="callulateMoney()">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>หมายเหตุ : </p>
+          </div>
+          <div class="col-8">
+            <textarea name="" id="" class="form-control form-control-sm" cols="10" rows="4"
+              formControlName="remark"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row mt-4">
+          <div class="col-4"></div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>จำนวนเงินรวมภาษี :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" formControlName="totalAmount"
+              readonly>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ยอดเดิม :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="oldTotalAmount">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4 text-right ">
+            <p>ยอดหลังปรับปรุง :</p>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" maxlength="90" readonly
+              formControlName="totalAfter">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="callSave()"></modal-confirm>
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+<!-- errorModal -->
+<modal-success #successModal></modal-success>

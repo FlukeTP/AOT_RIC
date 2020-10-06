@@ -1,0 +1,192 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back (click)="onPages()"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <!-- <button-save (click)="modalSave.openModal()"></button-save> -->
+      <button-save (click)="onValidate()"></button-save>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formData">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทบริการ <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" [ngClass]="{'is-invalid': validateControlSave('electricType')}" formControlName="electricType" placeholder="กรุณากรอก ประเภทบริการ"
+          maxlength="90">
+      </div>
+      <div class="col-2 text-right ">
+        <p>ประเภทอัตราไฟฟ้า <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="rateType"
+          [ngClass]="{'is-invalid': validateControlSave('rateType')}"  maxlength="90">
+          <option value="" hidden>กรุณาเลือกประเภทอัตราไฟฟ้า</option>
+          <option *ngFor="let item of rateTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ค่าบริการ(บาท/เดือน) <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type='number' class="form-control form-control-sm text-right" [ngClass]="{'is-invalid': validateControlSave('serviceChargeRates')}" formControlName="serviceChargeRates"
+          maxlength="12">
+      </div>
+
+    </div>
+
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>คำอธิบาย :</p>
+      </div>
+      <div class="col-10">
+        <textarea class="form-control form-control-sm"  formControlName="description" maxlength="90"></textarea>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>รายละเอียด</p>
+          <div class="form-group text-right">
+            <button-add (click)="ShowModae()"></button-add>
+          </div>
+          <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>แรงดัน</th>
+                <th>หน่วยเริ่มต้น</th>
+                <th>หน่วยสิ้นสุด</th>
+                <th>ค่าพลังงานไฟฟ้า(บาท/หน่วย)</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="electric008DtlReq">
+              <ng-container *ngIf="formData.controls">
+                <ng-container *ngIf="formData.controls.electric008DtlReq.controls!=0">
+                  <tr [formGroupName]="i"
+                    *ngFor="let item of formData.controls.electric008DtlReq.controls; let i = index;let first = first;let last = last">
+                    <td class=" text-center">{{ item.get('voltageType').value | isEmpty}}</td>
+                    <td class=" text-center">{{ item.get('startRange').value | decimalFormat:"###,###"}}</td>
+                    <td class=" text-center">{{ item.get('endRange').value | decimalFormat:"###,###"}}</td>
+                    <td class=" text-center">{{ item.get('chargeRates').value | decimalFormat:"###,###.00" }}</td>
+                    <td class="text-center">
+                      <button class="btn btn-danger btn-sm" type="button"
+                        (click)="removeElectric008DtlReq(i,item.get('chargeMappingId').value)">
+                        <i class="fa  fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+
+                <ng-container *ngIf="formData.controls.electric008DtlReq.controls==0">
+                  <tr class="text-center">
+                    <td colspan="14">ไม่พบข้อมูล</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</app-card>
+
+<!-- addModal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="modalForm">
+          <div class="row">
+            <div class="col-3 text-right ">
+              <p>แรงดัน <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-7">
+              <select class="form-control form-control-sm" formControlName="voltageType"
+              [ngClass]="{'is-invalid': validateControlSave('voltageType')}">
+                <option value="">กรุณาเลือกแรงดันไฟฟ้า</option>
+                <option *ngFor="let item of voltageTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+              </select>
+            </div>
+            <div class="col-2 text-left">
+              <p>หน่วย </p>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3 text-right ">
+              <p>หน่วยเริ่มต้น <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-7">
+              <input type="number" class="form-control form-control-sm text-right" formControlName="startRange"
+              [ngClass]="{'is-invalid': validateControlSave('startRange')}" maxlength="12">
+            </div>
+            <div class="col-2 text-left">
+              <p>หน่วย </p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-3 text-right ">
+              <p>หน่วยสิ้นสุด <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-7">
+              <input type="number" class="form-control form-control-sm text-right" formControlName="endRange"
+              [ngClass]="{'is-invalid': validateControlSave('endRange')}" maxlength="12">
+            </div>
+            <div class="col-2 text-left">
+              <p>หน่วย </p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-3 text-right ">
+              <p>ค่าพลังงานไฟฟ้า(บาท/หน่วย) <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-7">
+              <input type="number" class="form-control form-control-sm text-right" formControlName="chargeRates"
+              [ngClass]="{'is-invalid': validateControlSave('chargeRates')}" maxlength="12">
+            </div>
+            <div class="col-2 text-left">
+              <p>บาท </p>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+
+        <button-save (click)="addDtl()"></button-save>
+        <button-cancel (click)="HideModal()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'">
+  </modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

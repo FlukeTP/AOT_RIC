@@ -1,0 +1,30 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<ul class="nav nav-tabs">
+  <li class="nav-item ">
+    <a class="nav-link active" (click)="clickTap(1)"
+      [ngClass]="{'active': tabIdx == 1}">ปรับปรุงอัตราค่าภาระการใช้วิทยุมือถือ</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(2)"
+      [ngClass]="{'active': tabIdx == 2}">ปรับปรุงอัตราค่าภาระการใช้บริการหมวดสื่อสารอื่น ๆ </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="clickTap(3)"
+      [ngClass]="{'active': tabIdx == 3}">ปรับปรุงอัตราค่าภาระการใช้บริการข้อมูลตารางการบิน</a>
+  </li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div *ngIf="tabIdx == 1">
+    <app-communi0061></app-communi0061>
+  </div>
+  <div *ngIf="tabIdx == 2">
+    <app-communi0062></app-communi0062>
+  </div>
+  <div *ngIf="tabIdx == 3">
+    <app-communi0063></app-communi0063>
+  </div>
+
+</div>

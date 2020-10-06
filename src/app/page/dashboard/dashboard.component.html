@@ -1,0 +1,189 @@
+<nav aria-label="breadcrumb ">
+  <ul class="breadcrumb shadow">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+  </ul>
+</nav>
+
+<div class="row p-2">
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'elec'">
+    <div class="elect-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดไฟฟ้า</h5>
+      </div>
+    </div>
+    <div class="card-body ">
+      <div class="card-text ">
+        <ol class="rectangle-list">
+          <li><a routerLink="/electricity/ele001">บันทึกข้อมูลไฟฟ้า</a></li>
+          <li><a routerLink="/electricity/ele002">จัดการมิเตอร์ไฟฟ้า</a></li>
+          <li><a routerLink="/electricity/ele003">ขอใช้ไฟฟ้า</a></li>
+          <!-- <li ><a routerLink="/electricity/ele003" >ขอใช้ไฟฟ้าแบบถาวร/ชั่วคราว</a></li> -->
+          <!-- <li routerLink="/electricity/ele004"><a>ขอใช้ไฟฟ้าของบ้านพักพนักงาน</a></li> -->
+          <li><a routerLink="/electricity/ele005">ขอยกเลิกการใช้ไฟฟ้า</a></li>
+          <li><a routerLink="/electricity/ele006">ขอเปลี่ยนมิเตอร์การใช้ไฟฟ้า</a></li>
+          <li><a routerLink="/electricity/ele007">ปรับปรุงอัตราค่าภาระ ค่าบริการไฟฟ้า</a></li>
+          <li><a routerLink="/electricity/ele008">ปรับปรุงอัตราค่าภาระการคิดค่าไฟฟ้าประเภทต่างๆ</a></li>
+          <li><a routerLink="/electricity/ele009">ปรับปรุงอัตราค่าภาระค่า FT</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'water'">
+    <div class="water-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดน้ำประปา</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/water/water001">กรอกข้อมูลน้ำประปาเดือนล่าสุด</a></li>
+          <li><a routerLink="/water/water002">จัดการมิเตอร์น้ำประปา</a></li>
+          <li><a routerLink="/water/water003">ขอใช้น้ำประปาและบริการอื่นๆ</a></li>
+          <!-- <li><a routerLink="/water/ele009" >ขอใช้น้ำประปาแบบเหมาจ่าย</a></li> -->
+          <!-- <li><a routerLink="/water/ele009" >ขอใช้น้ำประปาของบ้านพักพนักงาน</a></li> -->
+          <!-- <li><a routerLink="/water/ele009" >ขอใช้บริการน้ำประปาอื่นๆ</a></li> -->
+          <!-- <li><a routerLink="/water/ele009" >ขอยกเลิกการใช้น้ำประปา</a></li> -->
+          <li><a routerLink="/water/water008">ขอเปลี่ยนมิเตอร์การใช้น้ำประปา</a></li>
+          <li><a routerLink="/water/water009">ค่าปรับน้ำเสีย</a></li>
+          <li><a routerLink="/water/water010">ปรับปรุงอัตราค่าภาระรายเดือน</a></li>
+          <li><a routerLink="/water/water011">ปรับปรุงอัตราค่าภาระรายครั้ง</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0 call-card" *ngIf="id == '' || id == 'phone'">
+    <div class="call-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดโทรศัพท์</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/phone/phone001">บันทึกข้อมูลโทรศัพท์</a></li>
+          <li><a routerLink="/phone/phone002">ขอใช้งานเลขหมายโทรศัพท์</a></li>
+          <li><a routerLink="/phone/phone003">ขอยกเลิกการใช้โทรศัพท์</a></li>
+          <li><a routerLink="/phone/phone004">ปรับปรุงอัตราค่าภาระ ค่าบริการโทรศัพท์</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'communi'">
+    <div class="signal-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดสื่อสาร</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/communi/communi007" >รายการค่าบริการวิทยุมือถือรายเดือน</a></li>
+          <li><a routerLink="/communi/communi001" >ขอใช้วิทยุมือถือ</a></li>
+          <li><a routerLink="/communi/communi002" >รายการยกเลิกบริการวิทยุมือถือ</a></li>
+          <li><a routerLink="/communi/communi008" >รายการบริการข้อมูลตารางการบินรายเดือน</a></li>
+          <li><a routerLink="/communi/communi004" >ขอใช้บริการข้อมูลตารางการบิน</a></li>
+          <li><a routerLink="/communi/communi005" >รายการยกเลิกการใช้บริการข้อมูลตารางการบิน</a></li>
+          <li><a routerLink="/communi/communi003" >ขอใช้บริการหมวดสื่อสารอื่นๆ</a></li>
+          <li><a routerLink="/communi/communi006" >ปรับปรุงอัตราค่าภาระการใช้บริการสื่อสาร</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0 it-card" *ngIf="id == '' || id == 'it'">
+    <div class="it-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวด IT</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a>ขอใช้บริการเครือข่าย</a></li>
+          <li><a>ขอใช้บริการเช่าท่อร้อยสายสัญญาณ</a></li>
+          <li><a>ขอใช้บริการเช่าใช้สายสัญญาณใยแก้วนำแสง</a></li>
+          <li><a>ขอใช้บริการ IT อื่นๆ</a></li>
+          <li><a>ขอใช้บริการห้องฝึกอบรม CUTE</a></li>
+          <li><a>ปฏิทินการจองห้องฝึกอบรม CUTE</a></li>
+          <li><a>รายงานการใช้ห้องฝึกอบรม CUTE</a></li>
+          <li><a>ขอใช้บริการ Dedicated CUTE</a></li>
+          <li><a>ขอใช้บริการ Staff page และ Public page</a></li>
+          <li><a>ปรับปรุงอัตราค่าภาระการใช้บริการ IT</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'heavy'">
+    <div class="wrench-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดเครื่องทุ่นแรง</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a>รายได้ค่าบริการเครื่องทุ่นแรง</a></li>
+          <li><a>จัดการเครื่องทุ่นแรง</a></li>
+          <li><a>ปรับปรุงอัตราค่าภาระ ค่าบริการเครื่องทุ่นแรง</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'firebrigade'">
+    <div class="firebrigade-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดดับเพลิง</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/firebrigade/firebrigade001">บริหารจัดการรายได้ค่าจัดฝึกอบรมการดับเพลิงและกู้ภัย</a></li>
+          <li><a routerLink="/firebrigade/firebrigade002">ปรับปรุงอัตราค่าภาระจัดฝึกอบรมการดับเพลิงและกู้ภัย</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'garbagedis'">
+    <div class="garbagedis-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดกำจัดขยะ</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/garbagedis/garbagedis001">บันทึกข้อมูลบริการกำจัดขยะ</a></li>
+          <li><a routerLink="/garbagedis/garbagedis002">ขอใช้บริการกำจัดขยะ</a></li>
+          <li><a routerLink="/garbagedis/garbagedis003">ปรับปรุงอัตราค่าภาระ ค่าบริการกำจัดขยะ</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card col-sm-4 col-md-4 col-lg-4 p-0 m-0" *ngIf="id == '' || id == 'pos'">
+    <div class="pos-card">
+      <div class="card-body">
+        <h5 class="card-title mt-3">หมวดกำจัดขยะ</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        <ol class="rectangle-list">
+          <li><a routerLink="/pos/pos001">ข้อมูลยอดรายได้</a></li>
+          <li><a routerLink="/pos/pos002">ตรวจสอบสถานะผู้ประกอบการ</a></li>
+          <li><a routerLink="/pos/pos003">ตรวจสอบยอดรายได้ผู้ประกอบการ</a></li>
+          <li><a routerLink="/pos/pos004">จัดการบัญชีผู้ประกอบการ</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</div>

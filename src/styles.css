@@ -1,0 +1,239 @@
+@import "assets/font/fonts.css";
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+/* @import url('https://fonts.googleapis.com/css?family=Kanit:300,400,500,600|Pridi:300,400,500,600|Maitree:300,400,500,600'); */
+
+body {
+    font-family: 'Kanit', sans-serif !important;
+    background: #cccccc;
+}
+
+p {
+    font-size: 14px;
+}
+
+select {
+    font-size: 13px !important;
+}
+
+#content {
+    width: 100%;
+    background-color: #ecf0f5;
+    min-height: 100vh;
+}
+
+::-webkit-input-placeholder {
+    font-size: 13px !important;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* Datatable pagination */
+
+.pagination {
+    margin: 11px 0 !important;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+
+/* margin all button */
+
+.btn {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/* DatePiker Color */
+
+.theme-green .bs-datepicker-head {
+    background-color: #4686d8 !important;
+}
+
+.theme-green .bs-datepicker-body table td span.selected, .theme-green .bs-datepicker-body table td.selected span, .theme-green .bs-datepicker-body table td span[class*="select-"]:after, .theme-green .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: #4686d8;
+}
+
+/* mian shadow */
+
+.shadow, .btn {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.label-middle {
+    display: inline-block;
+    margin-top: .4rem !important
+}
+
+.checkbox-middle {
+    display: inline-block;
+    margin-top: 12px !important
+}
+
+.btn-success {
+    background-color: #05d4a1;
+    border-color: #05d4a1;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:focus {
+    background-color: #06c595 !important;
+    border-color: #06c595;
+}
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background: #06c595;
+}
+
+.btn-primary {
+    background-color: #25a9f6;
+    border-color: #25a9f6;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #2299dd !important;
+}
+
+.btn-outline-primary:hover {
+    background: #25a9f6;
+}
+
+.btn-warning {
+    background-color: #ffbc01;
+    border-color: #ffbc01;
+}
+
+.btn-warning:hover, .btn-warning:active, .btn-warning:focus {
+    background-color: #dfa506 !important;
+}
+
+.btn-outline-warning:hover {
+    background: #dfa506;
+}
+
+.btn-danger {
+    background-color: #ff7a6b;
+    border-color: #ff7a6b;
+}
+
+.btn-danger:hover, .btn-danger:active, .btn-danger:focus {
+    background-color: #df6c5f;
+}
+
+.btn-outline-danger:hover {
+    background: #df6c5f;
+}
+
+.btn-search {
+    background-color: #0bb79d;
+    border-color: #0bb79d;
+    color: #fff;
+}
+
+.btn-search:hover, .btn-search:active, .btn-search:focus {
+    background-color: #0ea891 !important;
+    color: #fff;
+}
+
+.btn-info {
+    background-color: #2582f6;
+    border-color: #2582f6;
+}
+
+.btn-info:hover, .btn-info:active, .btn-info:focus {
+    background-color: #247be6 !important;
+}
+
+.btn-social-icon {
+    position: relative;
+    padding-left: 44px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 34px;
+    width: 34px;
+    padding: 0;
+}
+
+button:disabled, button[disabled] {
+    border: 1px solid #999999 !important;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+}
+
+button[disabled]:hover {
+    border: 1px solid #999999 !important;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #46a4da;
+    border-color: #46a4da;
+}
+
+.table td, .table th {
+    font-size: 14px;
+}
+
+.table td {
+    font-weight: lighter;
+}
+
+.form-group {
+    margin-bottom: 0.8rem;
+}
+
+.form-group label {
+    font-size: 14px;
+}
+
+.input-group-text {
+    background-color: #ffffff;
+}
+
+.modal-header {
+    padding: 0.5rem 0.5rem;
+}
+
+.modal-header p {
+    margin: 0px;
+}
+
+table.dataTable.table-sm>thead>tr>th {
+    padding-right: .3rem !important;
+}
+
+.scrollX {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.scrollY {
+    display: block;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
+.scrollAll {
+    display: block;
+    overflow: auto;
+    white-space: nowrap;
+}

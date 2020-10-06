@@ -1,0 +1,264 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back routerLink="/water/water009"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidate()"></button-save>
+      <!-- <button-cancel routerLink="/water/water009"></button-cancel> -->
+    </div>
+  </div>
+  <hr>
+
+  <form [formGroup]="formData">
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>รหัสผู้ประกอบการ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control form-control-sm" placeholder="ค้นหารหัสผู้ประกอบการ"
+            aria-label="รหัสผู้ประกอบการ" aria-describedby="button-addon2" formControlName="customerCode" maxlength="90"
+            [readonly]='flagEdit'>
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="button" id="button-addon2" *ngIf="!flagEdit"
+              (click)="openModalCustom2(customModal2)"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="กรุณากรอกชื่อผู้ประกอบการ"
+          formControlName="customerName" maxlength="90" readonly>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สาขา <span class="text-danger">*</span> :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="customerBranch" maxlength="90"
+          readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input formControlName="contractNo" list="contractNo" class="form-control form-control-sm" [readonly]="flagEdit"
+          (change)="getRentalAreaList($event)" />
+        <datalist id="contractNo">
+          <option *ngFor="let items of contractNoList" [value]="items.contractNo">{{items.contractNo}}</option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>พื้นที่เช่า (rental object) :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="rentalAreaName" readonly>
+      </div>
+      <div class="col-2 text-right ">
+        <p>วิธีชำระเงิน <span class="text-danger">*</span> : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" formControlName="paymentType" *ngIf="flagEdit" readonly>
+        <select class="form-control form-control-sm" formControlName="paymentType" *ngIf="!flagEdit">
+          <option value="" selected disabled>กรุณาเลือกวิธีการชำระเงิน</option>
+          <option *ngFor="let item of paymentTypeList" [value]="item.descTh1">{{item.descTh1}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ :</p>
+      </div>
+
+      <div class="col-10">
+        <textarea class="form-control form-control-sm" formControlName="remark" maxlength="90"></textarea>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>รายละเอียด</p>
+          <div class="form-group text-right">
+            <button-add (click)="showModal()" wording="เพิ่มค่าภาระ"></button-add>
+
+          </div>
+          <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+            <thead class="text-center">
+              <tr>
+                <th>ประเภทบริการ</th>
+                <th>อัตราค่าภาระ</th>
+                <th>จำนวนหน่วย</th>
+                <th>จำนวนเงิน</th>
+                <th>ค่าภาษี</th>
+                <th>จำนวนเงินสุทธิ</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="water009DtlReq">
+              <ng-container *ngIf="formData.controls">
+                <ng-container *ngIf="formData.controls.water009DtlReq.controls!=0">
+                  <tr [formGroupName]="i"
+                    *ngFor="let item of formData.controls.water009DtlReq.controls; let i = index;let first = first;let last = last">
+                    <td class=" text-left">{{ item.get('serviceType').value | isEmpty}}</td>
+                    <td class=" text-right">{{ item.get('chargeRate').value | decimalFormat:"###,###.00"}}</td>
+                    <td class=" text-right">{{ item.get('unit').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class=" text-right">{{ item.get('amount').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class=" text-right">{{ item.get('vat').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class=" text-right">{{ item.get('netAmount').value  | decimalFormat:"###,###.00"}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-danger btn-sm" type="button"
+                        (click)="removeDtl(i,item.get('netAmount').value,item.get('wasteDetailId').value)">
+                        <i class="fa  fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+
+                <ng-container *ngIf="formData.controls.water009DtlReq.controls==0">
+                  <tr class="text-center">
+                    <td colspan="14">ไม่พบข้อมูล</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-right">
+                  คำนวณรวมอัตราค่าภาระ</td>
+                <td class="text-right">{{totalNetAmountStr | decimalFormat:"###,###.00"}}</td>
+                <td class="text-right">
+                  บาท
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</app-card>
+
+<!-- addModal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายละเอียด</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="modalForm">
+
+          <div class="row">
+            <div class="col-4 text-right ">
+              <p>ประเภทบริการ <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-8">
+              <select class="form-control form-control-sm" id="serviceTypeM" (change)="onChangeServiceType($event)">
+                <option value="">กรุณาเลือกประเภทบริการ</option>
+                <option *ngFor="let item of serviceTypeList" value="{{item.wasteConfigId}}">{{item.serviceType}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 text-right ">
+              <p>อัตราค่าภาระ <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-5">
+              <input type="text" class="form-control form-control-sm text-right" formControlName="chargeRate" readonly>
+            </div>
+            <div class="col-3 text-left">
+              <p>บาท/หน่วย</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 text-right ">
+              <p>จำนวนหน่วย <span class="text-danger">*</span> : </p>
+            </div>
+            <div class="col-5">
+              <input type="number" class="form-control form-control-sm text-right" formControlName="unit">
+            </div>
+            <div class="col-3 text-left">
+              <p>หน่วย</p>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button-save data-dismiss="modal" (click)="addDtl()"></button-save> -->
+        <button-save (click)="addDtl()"></button-save>
+        <button-cancel (click)="hideModal()"></button-cancel>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="onSave()"></modal-confirm>
+
+<!-- successModal -->
+<modal-success #successModal [body]="'บันทึกรายการสำเร็จ'">
+</modal-success>
+
+<!-- errorModal -->
+<modal-error #errorModal></modal-error>
+
+<!-- customModal2 -->
+<ng-template #customModal2>
+  <div class="modal-header">
+    <p>เลือก ผู้ประกอบการ</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSearchCus">
+      <div class="row mt-2">
+        <div class="col-2 offset-2 text-right ">
+          <p>ค้นหา :</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control form-control-sm"
+            placeholder="รหัสผู้ประกอบการ/รหัสพนักงาน , ชื่อผู้ประกอบการ/ชื่อพนักงาน , รหัสสาขา , ทีอยู่"
+            formControlName="criteria">
+        </div>
+        <div class="col-2 text-right ">
+          <button-search (click)="getCus()"></button-search>
+        </div>
+      </div>
+    </form>
+    <table id="datatableCus" class="table table-bordered table-striped table-sm" style="width:100%">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center">รหัสผู้ประกอบการ</th>
+          <th class="text-center">ชื่อผู้ประกอบการ</th>
+          <th class="text-center">รหัสสาขา</th>
+          <th class="text-center">ทีอยู่</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onCloseModal()"></button-close>
+  </div>
+</ng-template>

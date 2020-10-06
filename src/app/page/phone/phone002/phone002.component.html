@@ -1,0 +1,101 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <form [formGroup]="formSearch">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ชื่อผู้ประกอบการ : </p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="ชื่อผู้ประกอบการ"
+          formControlName="entrepreneurName" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>เลขที่สัญญา :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขที่สัญญา"
+          formControlName="contractNo" />
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>เลขหมาย :</p>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control form-control-sm" placeholder="เลขหมาย" formControlName="phoneNo" />
+      </div>
+      <div class="col-2 text-right ">
+        <p>สถานะ : </p>
+      </div>
+      <div class="col-4">
+        <select class="form-control form-control-sm" formControlName="requestStatus">
+          <option value="" selected>ทั้งหมด</option>
+          <option value="Y">ใช้งาน</option>
+          <option value="N">ไม่ใช้งาน</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 text-right">
+        <button-search (click)="getFindList()"></button-search>
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button-add routerLink="/phone/phone002detail"></button-add>
+          <button-downloadex (click)="getExcel()"></button-downloadex>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="scrollX">
+            <table id="datatable" class="table table-bordered table-striped table-sm" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th rowspan="2">รหัสผู้ประกอบการ</th>
+                  <th rowspan="2">ชื่อผู้ประกอบการ</th>
+                  <th rowspan="2">เลขที่สัญญา</th>
+                  <th rowspan="2">เลขหมาย</th>
+                  <th rowspan="2">อัตราค่าภาระ(บาท)</th>
+                  <th rowspan="2">ภาษี(บาท)</th>
+                  <th rowspan="2">รวมเงิน(บาท)</th>
+                  <th rowspan="2">วันที่ขอใช้ </th>
+                  <th rowspan="2">วันที่สิ้นสุด</th>
+                  <th rowspan="2">สถานะ</th>
+                  <th colspan="3">อัตราค่าภาระ</th>
+                  <th colspan="3">เงินประกัน</th>
+                  <th rowspan="2">รายละเอียด</th>
+                  <th rowspan="2">จัดการ</th>
+                </tr>
+                <tr>
+                  <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+                  <th class="text-center">เลขที่ใบเสร็จ</th>
+                  <th class="text-center">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP </th>
+
+                  <th class="text-center">เลขที่ใบแจ้งหนี้</th>
+                  <th class="text-center">เลขที่ใบเสร็จ</th>
+                  <th class="text-center" style="border-right: 1px solid #dee2e6;">สถานะการส่งข้อมูลเข้าสู่ระบบ SAP
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</app-card>
+
+
+<modal-error #errorModal></modal-error>
+<modal-alert #alertModal></modal-alert>
+<modal-success #successModal></modal-success>
+<app-modal #normalModal></app-modal>

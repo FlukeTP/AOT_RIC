@@ -1,0 +1,69 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<app-card header="ทสภ." isButton="false">
+  <div class="row">
+    <div class="col-sm-6 text-left">
+      <button-back (click)="onBack()"></button-back>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button-save (click)="onValidBeforeSave()"></button-save>
+      <button-cancel (click)="onBack()"></button-cancel>
+    </div>
+  </div>
+  <hr>
+  <form [formGroup]="formGroup">
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>วันที่มีผล <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input-calendar (changeDate)="dateChange($event)" #calendar></input-calendar>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>ประเภทบริการ <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm" placeholder="กรุณากรอกประเภทบริการ" formControlName="serviceType">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>สี <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-4">
+        <input class="form-control form-control-sm"  [(colorPicker)]="color" [style.background]="color"  formControlName="colorRoom"  (colorPickerChange)="onChangeColor($event)">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>อัตราค่าภาระ <span class="text-danger">*</span>: </p>
+      </div>
+      <div class="col-3">
+        <input class="form-control form-control-sm" numberOnly placeholder="กรุณากรอกอัตราค่าภาระ"
+          formControlName="chargeRate">
+      </div>
+      <div class="col-1">
+        บาท
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2 text-right ">
+        <p>หมายเหตุ :</p>
+      </div>
+      <div class="col-4">
+        <textarea class="form-control form-control-sm" placeholder="กรอกหมายเหตุ" formControlName="remark"></textarea>
+      </div>
+    </div>
+  </form>
+  <hr>
+</app-card>
+<!-- saveModal -->
+<modal-confirm #saveModal (onConfirm)="callSave()">
+</modal-confirm>
+<!-- successModal -->
+<modal-success #successModal>
+</modal-success>
+<!-- errorModal -->
+<modal-error #errorModal>
+</modal-error>

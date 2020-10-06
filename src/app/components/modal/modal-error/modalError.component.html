@@ -1,0 +1,14 @@
+<ng-template #modalerror>
+  <div class="modal-header alert-danger">
+    <p>{{header}}</p>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onClick('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{body}}</p>
+  </div>
+  <div class="modal-footer text-right">
+    <button-close (click)="onClick('close')" ></button-close>
+  </div>
+</ng-template>
